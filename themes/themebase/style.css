@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
   margin: 0;
   transition: 0.5s;
-  background: var(--gold);
+  background: var(--lightgold);
 }
 
 html {
