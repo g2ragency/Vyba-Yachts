@@ -67,17 +67,22 @@ class Elementor_Widget_Hov_Btn extends \Elementor\Widget_Base {
 
   protected function render() {
     $settings  = $this->get_settings_for_display();
-        $btn_text = !empty($settings['btn_text']) ? $settings['btn_text'] : __('SCOPRI DI PIÙ', 'elementor-addon');
-	    $btn_color = !empty($settings['btn_color']) ? $settings['btn_color'] : 'blue';
+    $btn_text = !empty($settings['btn_text']) ? $settings['btn_text'] : __('SCOPRI DI PIÙ', 'elementor-addon');
+    $btn_color = !empty($settings['btn_color']) ? $settings['btn_color'] : 'blue';
+    
+    // Get link attributes
+    $btn_link = !empty($settings['btn_link']['url']) ? $settings['btn_link']['url'] : '#';
+    $target = !empty($settings['btn_link']['is_external']) ? ' target="_blank"' : '';
+    $nofollow = !empty($settings['btn_link']['nofollow']) ? ' rel="nofollow"' : '';
     ?>
 
 	<div class="hov-btn-container">
-      <button class="hov-btn learn-more  <?php echo esc_attr($btn_color); ?>">
+      <a href="<?php echo esc_url($btn_link); ?>"<?php echo $target . $nofollow; ?> class="hov-btn learn-more <?php echo esc_attr($btn_color); ?>">
         <span class="circle" aria-hidden="true">
           <span class="icon arrow"></span>
         </span>
         <span class="button-text"><?php echo esc_html($btn_text); ?></span>
-      </button>
+      </a>
     </div>    
 
     <?php
