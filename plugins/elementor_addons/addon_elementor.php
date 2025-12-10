@@ -127,12 +127,14 @@ final class Elementor_Addon_Widgets {
 		require_once( __DIR__ . '/widgets/hov-servizi/hov-servizi.php' );
 		require_once( __DIR__ . '/widgets/fixing-sections/fixing-sections.php' );
 		require_once( __DIR__ . '/widgets/swiper-yachts/swiper-yachts.php' );
+		require_once( __DIR__ . '/widgets/about-swiper/about-swiper.php' );
 		
 		//HOMEPAGE
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Hov_Btn() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Hov_Servizi() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Fixing_Sections() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Swiper_Yachts() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_About_Swiper() );
 		
 	}
 

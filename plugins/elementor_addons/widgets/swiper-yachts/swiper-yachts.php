@@ -16,7 +16,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
   }
 
   public function get_title() {
-    return ___('Swiper Yachts', 'elementor_addon');
+    return __('Swiper Yachts', 'elementor_addon');
   }
 
   public function get_icon() { 
