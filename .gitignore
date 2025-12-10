@@ -1,0 +1,21 @@
+# Media
+uploads/
+
+# Cache / upgrade
+cache/
+upgrade/
+
+# Log
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# Node / build (se presenti)
+node_modules/
+dist/

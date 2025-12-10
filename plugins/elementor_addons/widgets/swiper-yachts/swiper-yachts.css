@@ -1,0 +1,80 @@
+.swiper-yachts-widget {
+  width: 100%;
+}
+
+.swiper-yachts-widget .swiper {
+  padding: 10px 0 30px 0;
+}
+
+.yacht-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.yacht-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+
+.yacht-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.yacht-card__specs {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #1d1d1d;
+  margin-bottom: 10px;
+}
+
+.yacht-card__specs .spec {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.yacht-card__title {
+  color: var(--blue);
+}
+
+.yacht-card__price {
+  color: var(--gold);
+}
+
+.yacht-card__cta {
+  margin-top: 6px;
+}
+
+.yacht-card__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: #0b1a4a;
+  color: #fff;
+}
+
+/* Bottoni navigazione esterna */
+.swiper-yachts-widget .yachts-outer-prev,
+.swiper-yachts-widget .yachts-outer-next {
+  width: 36px;
+  height: 36px;
+}
+
+/* Bottoni gallery interna */
+.swiper-yachts-widget .yacht-gallery-prev,
+.swiper-yachts-widget .yacht-gallery-next {
+  width: 30px;
+  height: 30px;
+}
