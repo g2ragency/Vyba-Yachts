@@ -308,6 +308,60 @@ footer a:hover {
   color: var(--gold);
 }
 
+.footer-logo {
+  max-width: 254px;
+}
+
+.footer-first-row {
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 28px;
+}
+
+.footer-first-row p {
+  color: var(--gold);
+  font-size: 15px;
+  font-family: "Moderat Extended Bold";
+}
+
+.footer-second-row {
+  padding-top: 16px;
+}
+
+/* Footer menus sdoppiati */
+.footer-menus {
+  display: flex;
+  gap: 40px;
+  justify-content: flex-start;
+}
+
+.footer-menu-left,
+.footer-menu-right {
+  flex: 1;
+}
+
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-menu li a {
+  color: var(--lightgold);
+  font-size: 18px;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.footer-menu li a:hover {
+  color: var(--gold);
+}
+
 /* FOOTER MOBILE */
 @media only screen and (max-width: 768px) {
+  .footer-menus {
+    flex-direction: column;
+    gap: 20px;
+  }
 }

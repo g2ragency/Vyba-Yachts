@@ -314,13 +314,64 @@ class Elementor_Widget_Fixing_Sections extends \Elementor\Widget_Base {
     setTimeout(() => ScrollTrigger.refresh(), 600);
   }
 
-  // DOM ready + window load (spesso necessario con immagini)
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initFixingSectionsGSAP);
-  } else {
-    initFixingSectionsGSAP();
+  // ✅ FIX: Aspetta che lo scroll sia stabile prima di inizializzare
+  let isInitialized = false;
+  let scrollTimeout;
+  let initialScrollY = window.scrollY;
+  
+  function safeInit() {
+    if (isInitialized) return;
+    
+    // Aspetta che lo scroll si sia stabilizzato
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      if (!isInitialized) {
+        isInitialized = true;
+        initFixingSectionsGSAP();
+        
+        // Force refresh dopo init
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (typeof ScrollTrigger !== "undefined") {
+              ScrollTrigger.refresh(true);
+            }
+          });
+        });
+      }
+    }, 100);
   }
-  window.addEventListener("load", initFixingSectionsGSAP);
+
+  // Aspetta il load completo + stabilizzazione scroll
+  window.addEventListener("load", () => {
+    // Se siamo già scrollati, aspetta che si stabilizzi
+    if (window.scrollY > 0) {
+      // Monitora lo scroll finché non si stabilizza
+      let lastScroll = window.scrollY;
+      const checkStable = setInterval(() => {
+        if (Math.abs(window.scrollY - lastScroll) < 5) {
+          clearInterval(checkStable);
+          safeInit();
+        }
+        lastScroll = window.scrollY;
+      }, 50);
+      
+      // Timeout di sicurezza
+      setTimeout(() => {
+        clearInterval(checkStable);
+        safeInit();
+      }, 1000);
+    } else {
+      // Se siamo in cima, init normale
+      safeInit();
+    }
+  });
+
+  // Fallback per DOM ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.scrollY === 0) safeInit();
+    });
+  }
 
   // Elementor editor
   if (

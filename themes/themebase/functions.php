@@ -11,6 +11,8 @@ function wp_bootstrap_starter_setup() {
 	register_nav_menus( array(
 		'primary-left' => esc_html__( 'Menu navbar sinistro', 'altera-starter' ),
 		'primary-right' => esc_html__( 'Menu navbar destro', 'altera-starter' ),
+		'footer-left' => esc_html__( 'Menu footer sinistro', 'altera-starter' ),
+		'footer-right' => esc_html__( 'Menu footer destro', 'altera-starter' ),
 	) );
 
 	add_theme_support( 'html5', array(

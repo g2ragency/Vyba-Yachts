@@ -21,22 +21,23 @@ function yachts_get_price_raw($post_id = null) {
 }
 
 /**
- * Restituisce il prezzo formattato (es. 100,00 €).
+ * Restituisce il prezzo formattato (es. 295.000 €).
  * Configurazione centralizzata qui.
  */
-function yachts_get_price_formatted($post_id = null, $decimals = 2, $currency = '€') {
+function yachts_get_price_formatted($post_id = null, $decimals = 0, $currency = '€') {
     $price = yachts_get_price_raw($post_id);
 
     if ($price === null) {
         return '';
     }
 
-    return esc_html( number_format_i18n($price, $decimals) ) . ' ' . $currency;
+    // Formatta con punto come separatore delle migliaia e senza decimali
+    return number_format($price, $decimals, ',', '.') . ' ' . $currency;
 }
 
 /**
  * Echo diretto (comodo nei template).
  */
-function yachts_the_price($post_id = null, $decimals = 2, $currency = '€') {
+function yachts_the_price($post_id = null, $decimals = 0, $currency = '€') {
     echo yachts_get_price_formatted($post_id, $decimals, $currency);
 }

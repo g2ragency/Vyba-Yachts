@@ -111,7 +111,8 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
     $price = function_exists('get_field') ? get_field('prezzo_yacht', $post_id) : null;
     if ($price === null || $price === '') return '';
 
-    return esc_html( number_format_i18n((float)$price, 2) ) . ' €';
+    // Formatta con punto come separatore delle migliaia e senza decimali
+    return number_format((float)$price, 0, ',', '.') . ' €';
   }
 
   private function get_spec_value($field_name, $post_id) {
