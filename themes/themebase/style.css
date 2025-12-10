@@ -13,27 +13,25 @@
 
 /* MAIN SETTINGS */
 
-
-:root{
-	--blue: #161F48;
-	--white: #FFFFFF;
-	--gold: #D6B35F;
-	--lightgold: #FBF9F1;
-	--grey: #6E6B60;
-	--lightgrey: #DCDEE1;
+:root {
+  --blue: #161f48;
+  --white: #ffffff;
+  --gold: #d6b35f;
+  --lightgold: #fbf9f1;
+  --grey: #6e6b60;
+  --lightgrey: #dcdee1;
 }
 
- 
-body{
-	width: 100%;
-	overflow-x: hidden;
-	margin: 0;
-	transition: 0.5s;
-	background: var(--lightgold);
+body {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  transition: 0.5s;
+  background: var(--blue);
 }
 
-html{
-	overflow-x: hidden;
+html {
+  overflow-x: hidden;
 }
 
 @font-face {
@@ -56,7 +54,6 @@ html{
   font-display: swap;
 }
 
-
 @font-face {
   font-family: "Moderat Extended Regular";
   src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratExtendedRegular.woff")
@@ -77,70 +74,69 @@ html{
   font-display: swap;
 }
 
-*{
-	font-family: "Moderat Regular";
-}	
-
-h1{
-	font-size: 60px;
-	font-family: "Moderat Extended Bold";
+* {
+  font-family: "Moderat Regular";
 }
 
-h2{
-	font-size: 46px;
-	font-family: "Moderat Extended Regular";
+h1 {
+  font-size: 60px;
+  font-family: "Moderat Extended Bold";
 }
 
-h3{
-	font-size: 38px;
-	font-family: "Moderat Extended Regular";
+h2 {
+  font-size: 46px;
+  font-family: "Moderat Extended Regular";
 }
 
-h4{
-	font-size: 30px;
-	font-family: "Moderat Extended Bold";
+h3 {
+  font-size: 38px;
+  font-family: "Moderat Extended Regular";
 }
 
-h5{
-	font-size: 24px;
-	font-family: "Moderat Extended Bold";
+h4 {
+  font-size: 30px;
+  font-family: "Moderat Extended Bold";
 }
 
-h6{
-	font-size: 18px;
-	font-family: "Moderat Extended Black";
+h5 {
+  font-size: 24px;
+  font-family: "Moderat Extended Bold";
 }
 
-p{
-	font-size: 18px;
-	font-family: "Moderat Regular";
-	margin-bottom: 0;
+h6 {
+  font-size: 18px;
+  font-family: "Moderat Extended Black";
 }
 
-button{
-	font-size: 15px;
-	font-family: "Moderat Extended Bold";
+p {
+  font-size: 18px;
+  font-family: "Moderat Regular";
+  margin-bottom: 0;
 }
 
-.max-w-1360{
-	max-width: 1360px;
-	margin: auto;
+button {
+  font-size: 15px;
+  font-family: "Moderat Extended Bold";
 }
 
-.position-relative{
-	position: relative;
+.max-w-1360 {
+  max-width: 1360px;
+  margin: auto;
+}
+
+.position-relative {
+  position: relative;
 }
 
 /* MAIN SETTINGS MOBILE */
-@media only screen and (max-width: 768px){
-	
+@media only screen and (max-width: 768px) {
 }
 
 /* NAVBAR */
-header{
-	position: fixed;
-    z-index: 99;
-    width: 100%;
+header {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
 }
 
 /* Container generale per header */
@@ -170,12 +166,12 @@ header{
 /* Contenitore del logo, centrato */
 .logo-container {
   text-align: center;
-  flex: 0 1 auto;  /* Impedisce che il logo cresca */
+  flex: 0 1 auto; /* Impedisce che il logo cresca */
 }
 
 /* Immagine del logo */
 .logo {
-  max-width: 260px;  /* Puoi regolare la dimensione del logo */
+  max-width: 260px; /* Puoi regolare la dimensione del logo */
 }
 
 /* Menu principale */
@@ -187,20 +183,20 @@ header{
   margin-bottom: 0;
 }
 
-.main-menu li a{
-	position: relative;
-	text-decoration: none;
-	color: var(--lightgold);
-	text-transform: uppercase;
-	font-size: 15px;
-	font-family: "Moderat Extended Bold";
-	transition: 0.5s;
-	display: inline-block;
+.main-menu li a {
+  position: relative;
+  text-decoration: none;
+  color: var(--lightgold);
+  text-transform: uppercase;
+  font-size: 15px;
+  font-family: "Moderat Extended Bold";
+  transition: 0.5s;
+  display: inline-block;
 }
 
-.main-menu li a:hover{
-	color: var(--gold);
-	transform: translateY(-5px);
+.main-menu li a:hover {
+  color: var(--gold);
+  transform: translateY(-5px);
 }
 
 /* Modifiche per visualizzazione su dispositivi mobili */
@@ -209,7 +205,8 @@ header{
     flex-direction: column;
   }
 
-  .nav-left, .nav-right {
+  .nav-left,
+  .nav-right {
     width: 100%;
     text-align: center;
   }
@@ -224,20 +221,19 @@ header{
   }
 }
 /* NAVBAR MOBILE */
-@media only screen and (max-width: 768px){
-	
+@media only screen and (max-width: 768px) {
 }
 
 /* HOMEPAGE */
-#jarallax-container-0{
-	border-radius: 5px;
+#jarallax-container-0 {
+  border-radius: 5px;
 }
 
 .hero-section {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-size: 100%; 
+  background-size: 100%;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -245,7 +241,6 @@ header{
   background-size: 120%;
   transition: none !important;
 }
-
 
 /*********CONTACT US************/
 /*.contact-us-form .form-control {
@@ -298,26 +293,26 @@ header{
 }*/
 
 /* FOOTER */
-footer{
-	padding: 120px 46px;
-	background: var(--blue);
+footer {
+  padding: 120px 46px;
+  background: var(--blue);
 }
 
-footer p, footer a{
-	color: var(--lightgold);
-	font-size: 18px;
+footer p,
+footer a {
+  color: var(--lightgold);
+  font-size: 18px;
 }
 
-footer a{
-	text-decoration: none;
-	transition: 0.5s;
+footer a {
+  text-decoration: none;
+  transition: 0.5s;
 }
 
-footer a:hover{
-	color: var(--gold);
+footer a:hover {
+  color: var(--gold);
 }
 
 /* FOOTER MOBILE */
-@media only screen and (max-width: 768px){
-	
-}	
+@media only screen and (max-width: 768px) {
+}
