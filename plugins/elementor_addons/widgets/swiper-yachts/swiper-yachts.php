@@ -16,7 +16,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
   }
 
   public function get_title() {
-    return __('Swiper Yachts', 'elementor_addon');
+    return ___('Swiper Yachts', 'elementor_addon');
   }
 
   public function get_icon() { 
@@ -178,10 +178,18 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
             $title     = get_the_title($post_id);
             $permalink = get_permalink($post_id);
 
-            $cabine    = $this->get_spec_value('numero_cabine', $post_id);
+            // DEBUG: verifica nomi campi ACF
+            $cabine    = $this->get_spec_value('cabine', $post_id);
             $persone   = $this->get_spec_value('persone', $post_id);
-            $lunghezza = $this->get_spec_value('lunghezza_yacht', $post_id);
-            $anno      = $this->get_spec_value('anno_costruzione', $post_id);
+            $lunghezza = $this->get_spec_value('lunghezza', $post_id);
+            $anno      = $this->get_spec_value('anno', $post_id);
+            
+            // Debug temporaneo
+            error_log("Yacht ID: $post_id");
+            error_log("Cabine: " . var_export($cabine, true));
+            error_log("Persone: " . var_export($persone, true));
+            error_log("Lunghezza: " . var_export($lunghezza, true));
+            error_log("Anno: " . var_export($anno, true));
 
             $price_formatted = $this->format_price($post_id);
 
@@ -220,25 +228,29 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
 
                   <div class="yacht-card__specs">
                     <?php if ($cabine !== null && $cabine !== '') : ?>
-                      <span class="spec">
+                      <span class="spec spec--cabine">
+                        <span class="spec__icon"><img src="/wp-content/uploads/2025/12/cabine.png" alt="" /></span>
                         <span class="spec__value"><?php echo esc_html((int)$cabine); ?></span>
                       </span>
                     <?php endif; ?>
 
                     <?php if ($persone !== null && $persone !== '') : ?>
-                      <span class="spec">
+                      <span class="spec spec--persone">
+                        <span class="spec__icon"><img src="/wp-content/uploads/2025/12/persone.png" alt="" /></span>
                         <span class="spec__value"><?php echo esc_html((int)$persone); ?></span>
                       </span>
                     <?php endif; ?>
 
                     <?php if ($lunghezza !== null && $lunghezza !== '') : ?>
-                      <span class="spec">
+                      <span class="spec spec--lunghezza">
+                        <span class="spec__icon"><img src="/wp-content/uploads/2025/12/lunghezza.png" alt="" /></span>
                         <span class="spec__value"><?php echo esc_html( number_format_i18n((float)$lunghezza, 0) ); ?> m</span>
                       </span>
                     <?php endif; ?>
 
                     <?php if ($anno !== null && $anno !== '') : ?>
-                      <span class="spec">
+                      <span class="spec spec--anno">
+                        <span class="spec__icon"><img src="/wp-content/uploads/2025/12/anno.png" alt="" /></span>
                         <span class="spec__value"><?php echo esc_html((int)$anno); ?></span>
                       </span>
                     <?php endif; ?>
@@ -255,8 +267,11 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
                   <?php endif; ?>
 
                   <div class="yacht-card__cta">
-                    <a class="yacht-card__button" href="<?php echo esc_url($permalink); ?>">
-                      <?php echo esc_html__('SCOPRI DI PIÙ', 'elementor-addon'); ?>
+                    <a class="hov-btn learn-more" href="<?php echo esc_url($permalink); ?>">
+                      <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                      </span>
+                      <span class="button-text">SCOPRI DI PIÙ</span>
                     </a>
                   </div>
 
@@ -268,8 +283,14 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
 
         </div>
 
-        <div class="swiper-button-prev yachts-outer-prev"></div>
-        <div class="swiper-button-next yachts-outer-next"></div>
+        <!-- Scrollbar e Navigation sulla stessa riga -->
+        <div class="swiper-controls">
+          <div class="swiper-scrollbar yachts-scrollbar"></div>
+          <div class="swiper-navigation">
+            <div class="swiper-button-prev yachts-outer-prev"></div>
+            <div class="swiper-button-next yachts-outer-next"></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -294,8 +315,13 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
       spaceBetween: 28,
       speed: 500,
       navigation: {
-        nextEl: outerEl.querySelector('.yachts-outer-next'),
-        prevEl: outerEl.querySelector('.yachts-outer-prev')
+        nextEl: '.yachts-outer-next',
+        prevEl: '.yachts-outer-prev'
+      },
+      scrollbar: {
+        el: '.yachts-scrollbar',
+        draggable: true,
+        dragSize: 'auto'
       },
       breakpoints: {
         0: { slidesPerView: 1.1, spaceBetween: 16 },

@@ -35,10 +35,8 @@ html {
 }
 
 @font-face {
-  font-family: "Moderat Extended Black";
   src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratExtendedBlack.woff")
-      format("woff2"),
-    url("GrandSland-B-Side.woff") format("woff");
+    format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -47,8 +45,7 @@ html {
 @font-face {
   font-family: "Moderat Extended Bold";
   src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratExtendedBold.woff")
-      format("woff2"),
-    url("GrandSland-B-Side.woff") format("woff");
+    format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -57,8 +54,7 @@ html {
 @font-face {
   font-family: "Moderat Extended Regular";
   src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratExtendedRegular.woff")
-      format("woff2"),
-    url("GrandSland-B-Side.woff") format("woff");
+    format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -67,8 +63,7 @@ html {
 @font-face {
   font-family: "Moderat Regular";
   src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratRegular.woff")
-      format("woff2"),
-    url("GrandSland-B-Side.woff") format("woff");
+    format("woff");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
