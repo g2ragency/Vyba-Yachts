@@ -215,6 +215,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
 
             $images = $this->get_gallery_images($post_id, $gallery_field);
             $gallery_id = 'yacht-gallery-' . $uid . '-' . $post_id . '-' . wp_rand(10, 9999);
+            $has_multiple_images = count($images) > 1;
           ?>
 
             <div class="swiper-slide">
@@ -239,8 +240,10 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
                       <?php endforeach; ?>
                     </div>
 
-                    <div class="swiper-button-prev yacht-gallery-prev"></div>
-                    <div class="swiper-button-next yacht-gallery-next"></div>
+                    <?php if ($has_multiple_images) : ?>
+                      <div class="swiper-button-prev yacht-gallery-prev"></div>
+                      <div class="swiper-button-next yacht-gallery-next"></div>
+                    <?php endif; ?>
                   </div>
                 </div>
 
