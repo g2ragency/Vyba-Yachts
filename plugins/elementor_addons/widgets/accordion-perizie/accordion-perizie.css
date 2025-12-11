@@ -1,0 +1,269 @@
+/* Accordion Perizie Widget */
+.accordion-perizie-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  background: transparent;
+}
+
+/* Accordion Item */
+.accordion-item {
+  background: transparent;
+  border-bottom: 1px solid var(--grey);
+  transition: background 0.3s ease;
+  overflow: hidden;
+}
+
+.accordion-item:first-child {
+  border-top: 1px solid var(--grey);
+}
+
+/* Header */
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 10px 24px 0px;
+  cursor: pointer;
+  user-select: none;
+  gap: 32px;
+}
+
+.accordion-header-content {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  flex: 1;
+}
+
+.accordion-thumbnail {
+  width: 318px;
+  height: 200px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.accordion-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.accordion-title {
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 30px;
+  color: var(--blue, #161f48);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Icons */
+.accordion-icons {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.accordion-arrow {
+  width: 37px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue, #161f48);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.accordion-arrow svg {
+  width: 37px;
+  height: 37px;
+}
+
+.accordion-item.active .accordion-arrow {
+  transform: rotate(90deg);
+}
+
+/* Content */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
+  padding: 0 40px 0 420px; /* 40px + 318px thumbnail + 32px gap */
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 2000px;
+  padding: 0 40px 40px 420px;
+}
+
+.accordion-content p {
+  font-family: "Moderat Regular", sans-serif;
+  font-size: 18px;
+  color: var(--grey);
+  margin: 0 0 16px 0;
+  max-width: 85%;
+}
+
+.accordion-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accordion-header {
+    padding: 24px 32px;
+    gap: 24px;
+  }
+
+  .accordion-header-content {
+    gap: 20px;
+  }
+
+  .accordion-thumbnail {
+    width: 100px;
+    height: 70px;
+  }
+
+  .accordion-title {
+    font-size: 15px;
+  }
+
+  .accordion-icons {
+    gap: 16px;
+  }
+
+  .accordion-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .accordion-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .accordion-content {
+    padding: 0 32px 0 152px; /* 32px + 100px thumbnail + 20px gap */
+  }
+
+  .accordion-item.active .accordion-content {
+    padding: 0 32px 32px 152px;
+  }
+
+  .accordion-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordion-header {
+    padding: 20px 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .accordion-header-content {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .accordion-thumbnail {
+    width: 80px;
+    height: 56px;
+  }
+
+  .accordion-title {
+    font-size: 13px;
+    flex: 1;
+  }
+
+  .accordion-icons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .accordion-content {
+    padding: 0 24px 0 120px; /* 24px + 80px thumbnail + 16px gap */
+  }
+
+  .accordion-item.active .accordion-content {
+    padding: 0 24px 24px 120px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accordion-header {
+    padding: 20px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .accordion-header-content {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .accordion-thumbnail {
+    width: 100px;
+    height: 70px;
+  }
+
+  .accordion-title {
+    font-size: 16px;
+  }
+
+  .accordion-icons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .accordion-content {
+    padding: 0 24px 0 140px; /* 24px + 100px thumbnail + 16px gap */
+  }
+
+  .accordion-item.active .accordion-content {
+    padding: 0 24px 24px 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordion-header {
+    padding: 16px 20px;
+  }
+
+  .accordion-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .accordion-thumbnail {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .accordion-title {
+    font-size: 14px;
+  }
+
+  .accordion-content {
+    padding: 0 20px; /* Su mobile la thumbnail è full width, quindi nessun offset */
+  }
+
+  .accordion-item.active .accordion-content {
+    padding: 0 20px 20px 20px;
+  }
+
+  .accordion-content p {
+    font-size: 14px;
+  }
+}
