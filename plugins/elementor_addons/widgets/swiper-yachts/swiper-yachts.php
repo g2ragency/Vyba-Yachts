@@ -121,14 +121,32 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
 
   /**
    * Recupera immagini per galleria:
-   * - prima prova ACF Gallery
+   * - prima prova metabox nativa
+   * - poi ACF Gallery
    * - fallback a featured image
    */
   private function get_gallery_images($post_id, $acf_gallery_field) {
 
     $images = [];
 
-    if (function_exists('get_field') && $acf_gallery_field) {
+    // Prova prima con meta custom (metabox nativa)
+    $gallery_meta = get_post_meta($post_id, $acf_gallery_field, true);
+    
+    if (!empty($gallery_meta)) {
+      // Se è una stringa separata da virgole (metabox nativa)
+      if (is_string($gallery_meta)) {
+        $ids = explode(',', $gallery_meta);
+        foreach ($ids as $id) {
+          $id = trim($id);
+          if (is_numeric($id) && $id > 0) {
+            $images[] = (int) $id;
+          }
+        }
+      }
+    }
+
+    // Fallback ACF Pro Gallery
+    if (empty($images) && function_exists('get_field')) {
       $gallery = get_field($acf_gallery_field, $post_id);
 
       if (is_array($gallery) && !empty($gallery)) {
@@ -143,6 +161,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
       }
     }
 
+    // Fallback featured image
     if (empty($images)) {
       $thumb_id = get_post_thumbnail_id($post_id);
       if ($thumb_id) {
