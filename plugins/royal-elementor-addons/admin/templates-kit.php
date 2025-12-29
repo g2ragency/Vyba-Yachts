@@ -1008,6 +1008,7 @@ function real_mime_types( $defaults, $file, $filename, $mimes ) {
 }
 
 function real_mimes( $defaults, $filename ) {
+
     if ( strpos( $filename, 'main' ) !== false ) {
         $defaults['ext']  = 'xml';
         $defaults['type'] = 'text/xml';

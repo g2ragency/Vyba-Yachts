@@ -33,8 +33,8 @@ function register_yachts_cpt() {
     $args = array(
         'labels'             => $labels,
         'public'             => true,
-        'has_archive'        => true,
-        'rewrite'            => array('slug' => 'yachts'),
+        'has_archive'        => false,
+        'rewrite'            => array('slug' => 'yacht'),
         'menu_icon'          => 'dashicons-admin-post',
         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         'show_in_rest'       => true, // utile anche per Gutenberg/API
@@ -191,4 +191,12 @@ function yacht_gallery_save_metabox($post_id) {
     if (isset($_POST['yacht_gallery_ids'])) {
         update_post_meta($post_id, 'galleria_yacht', sanitize_text_field($_POST['yacht_gallery_ids']));
     }
+}
+
+// Flush rewrite rules on plugin activation
+register_activation_hook(__FILE__, 'yachts_cpt_activation');
+
+function yachts_cpt_activation() {
+    register_yachts_cpt();
+    flush_rewrite_rules();
 }

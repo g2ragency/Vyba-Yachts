@@ -128,6 +128,59 @@ button {
 @media only screen and (max-width: 768px) {
 }
 
+/* ========================================
+   SINGLE YACHT - HEADER STYLES
+   Applies a dark header background on single yacht pages
+   ======================================== */
+
+/* Use multiple body-class combinations to match WP output on different installs */
+body.single-yacht .site-header,
+body.post-type-yacht .site-header,
+body.single .post-type-yacht .site-header {
+  background: var(--blue) !important;
+  box-shadow: none;
+}
+
+/* Ensure header content (menu/logo) is readable */
+body.single-yacht .header-container,
+body.post-type-yacht .header-container,
+body.single .post-type-yacht .header-container {
+  color: var(--white);
+}
+
+body.single-yacht .main-menu li a,
+body.post-type-yacht .main-menu li a,
+body.single .post-type-yacht .main-menu li a {
+  color: var(--white);
+}
+
+body.single-yacht .main-menu li a:hover,
+body.post-type-yacht .main-menu li a:hover,
+body.single .post-type-yacht .main-menu li a:hover {
+  color: var(--gold);
+}
+
+/* Try to invert logo colors if it's a dark-on-light PNG/SVG. If not desired, remove this rule. */
+body.single-yacht .logo,
+body.post-type-yacht .logo,
+body.single .post-type-yacht .logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  body.single-yacht .header-container,
+  body.post-type-yacht .header-container,
+  body.single .post-type-yacht .header-container {
+    padding: 14px 0;
+  }
+  body.single-yacht .logo,
+  body.post-type-yacht .logo,
+  body.single .post-type-yacht .logo {
+    max-width: 180px;
+  }
+}
+
 /* NAVBAR */
 header {
   position: fixed;
@@ -390,5 +443,354 @@ footer a:hover {
   .footer-menus {
     flex-direction: column;
     gap: 20px;
+  }
+}
+
+/* ========================================
+   SINGLE YACHT PAGE
+   ======================================== */
+
+.single-yacht-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 160px 40px 100px;
+  position: relative;
+}
+
+.yacht-layout {
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 24px;
+  align-items: start;
+  position: relative;
+}
+
+.yacht-main-content {
+  position: relative;
+}
+
+/* Sidebar Sticky */
+.yacht-sidebar {
+  position: relative;
+  align-self: start;
+  height: 100%;
+}
+
+.yacht-sidebar-inner {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Breadcrumb for single yacht pages */
+.yacht-breadcrumb {
+  font-size: 14px;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  color: var(--grey);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Moderat Extended Bold", sans-serif;
+}
+.yacht-breadcrumb a {
+  color: var(--grey);
+  text-decoration: none;
+  opacity: 0.5;
+  font-family: "Moderat Extended Bold", sans-serif;
+}
+.yacht-breadcrumb .sep {
+  color: var(--lightgrey);
+}
+.yacht-breadcrumb .current {
+  color: var(--grey);
+  opacity: 1;
+  font-family: "Moderat Extended Bold", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .yacht-breadcrumb {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+}
+
+.yacht-title {
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 38px;
+  color: var(--blue);
+  margin: 0 0 16px 0;
+}
+
+.yacht-price {
+  font-family: "Moderat Extended", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--gold);
+  margin-bottom: 32px;
+}
+
+.yacht-specs-list {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  justify-content: space-between;
+}
+
+.yacht-spec-item {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.yacht-spec-item .spec-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yacht-spec-item .spec-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.yacht-spec-item .spec-value {
+  font-family: "Moderat Extended Black", sans-serif;
+  font-size: 18px;
+  color: var(--grey);
+}
+
+.yacht-brochure-btn,
+.yacht-contact-btn {
+  width: 100%;
+  padding: 16px 24px;
+  font-family: "Moderat Extended", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  text-decoration: none;
+  display: block;
+}
+
+.yacht-brochure-btn {
+  background: transparent;
+  border: 2px solid var(--blue);
+  color: var(--blue);
+}
+
+.yacht-brochure-btn:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.yacht-contact-btn {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.yacht-contact-btn:hover {
+  background: var(--gold);
+}
+
+/* Main Content */
+.yacht-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* use margins on children to control spacing so breadcrumb can sit flush */
+}
+
+/* Default vertical spacing between main content sections */
+.yacht-main-content > * + * {
+  margin-top: 60px;
+}
+
+/* When breadcrumb is present, make the gallery sit immediately below it */
+.yacht-breadcrumb + .yacht-gallery-section {
+  margin-top: 0;
+}
+
+.yacht-gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.yacht-main-image {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.yacht-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.yacht-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.yacht-thumb {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.yacht-thumb:hover {
+  transform: scale(1.05);
+}
+
+.yacht-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.yacht-description-section,
+.yacht-related-section,
+.yacht-cta-section {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.section-title {
+  font-family: "Moderat Extended", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--blue);
+  margin: 0 0 24px 0;
+  text-transform: uppercase;
+}
+
+.yacht-description-content {
+  font-family: "Moderat Regular", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--blue);
+}
+
+.yacht-description-content p {
+  margin-bottom: 16px;
+}
+
+.yacht-cta-section {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.yacht-cta-section h2 {
+  font-family: "Moderat Extended", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--blue);
+  margin: 0 0 32px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.yacht-contact-final-btn {
+  padding: 18px 48px;
+  font-family: "Moderat Extended", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.yacht-contact-final-btn:hover {
+  background: var(--gold);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .yacht-layout {
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
+  }
+
+  .yacht-sidebar {
+    top: 100px;
+  }
+
+  .yacht-main-image {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .single-yacht-container {
+    padding: 60px 24px;
+  }
+
+  .yacht-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .yacht-sidebar {
+    position: relative;
+    top: 0;
+  }
+
+  .yacht-main-image {
+    height: 300px;
+  }
+
+  .yacht-thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .yacht-description-section,
+  .yacht-related-section,
+  .yacht-cta-section {
+    padding: 30px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .yacht-title {
+    font-size: 22px;
+  }
+
+  .yacht-price {
+    font-size: 20px;
+  }
+
+  .yacht-main-image {
+    height: 250px;
+  }
+
+  .yacht-thumb {
+    height: 100px;
   }
 }

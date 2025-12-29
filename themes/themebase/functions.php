@@ -99,5 +99,19 @@ function wp_bootstrap_starter_scripts() {
 	wp_enqueue_script('bootstrap-js', get_template_directory_uri() . '/inc/assets/js/bootstrap.js');
 	wp_enqueue_script('main-js', get_template_directory_uri() . '/inc/assets/js/main.js');
 	
+	// Enqueue sticky sidebar script only on single yacht pages
+	if (is_singular('yacht')) {
+		wp_enqueue_script('yacht-sticky-sidebar', get_template_directory_uri() . '/inc/assets/js/yacht-sticky-sidebar.js', array(), '1.0', true);
+	}
+	
 }
 add_action( 'wp_enqueue_scripts', 'wp_bootstrap_starter_scripts' );
+
+// Redirect /yachts/ to /vendita/
+add_action('template_redirect', 'redirect_yachts_to_vendita');
+function redirect_yachts_to_vendita() {
+    if (is_post_type_archive('yacht') || (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] === '/yachts/')) {
+        wp_redirect(home_url('/vendita/'), 301);
+        exit;
+    }
+}
