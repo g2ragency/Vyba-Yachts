@@ -1,0 +1,188 @@
+/* Swiper Gallery Widget */
+.swiper-gallery-widget {
+  width: 100%;
+  position: relative;
+}
+
+.swiper-gallery-main {
+  width: 100%;
+  overflow: visible;
+}
+
+.swiper-gallery-main .swiper-wrapper {
+  align-items: center;
+}
+
+.swiper-gallery-main .swiper-slide {
+  height: auto;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-gallery-main .swiper-slide-active {
+  opacity: 1;
+}
+
+.gallery-slide-image {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.gallery-slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Scrollbar and Navigation Container */
+.swiper-gallery-widget .gallery-scrollbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 66px;
+}
+
+/* Scrollbar */
+.swiper-gallery-widget .gallery-scrollbar .swiper-scrollbar {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(22, 31, 72, 0.1);
+  border-radius: 0;
+}
+
+.swiper-gallery-widget .gallery-scrollbar .swiper-scrollbar-drag {
+  background: var(--gold, #d6b35f);
+  height: 2px;
+  border-radius: 0;
+  cursor: grab;
+}
+
+.swiper-gallery-widget .gallery-scrollbar .swiper-scrollbar-drag:active {
+  cursor: grabbing;
+}
+
+/* Navigation Arrows Container */
+.swiper-gallery-widget .gallery-navigation {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  position: relative;
+  top: -5px;
+}
+
+/* Navigation Arrows */
+.swiper-gallery-widget .gallery-prev,
+.swiper-gallery-widget .gallery-next {
+  position: static;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin: 0;
+  transform: none;
+}
+
+.swiper-gallery-widget .gallery-prev:after,
+.swiper-gallery-widget .gallery-next:after {
+  content: "";
+  display: block;
+  width: 11px;
+  height: 22px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="11" height="22" viewBox="0 0 11 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.999939 20.6757L8.76299 11.6188C9.14818 11.1694 9.14818 10.5063 8.76299 10.0569L0.999938 0.999983" stroke="%23D6B35F" stroke-width="2" stroke-linecap="round"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.swiper-gallery-widget .gallery-prev:after {
+  transform: rotate(180deg);
+}
+
+.swiper-gallery-widget .gallery-prev.swiper-button-disabled,
+.swiper-gallery-widget .gallery-next.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.swiper-gallery-widget .gallery-prev.swiper-button-disabled:hover,
+.swiper-gallery-widget .gallery-next.swiper-button-disabled:hover {
+  background: transparent;
+}
+
+/* Scrollbar and Navigation Container */
+.swiper-gallery-widget .gallery-scrollbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 45px;
+}
+
+/* Scrollbar */
+.swiper-gallery-widget .gallery-scrollbar .swiper-scrollbar {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(22, 31, 72, 0.1);
+  border-radius: 0;
+  left: 0;
+}
+
+.swiper-gallery-widget .gallery-scrollbar .swiper-scrollbar-drag {
+  background: var(--gold, #d6b35f);
+  height: 2px;
+  border-radius: 0;
+  cursor: grab;
+}
+
+.swiper-gallery-widget .gallery-scrollbar .swiper-scrollbar-drag:active {
+  cursor: grabbing;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .gallery-slide-image {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-slide-image {
+    height: 300px;
+  }
+
+  .swiper-gallery-widget .gallery-scrollbar {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-slide-image {
+    height: 250px;
+  }
+
+  .swiper-gallery-widget .gallery-scrollbar {
+    margin-top: 40px;
+    gap: 16px;
+  }
+
+  .swiper-gallery-widget .gallery-prev,
+  .swiper-gallery-widget .gallery-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .swiper-gallery-widget .gallery-navigation {
+    gap: 12px;
+  }
+}

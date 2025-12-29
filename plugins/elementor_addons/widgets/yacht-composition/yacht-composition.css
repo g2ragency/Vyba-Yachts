@@ -1,0 +1,113 @@
+/* Yacht Composition Widget */
+.yacht-composition-widget {
+  width: 100%;
+}
+
+/* Tab Navigation */
+.composition-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  border-bottom: 2px solid #dcdee1;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.composition-tab {
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 24px;
+  color: var(--blue, #161f48);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  background: transparent;
+  border: none;
+  padding: 20px 32px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  flex: 1;
+  text-align: center;
+}
+
+.composition-tab:hover {
+  color: var(--gold, #d6b35f);
+}
+
+.composition-tab.active {
+  color: var(--gold, #d6b35f);
+}
+
+.composition-tab.active:after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold, #d6b35f);
+}
+
+/* Content Panels */
+.composition-content {
+  position: relative;
+  width: 100%;
+}
+
+.composition-panel {
+  display: none;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.composition-panel.active {
+  display: block;
+  opacity: 1;
+}
+
+.composition-panel img {
+  width: 100%;
+  max-height: 400px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .composition-tabs {
+    margin-bottom: 50px;
+  }
+
+  .composition-tab {
+    font-size: 16px;
+    padding: 18px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .composition-tabs {
+    margin-bottom: 40px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .composition-tab {
+    font-size: 14px;
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .composition-tabs {
+    margin-bottom: 30px;
+  }
+
+  .composition-tab {
+    font-size: 12px;
+    padding: 14px 16px;
+  }
+}
