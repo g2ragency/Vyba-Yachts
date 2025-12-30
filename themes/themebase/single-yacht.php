@@ -48,29 +48,60 @@ get_header();
 
         <!-- Galleria immagini -->
         <?php if (!empty($gallery_ids)) : ?>
-          <div class="yacht-gallery-section">
-            <div class="yacht-main-image">
-              <?php 
-              $main_image = wp_get_attachment_image_url($gallery_ids[0], 'large');
-              if ($main_image) :
-              ?>
-                <img src="<?php echo esc_url($main_image); ?>" alt="<?php the_title(); ?>" />
+          <div class="yacht-gallery-section" data-gallery-count="<?php echo count($gallery_ids); ?>">
+            
+            <!-- Main image container with navigation arrows -->
+            <div class="yacht-main-image-wrapper">
+              <div class="yacht-main-image" id="yacht-main-image">
+                <?php 
+                $main_image = wp_get_attachment_image_url($gallery_ids[0], 'large');
+                $main_full = wp_get_attachment_image_url($gallery_ids[0], 'full');
+                if ($main_image) :
+                ?>
+                  <img 
+                    src="<?php echo esc_url($main_image); ?>" 
+                    alt="<?php the_title(); ?>"
+                    data-full="<?php echo esc_url($main_full); ?>"
+                    class="yacht-main-img"
+                  />
+                <?php endif; ?>
+              </div>
+
+              <?php if (count($gallery_ids) > 1) : ?>
+                <button class="yacht-nav-arrow yacht-nav-prev" aria-label="Immagine precedente">
+                  <svg width="11" height="22" viewBox="0 0 11 22" fill="none">
+                    <path d="M10 1L1 11L10 21" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </button>
+                <button class="yacht-nav-arrow yacht-nav-next" aria-label="Immagine successiva">
+                  <svg width="11" height="22" viewBox="0 0 11 22" fill="none">
+                    <path d="M1 1L10 11L1 21" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </button>
               <?php endif; ?>
             </div>
 
+            <!-- Thumbnails scrollable -->
             <?php if (count($gallery_ids) > 1) : ?>
-              <div class="yacht-thumbnails">
-                <?php foreach (array_slice($gallery_ids, 0, 4) as $img_id) : 
-                  $thumb_url = wp_get_attachment_image_url($img_id, 'medium');
-                  if ($thumb_url) :
-                ?>
-                  <div class="yacht-thumb">
-                    <img src="<?php echo esc_url($thumb_url); ?>" alt="" />
-                  </div>
-                <?php 
-                  endif;
-                endforeach; 
-                ?>
+              <div class="yacht-thumbnails-container">
+                <div class="yacht-thumbnails" id="yacht-thumbnails">
+                  <?php foreach ($gallery_ids as $index => $img_id) : 
+                    $thumb_url = wp_get_attachment_image_url($img_id, 'medium');
+                    $full_url = wp_get_attachment_image_url($img_id, 'full');
+                    $large_url = wp_get_attachment_image_url($img_id, 'large');
+                    if ($thumb_url) :
+                  ?>
+                    <div class="yacht-thumb <?php echo $index === 0 ? 'active' : ''; ?>" 
+                         data-index="<?php echo $index; ?>"
+                         data-large="<?php echo esc_url($large_url); ?>"
+                         data-full="<?php echo esc_url($full_url); ?>">
+                      <img src="<?php echo esc_url($thumb_url); ?>" alt="<?php the_title(); ?> - Immagine <?php echo $index + 1; ?>" />
+                    </div>
+                  <?php 
+                    endif;
+                  endforeach; 
+                  ?>
+                </div>
               </div>
             <?php endif; ?>
           </div>

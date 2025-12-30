@@ -102,6 +102,7 @@ function wp_bootstrap_starter_scripts() {
 	// Enqueue sticky sidebar script only on single yacht pages
 	if (is_singular('yacht')) {
 		wp_enqueue_script('yacht-sticky-sidebar', get_template_directory_uri() . '/inc/assets/js/yacht-sticky-sidebar.js', array(), '1.0', true);
+		wp_enqueue_script('yacht-gallery', get_template_directory_uri() . '/inc/assets/js/yacht-gallery.js', array(), '1.0', true);
 	}
 	
 }

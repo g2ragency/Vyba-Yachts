@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const sidebar = document.querySelector('.yacht-sidebar');
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.querySelector(".yacht-sidebar");
   if (!sidebar) return;
 
-  const sidebarInner = sidebar.querySelector('.yacht-sidebar-inner');
-  const mainContent = document.querySelector('.yacht-main-content');
-  const gallery = document.querySelector('.yacht-gallery-section');
-  
+  const sidebarInner = sidebar.querySelector(".yacht-sidebar-inner");
+  const mainContent = document.querySelector(".yacht-main-content");
+  const gallery = document.querySelector(".yacht-gallery-section");
+
   if (!sidebarInner || !mainContent) return;
 
   let sidebarWidth = 0;
@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContentHeight = mainContent.offsetHeight;
 
     // Y position (document) where sidebar should stop being fixed
-    maxFixedScroll = mainContentTop + mainContentHeight - sidebarHeight - headerOffset;
+    maxFixedScroll =
+      mainContentTop + mainContentHeight - sidebarHeight - headerOffset;
   }
 
   function updateSidebar() {
@@ -40,15 +41,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // If sidebar is taller than content, don't fix
     if (sidebarHeight >= mainContentHeight) {
-      sidebarInner.style.position = 'static';
-      sidebarInner.style.top = 'auto';
-      sidebarInner.style.bottom = 'auto';
-      sidebarInner.style.width = '100%';
+      sidebarInner.style.position = "static";
+      sidebarInner.style.top = "auto";
+      sidebarInner.style.bottom = "auto";
+      sidebarInner.style.width = "100%";
       return;
     }
 
     // If we haven't computed positions yet, do it
-    if (galleryTop === null || mainContentTop === null || maxFixedScroll === null) {
+    if (
+      galleryTop === null ||
+      mainContentTop === null ||
+      maxFixedScroll === null
+    ) {
       recalc();
     }
 
@@ -56,28 +61,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (scrollY >= triggerY && scrollY <= maxFixedScroll) {
       // fixed
-      sidebarInner.style.position = 'fixed';
-      sidebarInner.style.top = headerOffset + 'px';
-      sidebarInner.style.bottom = 'auto';
-      sidebarInner.style.width = sidebarWidth + 'px';
+      sidebarInner.style.position = "fixed";
+      sidebarInner.style.top = headerOffset + "px";
+      sidebarInner.style.bottom = "auto";
+      sidebarInner.style.width = sidebarWidth + "px";
     } else if (scrollY > maxFixedScroll) {
       // stick to bottom of main content
-      sidebarInner.style.position = 'absolute';
-      sidebarInner.style.top = 'auto';
-      sidebarInner.style.bottom = '0';
-      sidebarInner.style.width = '100%';
+      sidebarInner.style.position = "absolute";
+      sidebarInner.style.top = "auto";
+      sidebarInner.style.bottom = "0";
+      sidebarInner.style.width = "100%";
     } else {
       // before trigger
-      sidebarInner.style.position = 'static';
-      sidebarInner.style.top = 'auto';
-      sidebarInner.style.bottom = 'auto';
-      sidebarInner.style.width = '100%';
+      sidebarInner.style.position = "static";
+      sidebarInner.style.top = "auto";
+      sidebarInner.style.bottom = "auto";
+      sidebarInner.style.width = "100%";
     }
   }
 
   // Update on scroll and resize
-  window.addEventListener('scroll', updateSidebar, { passive: true });
-  window.addEventListener('resize', function() {
+  window.addEventListener("scroll", updateSidebar, { passive: true });
+  window.addEventListener("resize", function () {
     // Recalculate positions on resize
     galleryTop = null;
     mainContentTop = null;
@@ -87,5 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Initial calc + update
-  setTimeout(function() { recalc(); updateSidebar(); }, 120);
+  setTimeout(function () {
+    recalc();
+    updateSidebar();
+  }, 120);
 });
