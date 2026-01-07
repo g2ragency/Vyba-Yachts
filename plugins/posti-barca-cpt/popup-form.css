@@ -1,0 +1,246 @@
+/* Popup Overlay */
+.posto-barca-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(22, 31, 72, 0.9);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.posto-barca-popup-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Popup Container */
+.posto-barca-popup {
+  background: var(--white, #fff);
+  max-width: 700px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.posto-barca-popup-overlay.active .posto-barca-popup {
+  transform: scale(1);
+}
+
+/* Close Button */
+.posto-barca-popup__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.posto-barca-popup__close::before,
+.posto-barca-popup__close::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--blue, #161f48);
+  transition: background 0.3s ease;
+}
+
+.posto-barca-popup__close::before {
+  transform: rotate(45deg);
+}
+
+.posto-barca-popup__close::after {
+  transform: rotate(-45deg);
+}
+
+.posto-barca-popup__close:hover::before,
+.posto-barca-popup__close:hover::after {
+  background: var(--gold, #d6b35f);
+}
+
+/* Popup Content */
+.posto-barca-popup__content {
+  padding: 50px 40px 40px;
+}
+
+.posto-barca-popup__title {
+  color: var(--blue, #161f48);
+  margin-bottom: 10px;
+  font-size: 32px;
+}
+
+.posto-barca-popup__subtitle {
+  color: var(--grey, #666);
+  margin-bottom: 30px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.posto-barca-popup__form {
+  width: 100%;
+}
+
+/* Stili Contact Form 7 */
+.posto-barca-popup__form .wpcf7 {
+  width: 100%;
+}
+
+.posto-barca-popup__form .wpcf7-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+}
+
+.posto-barca-popup__form .wpcf7-form p {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Campi affiancati su desktop */
+@media (min-width: 768px) {
+  /* Nome e Cognome affiancati */
+  .posto-barca-popup__form .wpcf7-form p:has([name="nome"]),
+  .posto-barca-popup__form .wpcf7-form p:has([name="cognome"]) {
+    width: calc(50% - 10px);
+  }
+
+  /* Email e Telefono affiancati */
+  .posto-barca-popup__form .wpcf7-form p:has([name="email"]),
+  .posto-barca-popup__form .wpcf7-form p:has([name="telefono"]) {
+    width: calc(50% - 10px);
+  }
+}
+
+.posto-barca-popup__form .wpcf7-form label {
+  display: block;
+  color: var(--blue, #161f48);
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.posto-barca-popup__form .wpcf7-form input[type="text"],
+.posto-barca-popup__form .wpcf7-form input[type="email"],
+.posto-barca-popup__form .wpcf7-form input[type="tel"],
+.posto-barca-popup__form .wpcf7-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.posto-barca-popup__form .wpcf7-form textarea {
+  min-height: 80px !important;
+  max-height: 150px;
+  resize: vertical;
+}
+
+.posto-barca-popup__form .wpcf7-form input[name="posto-barca"] {
+  background: var(--lightgrey, #f5f5f5);
+}
+
+.posto-barca-popup__form .wpcf7-form input:focus,
+.posto-barca-popup__form .wpcf7-form textarea:focus {
+  outline: none;
+  border-color: var(--gold, #d6b35f);
+}
+
+.posto-barca-popup__form .wpcf7-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.posto-barca-popup__form .wpcf7-form input[type="submit"] {
+  background: var(--blue, #161f48);
+  color: var(--white, #fff);
+  border: none;
+  padding: 16px 40px;
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.posto-barca-popup__form .wpcf7-form input[type="submit"]:hover {
+  background: var(--gold, #d6b35f);
+  color: var(--blue, #161f48);
+}
+
+.posto-barca-popup__form .wpcf7-form input[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Messaggi CF7 */
+.posto-barca-popup__form .wpcf7-response-output {
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
+.posto-barca-popup__form .wpcf7-mail-sent-ok {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.posto-barca-popup__form .wpcf7-validation-errors,
+.posto-barca-popup__form .wpcf7-mail-sent-ng {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.posto-barca-popup__form .wpcf7-spinner {
+  margin: 10px auto;
+  display: block;
+}
+
+.posto-barca-popup__form .wpcf7-not-valid-tip {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .posto-barca-popup {
+    width: 95%;
+  }
+
+  .posto-barca-popup__content {
+    padding: 40px 25px 30px;
+  }
+
+  .posto-barca-popup__title {
+    font-size: 24px;
+  }
+}

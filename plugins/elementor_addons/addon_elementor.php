@@ -133,6 +133,7 @@ final class Elementor_Addon_Widgets {
 		require_once( __DIR__ . '/widgets/accordion-perizie/accordion-perizie.php' );
 		require_once( __DIR__ . '/widgets/swiper-gallery/swiper-gallery.php' );
 		require_once( __DIR__ . '/widgets/yacht-composition/yacht-composition.php' );
+		require_once( __DIR__ . '/widgets/posti-barca-grid/posti-barca-grid.php' );
 		
 		//HOMEPAGE
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Hov_Btn() );
@@ -145,6 +146,7 @@ final class Elementor_Addon_Widgets {
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Accordion_Perizie() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Swiper_Gallery() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Yacht_Composition() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Widget_Posti_Barca_Grid() );
 		
 	}
 

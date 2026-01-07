@@ -1,0 +1,227 @@
+@font-face {
+  font-family: "Moderat Extended Black";
+  src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratExtendedBlack.woff")
+    format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Moderat Extended Bold";
+  src: url("/wp-content/themes/themebase/inc/assets/fonts/ModeratExtendedBold.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Posti Barca Grid Wrapper */
+.posti-barca-grid-widget {
+  width: 100%;
+}
+
+/* Grid Container */
+.posti-barca-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 10px 0;
+}
+
+/* Grid Card */
+.posto-barca-grid-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.posto-barca-grid-card__media {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.posto-barca-grid-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+.posto-barca-grid-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--lightgrey);
+  color: var(--grey);
+  font-family: "Moderat Extended Black";
+  font-size: 14px;
+}
+
+.posto-barca-grid-card__badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--gold);
+  color: var(--blue);
+  padding: 6px 16px;
+  border-radius: 3px;
+  font-family: "Moderat Extended Bold";
+  font-size: 13px;
+  text-transform: uppercase;
+  z-index: 5;
+}
+
+.posto-barca-grid-card__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.posto-barca-grid-card__categoria {
+  color: var(--gold);
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.posto-barca-grid-card__title {
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+.posto-barca-grid-card__excerpt {
+  color: var(--grey);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.posto-barca-grid-card__cta {
+  margin-top: 16px;
+}
+
+/* Stile hov-btn per il widget posto barca grid */
+.posto-barca-grid-card .hov-btn.learn-more {
+  --circle-bg: var(--blue);
+  --text-color: var(--blue);
+  --hover-text-color: var(--white);
+  --arrow-stroke: var(--white);
+  --arrow-hover-bg: var(--white);
+}
+
+.posto-barca-grid-card .hov-btn {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.posto-barca-grid-card .hov-btn.learn-more {
+  position: relative;
+  width: auto !important;
+  height: 3rem;
+  padding: 0 1.5rem 0 4rem;
+  overflow: visible !important;
+}
+
+.posto-barca-grid-card .hov-btn.learn-more .circle {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  background: var(--circle-bg);
+  border-radius: 1.625rem;
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+
+.posto-barca-grid-card .hov-btn.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: var(--arrow-stroke);
+}
+
+.posto-barca-grid-card .hov-btn.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.posto-barca-grid-card .hov-btn.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid var(--arrow-stroke);
+  border-right: 0.125rem solid var(--arrow-stroke);
+  transform: rotate(45deg);
+}
+
+.posto-barca-grid-card .hov-btn.learn-more .button-text {
+  position: relative !important;
+  display: inline-block !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--text-color);
+  font-family: "Moderat Extended Bold";
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  line-height: 3rem;
+  white-space: nowrap;
+}
+
+.posto-barca-grid-card .hov-btn:hover .circle {
+  width: 100%;
+}
+
+.posto-barca-grid-card .hov-btn:hover .circle .icon.arrow {
+  background: var(--arrow-hover-bg);
+  transform: translate(1rem, 0);
+}
+
+.posto-barca-grid-card .hov-btn:hover .button-text {
+  color: var(--hover-text-color);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .posti-barca-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .posti-barca-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
