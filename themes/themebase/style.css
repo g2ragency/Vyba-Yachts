@@ -455,6 +455,7 @@ footer a:hover {
   margin: 0 auto;
   padding: 160px 40px 100px;
   position: relative;
+  overflow-x: hidden;
 }
 
 .yacht-layout {
@@ -463,10 +464,12 @@ footer a:hover {
   gap: 24px;
   align-items: start;
   position: relative;
+  overflow-x: hidden;
 }
 
 .yacht-main-content {
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Sidebar Sticky */
@@ -478,7 +481,7 @@ footer a:hover {
 
 .yacht-sidebar-inner {
   background: var(--white);
-  padding: 40px;
+  padding: 20px 30px;
   border-radius: 5px;
   width: 100%;
 }
@@ -524,19 +527,67 @@ footer a:hover {
 }
 
 .yacht-price {
-  font-family: "Moderat Extended", sans-serif;
+  font-family: "Moderat Extended Bold", sans-serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 30px;
   color: var(--gold);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+}
+
+.yacht-scheda-tecnica-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  color: var(--blue);
+  border: none;
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 28px;
+}
+
+.yacht-scheda-tecnica-btn .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.yacht-scheda-tecnica-btn .btn-icon svg {
+  width: 64px;
+  height: 64px;
+  display: block;
+}
+
+.yacht-scheda-tecnica-btn .btn-text {
+  flex: 1;
+  text-align: left;
+  line-height: 1.2;
+  font-size: 15px;
+  color: var(--blue);
+  font-family: "Moderat Extended Bold";
+}
+
+.yacht-scheda-tecnica-btn:hover {
+  opacity: 0.8;
 }
 
 .yacht-specs-list {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  margin-bottom: 32px;
-  padding-bottom: 32px;
+  margin-bottom: 28px;
   justify-content: space-between;
 }
 
@@ -566,16 +617,13 @@ footer a:hover {
 
 .yacht-brochure-btn,
 .yacht-contact-btn {
-  width: 100%;
-  padding: 16px 24px;
-  font-family: "Moderat Extended", sans-serif;
-  font-weight: 700;
-  font-size: 14px;
+  width: auto;
+  padding: 18px 48px;
+  font-family: "Moderat Extended Bold", sans-serif;
+  font-size: 15px;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 12px;
@@ -595,12 +643,15 @@ footer a:hover {
 }
 
 .yacht-contact-btn {
-  background: var(--blue);
-  color: var(--white);
+  background: transparent;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: 5px;
 }
 
 .yacht-contact-btn:hover {
-  background: var(--gold);
+  background: var(--blue);
+  color: var(--white);
 }
 
 /* Main Content */
@@ -614,7 +665,7 @@ footer a:hover {
 
 /* Default vertical spacing between main content sections */
 .yacht-main-content > * + * {
-  margin-top: 60px;
+  margin-top: 100px;
 }
 
 /* When breadcrumb is present, make the gallery sit immediately below it */
@@ -658,7 +709,7 @@ footer a:hover {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--white);
+  background: transparent;
   border: none;
   width: 48px;
   height: 48px;
@@ -669,11 +720,10 @@ footer a:hover {
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .yacht-nav-arrow svg {
-  color: var(--blue);
+  color: var(--white);
   width: 11px;
   height: 22px;
 }
@@ -769,29 +819,336 @@ footer a:hover {
   border-radius: 5px;
 }
 
-.yacht-description-section,
-.yacht-related-section,
-.yacht-cta-section {
-  background: var(--white);
-  padding: 40px;
-  border-radius: 8px;
+.yacht-description-section h6,
+.yacht-related-section h6 {
+  color: var(--gold);
+  margin-bottom: 0;
+}
+
+.yacht-related-section h3 {
+  max-width: 70%;
+}
+
+.yacht-related-carousel {
+  position: relative;
+  margin-top: 40px;
+  padding-bottom: 60px;
+}
+
+.yacht-related-swiper {
+  overflow: visible;
+}
+
+.yacht-related-swiper .swiper-slide {
+  height: auto;
+}
+
+.yacht-related-carousel .yacht-grid-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.yacht-related-carousel .yacht-grid-card__media {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.yacht-related-carousel .swiper-yacht-grid-gallery {
+  width: 100%;
+  height: 100%;
+}
+
+.yacht-related-carousel .swiper-yacht-grid-gallery .swiper-slide {
+  width: 100% !important;
+  height: 100%;
+}
+
+.yacht-related-carousel .yacht-grid-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.yacht-related-carousel .yacht-grid-card__specs {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: var(--grey);
+  margin-bottom: 10px;
+  margin-top: 18px;
+}
+
+.yacht-related-carousel .yacht-grid-card__specs .grid-spec {
+  font-family: "Moderat Extended Black";
+  font-size: 18px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.yacht-related-carousel .grid-spec__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.yacht-related-carousel .grid-spec__icon img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.yacht-related-carousel .grid-spec__value {
+  color: var(--grey);
+  font-family: "Moderat Extended Black";
+}
+
+.yacht-related-carousel .yacht-grid-card__title {
+  color: var(--blue);
+  font-family: "Moderat Extended Bold";
+  font-size: 24px;
+  margin: 0 0 10px 0;
+}
+
+.yacht-related-carousel .yacht-grid-card__price h6 {
+  color: var(--gold);
+  font-family: "Moderat Extended Bold";
+  margin: 0 0 16px 0;
+}
+
+.yacht-related-carousel .yacht-grid-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.yacht-related-carousel .yacht-grid-card__cta {
+  margin-top: auto;
+}
+
+.yacht-related-carousel .yacht-grid-gallery-prev,
+.yacht-related-carousel .yacht-grid-gallery-next {
+  position: absolute;
+  top: 58%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.yacht-related-carousel .yacht-grid-gallery-prev {
+  left: 0;
+}
+
+.yacht-related-carousel .yacht-grid-gallery-next {
+  right: 0;
+}
+
+.yacht-related-carousel .yacht-grid-gallery-prev:after,
+.yacht-related-carousel .yacht-grid-gallery-next:after {
+  content: "";
+  display: block;
+  width: 9px;
+  height: 17px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 16L7.36317 9.18232C7.72176 8.79811 7.72176 8.20189 7.36317 7.81768L1 1" stroke="%23FBF9F1" stroke-width="2" stroke-linecap="round"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.yacht-related-carousel .yacht-grid-gallery-prev:after {
+  transform: rotate(180deg);
+}
+
+.yacht-related-carousel .hov-btn.learn-more {
+  --circle-bg: var(--blue);
+  --text-color: var(--blue);
+  --hover-text-color: var(--white);
+  --arrow-stroke: var(--white);
+  --arrow-hover-bg: var(--white);
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: 16px;
+  width: auto !important;
+  height: 3rem;
+  padding: 0 1.5rem 0 4rem;
+  overflow: visible !important;
+}
+
+.yacht-related-carousel .hov-btn.learn-more .circle {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  background: var(--circle-bg);
+  border-radius: 1.625rem;
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+}
+
+.yacht-related-carousel .hov-btn.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: var(--arrow-stroke);
+}
+
+.yacht-related-carousel .hov-btn.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.yacht-related-carousel .hov-btn.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid var(--arrow-stroke);
+  border-right: 0.125rem solid var(--arrow-stroke);
+  transform: rotate(45deg);
+}
+
+.yacht-related-carousel .hov-btn.learn-more .button-text {
+  position: relative !important;
+  display: inline-block !important;
+  color: var(--text-color);
+  font-family: "Moderat Extended Bold";
+  font-size: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  line-height: 3rem;
+  white-space: nowrap;
+}
+
+.yacht-related-carousel .hov-btn:hover .circle {
+  width: 100%;
+}
+
+.yacht-related-carousel .hov-btn:hover .circle .icon.arrow {
+  background: var(--arrow-hover-bg);
+  transform: translate(1rem, 0);
+}
+
+.yacht-related-carousel .hov-btn:hover .button-text {
+  color: var(--hover-text-color);
+}
+
+.yacht-related-scrollbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.yacht-related-scrollbar .swiper-scrollbar {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(22, 31, 72, 0.1);
+  border-radius: 0;
+}
+
+.yacht-related-scrollbar .swiper-scrollbar-drag {
+  background: var(--gold);
+  height: 2px;
+  border-radius: 0;
+  cursor: grab;
+}
+
+.yacht-related-scrollbar .swiper-scrollbar-drag:active {
+  cursor: grabbing;
+}
+
+.yacht-related-navigation {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  position: relative;
+  top: -5px;
+}
+
+.yacht-related-prev,
+.yacht-related-next {
+  position: static;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin: 0;
+  transform: none;
+}
+
+.yacht-related-prev:after,
+.yacht-related-next:after {
+  content: "";
+  display: block;
+  width: 11px;
+  height: 22px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="11" height="22" viewBox="0 0 11 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.999939 20.6757L8.76299 11.6188C9.14818 11.1694 9.14818 10.5063 8.76299 10.0569L0.999938 0.999983" stroke="%23D6B35F" stroke-width="2" stroke-linecap="round"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.yacht-related-prev:after {
+  transform: rotate(180deg);
+}
+
+.yacht-related-prev.swiper-button-disabled,
+.yacht-related-next.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.yacht-related-prev.swiper-button-disabled:hover,
+.yacht-related-next.swiper-button-disabled:hover {
+  background: transparent;
 }
 
 .section-title {
-  font-family: "Moderat Extended", sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1.3;
+  font-family: "Moderat Extended Regular", sans-serif;
+  font-size: 38px;
   color: var(--blue);
   margin: 0 0 24px 0;
-  text-transform: uppercase;
 }
 
 .yacht-description-content {
   font-family: "Moderat Regular", sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--blue);
+  font-size: 18px;
+  line-height: 1.3;
+  color: #000000;
 }
 
 .yacht-description-content p {
@@ -800,19 +1157,33 @@ footer a:hover {
 
 .yacht-cta-section {
   text-align: center;
-  padding: 60px 40px;
+  padding: 0;
 }
 
-.yacht-cta-section h2 {
-  font-family: "Moderat Extended", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.4;
+.yacht-cta-section h6 {
+  color: var(--gold);
+  margin-bottom: 0px;
+}
+
+.yacht-cta-section h3 {
+  font-family: "Moderat Extended Regular", sans-serif;
+  font-size: 38px;
   color: var(--blue);
-  margin: 0 0 32px 0;
-  max-width: 600px;
+  margin: 0 0 24px 0;
+  max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.yacht-cta-section p {
+  font-family: "Moderat Regular", sans-serif;
+  font-size: 18px;
+  color: var(--grey);
+  margin: 0;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
 }
 
 .yacht-contact-final-btn {

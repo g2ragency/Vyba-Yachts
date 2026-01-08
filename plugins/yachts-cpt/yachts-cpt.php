@@ -55,6 +55,15 @@ function yacht_gallery_metabox() {
         'normal',
         'high'
     );
+    
+    add_meta_box(
+        'yacht_scheda_tecnica',
+        'Scheda Tecnica',
+        'yacht_scheda_tecnica_metabox_callback',
+        'yacht',
+        'side',
+        'default'
+    );
 }
 
 function yacht_gallery_metabox_callback($post) {
@@ -173,6 +182,110 @@ function yacht_gallery_metabox_callback($post) {
     <?php
 }
 
+// Metabox Scheda Tecnica
+function yacht_scheda_tecnica_metabox_callback($post) {
+    wp_nonce_field('yacht_scheda_tecnica_nonce', 'yacht_scheda_tecnica_nonce');
+    
+    $scheda_tecnica_id = get_post_meta($post->ID, 'scheda_tecnica', true);
+    $file_url = '';
+    $file_name = '';
+    
+    if ($scheda_tecnica_id) {
+        $file_url = wp_get_attachment_url($scheda_tecnica_id);
+        $file_name = basename($file_url);
+    }
+    ?>
+    <div class="yacht-scheda-tecnica-container">
+        <div class="yacht-scheda-file">
+            <?php if ($file_url) : ?>
+                <div class="scheda-file-preview">
+                    <span class="dashicons dashicons-pdf"></span>
+                    <a href="<?php echo esc_url($file_url); ?>" target="_blank">
+                        <?php echo esc_html($file_name); ?>
+                    </a>
+                    <button type="button" class="button-link yacht-scheda-remove" style="color: #dc3232; margin-left: 10px;">
+                        Rimuovi
+                    </button>
+                </div>
+            <?php endif; ?>
+        </div>
+        <input type="hidden" id="yacht_scheda_tecnica_id" name="yacht_scheda_tecnica_id" value="<?php echo esc_attr($scheda_tecnica_id); ?>" />
+        <button type="button" class="button yacht-scheda-upload" style="margin-top: 10px;">
+            <?php echo $file_url ? 'Cambia PDF' : 'Carica PDF'; ?>
+        </button>
+    </div>
+    
+    <style>
+        .scheda-file-preview {
+            padding: 10px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .scheda-file-preview .dashicons {
+            color: #dc3232;
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+        .scheda-file-preview a {
+            flex: 1;
+            text-decoration: none;
+        }
+    </style>
+    
+    <script>
+    jQuery(document).ready(function($) {
+        var frame;
+        
+        $('.yacht-scheda-upload').on('click', function(e) {
+            e.preventDefault();
+            
+            if (frame) {
+                frame.open();
+                return;
+            }
+            
+            frame = wp.media({
+                title: 'Seleziona PDF Scheda Tecnica',
+                button: { text: 'Usa questo file' },
+                multiple: false,
+                library: { type: 'application/pdf' }
+            });
+            
+            frame.on('select', function() {
+                var attachment = frame.state().get('selection').first().toJSON();
+                
+                $('#yacht_scheda_tecnica_id').val(attachment.id);
+                
+                var html = '<div class="scheda-file-preview">';
+                html += '<span class="dashicons dashicons-pdf"></span>';
+                html += '<a href="' + attachment.url + '" target="_blank">' + attachment.filename + '</a>';
+                html += '<button type="button" class="button-link yacht-scheda-remove" style="color: #dc3232; margin-left: 10px;">Rimuovi</button>';
+                html += '</div>';
+                
+                $('.yacht-scheda-file').html(html);
+                $('.yacht-scheda-upload').text('Cambia PDF');
+            });
+            
+            frame.open();
+        });
+        
+        $(document).on('click', '.yacht-scheda-remove', function(e) {
+            e.preventDefault();
+            $('#yacht_scheda_tecnica_id').val('');
+            $('.yacht-scheda-file').empty();
+            $('.yacht-scheda-upload').text('Carica PDF');
+        });
+    });
+    </script>
+    <?php
+}
+
 add_action('save_post', 'yacht_gallery_save_metabox');
 
 function yacht_gallery_save_metabox($post_id) {
@@ -190,6 +303,31 @@ function yacht_gallery_save_metabox($post_id) {
     
     if (isset($_POST['yacht_gallery_ids'])) {
         update_post_meta($post_id, 'galleria_yacht', sanitize_text_field($_POST['yacht_gallery_ids']));
+    }
+}
+
+add_action('save_post', 'yacht_scheda_tecnica_save_metabox');
+
+function yacht_scheda_tecnica_save_metabox($post_id) {
+    if (!isset($_POST['yacht_scheda_tecnica_nonce']) || !wp_verify_nonce($_POST['yacht_scheda_tecnica_nonce'], 'yacht_scheda_tecnica_nonce')) {
+        return;
+    }
+    
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    
+    if (isset($_POST['yacht_scheda_tecnica_id'])) {
+        $scheda_id = absint($_POST['yacht_scheda_tecnica_id']);
+        if ($scheda_id) {
+            update_post_meta($post_id, 'scheda_tecnica', $scheda_id);
+        } else {
+            delete_post_meta($post_id, 'scheda_tecnica');
+        }
     }
 }
 
