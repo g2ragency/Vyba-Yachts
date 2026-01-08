@@ -1175,7 +1175,7 @@ footer a:hover {
   margin-right: auto;
 }
 
-.yacht-cta-section p {
+.yacht-cta-section .p-cta {
   font-family: "Moderat Regular", sans-serif;
   font-size: 18px;
   color: var(--grey);

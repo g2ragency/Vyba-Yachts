@@ -321,7 +321,7 @@ get_header();
         <div class="yacht-cta-section">
           <h6>CONTATTI</h6>
           <h3>Richiedi informazioni su questa imbarcazione e mettiti in contatto con il venditore</h3>
-          <p>Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero lo yacht giusto per te.</p>
+          <p class="p-cta">Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero lo yacht giusto per te.</p>
           <?php echo do_shortcode('[contact-form-7 id="fbe7748" title="Modulo di contatto"]'); ?>
         </div>
 
