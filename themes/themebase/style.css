@@ -314,6 +314,18 @@ header.header-scrolled {
   transition: none !important;
 }
 
+.hero-section video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: -1 !important;
+  transform-origin: center center !important;
+  transition: transform 0.1s linear !important;
+}
+
 /*********CONTACT US************/
 .contact-us-form .form-control {
   padding: 20px;

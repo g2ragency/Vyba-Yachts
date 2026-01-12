@@ -278,6 +278,23 @@ class Elementor_Widget_Fixing_Sections extends \Elementor\Widget_Base {
         onRefresh: () => setPinnedWidth(),
       });
 
+      // ✅ PARALLAX su immagine
+      if (mediaImg) {
+        gsap.fromTo(mediaImg,
+          { y: -80 },
+          {
+            y: 80,
+            ease: "none",
+            scrollTrigger: {
+              trigger: mediaFrame,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.5,
+            }
+          }
+        );
+      }
+
       const onResize = () => {
         setPinnedWidth();
         st.refresh();

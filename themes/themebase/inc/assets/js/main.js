@@ -1,23 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
   const heroSection = document.querySelector('.hero-section');
-  const maxZoom = 100;  // Zoom iniziale in %
-  const minZoom = 160;  // Zoom finale in %
+  
+  if (!heroSection) return;
+  
+  const minZoom = 1.0;  // Zoom iniziale (1 = 100%)
+  const maxZoom = 1.6;  // Zoom finale (1.6 = 160%)
   const scrollStart = heroSection.offsetTop;
   const scrollEnd = scrollStart + heroSection.offsetHeight;
 
-  // Funzione che aggiorna la dimensione dello sfondo in tempo reale
+  // Trova il video o l'immagine di sfondo
+  const videoElement = heroSection.querySelector('video');
+  const hasVideo = !!videoElement;
+
+  // Funzione che aggiorna lo zoom in tempo reale
   function zoomEffect() {
-    const scrollPos = window.scrollY;  // Posizione corrente dello scroll
-    const scrollRange = scrollEnd - scrollStart; // La distanza che l'utente può scrollare
-    const scrollProgress = Math.min(Math.max(scrollPos - scrollStart, 0), scrollRange); // Normalizza il valore dello scroll
+    const scrollPos = window.scrollY;
+    const scrollRange = scrollEnd - scrollStart;
+    const scrollProgress = Math.min(Math.max(scrollPos - scrollStart, 0), scrollRange);
 
-    // Calcoliamo la percentuale di zoom in base alla posizione dello scroll
-    const zoom = maxZoom - ((scrollProgress / scrollRange) * (maxZoom - minZoom));
+    // Calcoliamo lo zoom in base alla posizione dello scroll
+    const zoom = minZoom + ((scrollProgress / scrollRange) * (maxZoom - minZoom));
 
-    // Applichiamo la nuova dimensione dello sfondo
-    heroSection.style.backgroundSize = `${zoom}%`;
+    if (hasVideo && videoElement) {
+      // Per il video usiamo transform scale
+      videoElement.style.transform = `scale(${zoom})`;
+    } else {
+      // Per l'immagine di sfondo usiamo backgroundSize
+      const zoomPercent = zoom * 100;
+      heroSection.style.backgroundSize = `${zoomPercent}%`;
+    }
   }
 
   // Iniziamo l'animazione quando l'utente scrolla
   window.addEventListener('scroll', zoomEffect);
+  
+  // Chiamiamo una volta all'inizio
+  zoomEffect();
 });
