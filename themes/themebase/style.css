@@ -129,8 +129,8 @@ button {
   line-height: 1.25 !important;
 }
 
-.mix-blend-mode-difference {
-  mix-blend-mode: difference;
+.mix-blend-mode-multiply {
+  mix-blend-mode: multiply;
 }
 
 /* MAIN SETTINGS MOBILE */
