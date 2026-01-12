@@ -23,7 +23,7 @@
 
 .metodo-tab span {
   font-family: "Moderat Extended Bold", sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   text-transform: uppercase;
   color: var(--blue);
   transition: color 0.3s ease;

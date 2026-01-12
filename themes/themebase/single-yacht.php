@@ -318,7 +318,7 @@ get_header();
         </div>
 
         <!-- CTA finale -->
-        <div class="yacht-cta-section">
+        <div class="yacht-cta-section" id="yacht-contact-section">
           <h6>CONTATTI</h6>
           <h3>Richiedi informazioni su questa imbarcazione e mettiti in contatto con il venditore</h3>
           <p class="p-cta">Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero lo yacht giusto per te.</p>
@@ -393,7 +393,7 @@ get_header();
             </a>
           <?php endif; ?>
 
-          <button class="yacht-contact-btn">CONTATTACI</button>
+          <a href="#yacht-contact-section" class="yacht-contact-btn">CONTATTACI</a>
 
         </div>
       </aside>

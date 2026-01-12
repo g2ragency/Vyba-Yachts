@@ -1,5 +1,5 @@
 /* ===== THEME DEFAULT (BLU) ===== */
-.hov-btn.learn-more{
+.hov-btn.learn-more {
   --circle-bg: var(--blue);
   --text-color: var(--blue);
   --hover-text-color: var(--white);
@@ -8,7 +8,7 @@
 }
 
 /* ===== THEME WHITE ===== */
-.hov-btn.learn-more.white{
+.hov-btn.learn-more.white {
   --circle-bg: var(--white);
   --text-color: var(--white);
   --hover-text-color: var(--blue);
@@ -16,13 +16,12 @@
   --arrow-hover-bg: var(--blue);
 }
 
-
 /* Inizio CSS per il bottone */
 .hov-btn-container {
   display: inline-block;
 }
 
-.hov-btn{
+.hov-btn {
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -36,14 +35,14 @@
   font-family: inherit;
 }
 
-.hov-btn.learn-more{
+.hov-btn.learn-more {
   position: relative;
   width: auto !important;
   height: 3rem;
   padding: 0 1.5rem 0 4rem; /* spazio per cerchio */
   overflow: visible !important; /* <-- evita il "mozzato" */
 }
-.hov-btn.learn-more .circle{
+.hov-btn.learn-more .circle {
   position: absolute !important;
   top: 0;
   left: 0;
@@ -81,8 +80,8 @@
   border-right: 0.125rem solid var(--arrow-stroke);
   transform: rotate(45deg);
 }
-.hov-btn.learn-more .button-text{
-  position: relative !important;  /* <-- fondamentale */
+.hov-btn.learn-more .button-text {
+  position: relative !important; /* <-- fondamentale */
   display: inline-block !important;
   left: auto !important;
   right: auto !important;
@@ -98,6 +97,7 @@
 
   line-height: 3rem;
   white-space: nowrap;
+  transition: color 0.5s cubic-bezier(0.65, 0, 0.076, 1);
 }
 
 .hov-btn:hover .circle {
@@ -109,4 +109,5 @@
 }
 .hov-btn:hover .button-text {
   color: var(--hover-text-color);
+  transition-delay: 0.15s;
 }

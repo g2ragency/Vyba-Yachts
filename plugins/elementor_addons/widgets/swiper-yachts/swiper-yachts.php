@@ -332,11 +332,32 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
     if (outerEl.dataset.swiperInit === '1') return;
     outerEl.dataset.swiperInit = '1';
 
-    // Outer swiper
+    // Inner galleries per card (inizializziamo prima gli swiper interni)
+    var galleries = outerEl.querySelectorAll('.swiper-yacht-gallery');
+    galleries.forEach(function (galleryEl) {
+
+      if (galleryEl.dataset.swiperInit === '1') return;
+      galleryEl.dataset.swiperInit = '1';
+
+      var next = galleryEl.querySelector('.yacht-gallery-next');
+      var prev = galleryEl.querySelector('.yacht-gallery-prev');
+
+      new Swiper(galleryEl, {
+        slidesPerView: 1,
+        loop: false,
+        speed: 450,
+        nested: true,
+        navigation: { nextEl: next, prevEl: prev }
+      });
+    });
+
+    // Outer swiper (inizializziamo dopo gli inner)
     new Swiper(outerEl, {
       slidesPerView: 3,
       spaceBetween: 28,
       speed: 500,
+      touchRatio: 0.2,
+      resistanceRatio: 0.85,
       navigation: {
         nextEl: '.yachts-outer-next',
         prevEl: '.yachts-outer-prev'
@@ -351,24 +372,6 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
         768: { slidesPerView: 2, spaceBetween: 22 },
         1024: { slidesPerView: 3, spaceBetween: 28 }
       }
-    });
-
-    // Inner galleries per card (solo dentro questo widget)
-    var galleries = outerEl.querySelectorAll('.swiper-yacht-gallery');
-    galleries.forEach(function (galleryEl) {
-
-      if (galleryEl.dataset.swiperInit === '1') return;
-      galleryEl.dataset.swiperInit = '1';
-
-      var next = galleryEl.querySelector('.yacht-gallery-next');
-      var prev = galleryEl.querySelector('.yacht-gallery-prev');
-
-      new Swiper(galleryEl, {
-        slidesPerView: 1,
-        loop: true,
-        speed: 450,
-        navigation: { nextEl: next, prevEl: prev }
-      });
     });
   }
 

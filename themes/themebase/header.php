@@ -72,6 +72,31 @@
 	  </div>
 	</header>
 
+    <script>
+    (function() {
+      let lastScroll = 0;
+      const header = document.querySelector('.site-header');
+      
+      window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll <= 0) {
+          // At top: remove all classes
+          header.classList.remove('header-hidden', 'header-scrolled');
+        } else if (currentScroll > lastScroll) {
+          // Scrolling down: hide header
+          header.classList.add('header-hidden');
+          header.classList.remove('header-scrolled');
+        } else {
+          // Scrolling up: show header with blue background
+          header.classList.remove('header-hidden');
+          header.classList.add('header-scrolled');
+        }
+        
+        lastScroll = currentScroll;
+      });
+    })();
+    </script>
 
     <div class="cursor"></div>
     <div id="content" class="site-content">
