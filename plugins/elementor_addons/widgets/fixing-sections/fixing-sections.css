@@ -80,7 +80,7 @@
     flex-direction: column;
     gap: 36px;
     width: 100%;
-    padding: 0 20px;
+    padding: 0;
   }
   .fs-col-text,
   .fs-col-media {
