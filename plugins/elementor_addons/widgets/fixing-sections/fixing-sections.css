@@ -79,18 +79,27 @@
   .fs-row {
     flex-direction: column;
     gap: 36px;
+    width: 100%;
+    padding: 0 20px;
   }
   .fs-col-text,
   .fs-col-media {
     flex: 1 1 auto;
   }
   .fs-col-text {
-    height: auto;
+    height: auto !important;
   }
   .fs-media-frame {
-    height: auto;
+    height: 550px !important;
+  }
+  .fs-media-img {
+    height: 550px !important;
+    transform: none !important;
   }
   .fs-desc {
     max-width: 100%;
+  }
+  .fs-section.is-reversed .fs-row {
+    flex-direction: column;
   }
 }

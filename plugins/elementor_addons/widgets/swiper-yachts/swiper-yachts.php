@@ -368,7 +368,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
         dragSize: 'auto'
       },
       breakpoints: {
-        0: { slidesPerView: 1.1, spaceBetween: 16 },
+        0: { slidesPerView: 1, spaceBetween: 16 },
         768: { slidesPerView: 2, spaceBetween: 22 },
         1024: { slidesPerView: 3, spaceBetween: 28 }
       }

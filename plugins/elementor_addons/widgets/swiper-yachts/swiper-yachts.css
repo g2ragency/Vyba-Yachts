@@ -232,7 +232,7 @@
 .swiper-yachts-widget .swiper-navigation {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0px;
   flex-shrink: 0;
 }
 
