@@ -69,6 +69,47 @@
 			));
 		  ?>
 		</div>
+
+		<!-- Mobile Menu Toggle -->
+		<button class="mobile-menu-toggle" aria-label="Menu">
+		  <span></span>
+		  <span></span>
+		  <span></span>
+		</button>
+	  </div>
+
+	  <!-- Mobile Menu Overlay -->
+	  <div class="mobile-menu-overlay">
+		<div class="mobile-menu-header">
+		  <img src="/wp-content/uploads/2025/12/logo.png" alt="Logo" class="mobile-menu-logo">
+		  <button class="mobile-menu-close" aria-label="Close">
+			<span></span>
+			<span></span>
+		  </button>
+		</div>
+		<nav class="mobile-menu-nav">
+		  <?php
+			$left_menu = wp_get_nav_menu_items(get_nav_menu_locations()['primary-left']);
+			$right_menu = wp_get_nav_menu_items(get_nav_menu_locations()['primary-right']);
+			$all_menu_items = array_merge($left_menu ? $left_menu : [], $right_menu ? $right_menu : []);
+			
+			if ($all_menu_items) {
+			  echo '<ul class="mobile-menu-list">';
+			  foreach ($all_menu_items as $item) {
+				echo '<li><a href="' . $item->url . '">' . $item->title . '</a></li>';
+			  }
+			  echo '</ul>';
+			}
+		  ?>
+		</nav>
+		<div class="mobile-menu-footer">
+		  <p>Box 27 – Marina di Cala Galera<br>58019 Monte Argentario</p>
+		  <a href="mailto:info@vybayachts.com">info@vybayachts.com</a>
+		  <div class="mobile-menu-lang">
+			<a href="#" class="active">IT</a>
+			<a href="#">EN</a>
+		  </div>
+		</div>
 	  </div>
 	</header>
 
@@ -95,6 +136,33 @@
         
         lastScroll = currentScroll;
       });
+
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const menuClose = document.querySelector('.mobile-menu-close');
+      const menuOverlay = document.querySelector('.mobile-menu-overlay');
+      const body = document.body;
+
+      if (menuToggle && menuOverlay) {
+        menuToggle.addEventListener('click', function() {
+          menuOverlay.classList.add('active');
+          body.style.overflow = 'hidden';
+        });
+
+        menuClose.addEventListener('click', function() {
+          menuOverlay.classList.remove('active');
+          body.style.overflow = '';
+        });
+
+        // Close on link click
+        const menuLinks = menuOverlay.querySelectorAll('a');
+        menuLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            menuOverlay.classList.remove('active');
+            body.style.overflow = '';
+          });
+        });
+      }
     })();
     </script>
 
