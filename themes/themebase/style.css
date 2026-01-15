@@ -346,13 +346,16 @@ header.header-scrolled {
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: var(--blue);
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  padding: 20px 16px;
+  padding: 20px 16px 80px 16px;
   transform: translateX(-100%);
   transition: transform 0.4s ease;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .mobile-menu-overlay.active {
@@ -484,7 +487,7 @@ header.header-scrolled {
 
   .header-container {
     justify-content: space-between;
-    padding: 20px 16px;
+    padding: 16px;
   }
 
   .logo {
