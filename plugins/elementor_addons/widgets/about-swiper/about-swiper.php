@@ -140,7 +140,7 @@ class Elementor_Widget_About_Swiper extends \Elementor\Widget_Base {
       if (typeof Swiper === "undefined") return;
 
       const aboutSwiper = new Swiper(".about-swiper", {
-        slidesPerView: 1,
+        slidesPerView: 1.5,
         spaceBetween: 60,
         loop: false,
         navigation: {

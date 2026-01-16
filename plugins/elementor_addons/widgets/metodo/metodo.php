@@ -228,7 +228,7 @@ class Elementor_Widget_Metodo extends \Elementor\Widget_Base {
           <div class="metodo-panel__image">
             <img src="<?php echo esc_url($settings['tab1_image']['url']); ?>" alt="<?php echo esc_attr($settings['tab1_title']); ?>">
           </div>
-          <div class="metodo-panel__text">
+          <div class="metodo-panel__text" data-title="<?php echo esc_attr($settings['tab1_title']); ?>">
             <p><?php echo esc_html($settings['tab1_description']); ?></p>
           </div>
         </div>
@@ -237,7 +237,7 @@ class Elementor_Widget_Metodo extends \Elementor\Widget_Base {
           <div class="metodo-panel__image">
             <img src="<?php echo esc_url($settings['tab2_image']['url']); ?>" alt="<?php echo esc_attr($settings['tab2_title']); ?>">
           </div>
-          <div class="metodo-panel__text">
+          <div class="metodo-panel__text" data-title="<?php echo esc_attr($settings['tab2_title']); ?>">
             <p><?php echo esc_html($settings['tab2_description']); ?></p>
           </div>
         </div>
@@ -246,7 +246,7 @@ class Elementor_Widget_Metodo extends \Elementor\Widget_Base {
           <div class="metodo-panel__image">
             <img src="<?php echo esc_url($settings['tab3_image']['url']); ?>" alt="<?php echo esc_attr($settings['tab3_title']); ?>">
           </div>
-          <div class="metodo-panel__text">
+          <div class="metodo-panel__text" data-title="<?php echo esc_attr($settings['tab3_title']); ?>">
             <p><?php echo esc_html($settings['tab3_description']); ?></p>
           </div>
         </div>
@@ -255,7 +255,7 @@ class Elementor_Widget_Metodo extends \Elementor\Widget_Base {
           <div class="metodo-panel__image">
             <img src="<?php echo esc_url($settings['tab4_image']['url']); ?>" alt="<?php echo esc_attr($settings['tab4_title']); ?>">
           </div>
-          <div class="metodo-panel__text">
+          <div class="metodo-panel__text" data-title="<?php echo esc_attr($settings['tab4_title']); ?>">
             <p><?php echo esc_html($settings['tab4_description']); ?></p>
           </div>
         </div>
@@ -267,6 +267,7 @@ class Elementor_Widget_Metodo extends \Elementor\Widget_Base {
       const tabs = document.querySelectorAll('.metodo-tab');
       const panels = document.querySelectorAll('.metodo-panel');
 
+      // Desktop tabs functionality
       tabs.forEach(tab => {
         tab.addEventListener('click', function() {
           const tabIndex = this.getAttribute('data-tab');
@@ -280,6 +281,29 @@ class Elementor_Widget_Metodo extends \Elementor\Widget_Base {
           document.querySelector(`.metodo-panel[data-panel="${tabIndex}"]`).classList.add('active');
         });
       });
+
+      // Mobile accordion functionality
+      function initMobileAccordion() {
+        if (window.innerWidth <= 768) {
+          panels.forEach(panel => {
+            const textDiv = panel.querySelector('.metodo-panel__text');
+            
+            textDiv.addEventListener('click', function() {
+              const isActive = panel.classList.contains('active');
+              
+              // Chiudi tutti i panel
+              panels.forEach(p => p.classList.remove('active'));
+              
+              // Apri quello cliccato se non era già aperto
+              if (!isActive) {
+                panel.classList.add('active');
+              }
+            });
+          });
+        }
+      }
+
+      initMobileAccordion();
     });
     </script>
     <?php
