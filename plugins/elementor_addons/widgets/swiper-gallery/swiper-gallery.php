@@ -123,7 +123,7 @@ class Elementor_Widget_Swiper_Gallery extends \Elementor\Widget_Base {
           if (!swiperEl) return;
 
           var swiper = new Swiper(swiperEl, {
-            slidesPerView: 1.5,
+            slidesPerView: 1.2,
             spaceBetween: 20,
             centeredSlides: false,
             loop: false,

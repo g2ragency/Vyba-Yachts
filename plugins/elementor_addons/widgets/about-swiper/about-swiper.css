@@ -72,7 +72,7 @@
 /* Navigation Buttons */
 .about-swiper-wrapper .swiper-navigation {
   display: flex;
-  gap: 16px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
