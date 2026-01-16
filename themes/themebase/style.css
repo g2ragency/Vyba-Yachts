@@ -760,8 +760,7 @@ footer a:hover {
 
 @media (max-width: 768px) {
   .yacht-breadcrumb {
-    font-size: 13px;
-    margin-bottom: 12px;
+    display: none;
   }
 }
 
@@ -1470,13 +1469,35 @@ footer a:hover {
   }
 
   .yacht-layout {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 40px;
+  }
+
+  .yacht-main-content {
+    display: contents;
+  }
+
+  .yacht-gallery-section {
+    order: 1;
   }
 
   .yacht-sidebar {
     position: relative;
     top: 0;
+    order: 2;
+  }
+
+  .yacht-description-section {
+    order: 3;
+  }
+
+  .yacht-related-section {
+    order: 4;
+  }
+
+  .yacht-cta-section {
+    order: 5;
   }
 
   .yacht-main-image {

@@ -35,6 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateSidebar() {
+    // Disabilita sticky su mobile
+    if (window.innerWidth <= 768) {
+      sidebarInner.style.position = "static";
+      sidebarInner.style.top = "auto";
+      sidebarInner.style.bottom = "auto";
+      sidebarInner.style.width = "100%";
+      return;
+    }
+
     const sidebarHeight = sidebarInner.offsetHeight;
     const mainContentHeight = mainContent.offsetHeight;
     const scrollY = window.scrollY || window.pageYOffset;
