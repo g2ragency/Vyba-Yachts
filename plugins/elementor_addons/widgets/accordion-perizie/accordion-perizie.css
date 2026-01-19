@@ -100,6 +100,10 @@
   font-family: "Moderat Regular", sans-serif;
 }
 
+.accordion-content li {
+  font-size: 18px;
+}
+
 .accordion-item.active .accordion-content {
   max-height: 2000px;
   padding: 0 40px 40px 420px;
@@ -273,6 +277,10 @@
 
   .accordion-item.active .accordion-content {
     padding: 0 16px 26px 16px;
+  }
+
+  .accordion-content li {
+    font-size: 16px;
   }
 }
 
