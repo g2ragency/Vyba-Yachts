@@ -117,8 +117,14 @@
     (function() {
       let lastScroll = 0;
       const header = document.querySelector('.site-header');
+      let mobileMenuOpen = false;
       
       window.addEventListener('scroll', function() {
+        // Don't hide header on mobile when menu is open
+        if (window.innerWidth <= 768 && mobileMenuOpen) {
+          return;
+        }
+
         const currentScroll = window.pageYOffset;
         
         if (currentScroll <= 0) {
@@ -147,11 +153,13 @@
         menuToggle.addEventListener('click', function() {
           menuOverlay.classList.add('active');
           body.style.overflow = 'hidden';
+          mobileMenuOpen = true;
         });
 
         menuClose.addEventListener('click', function() {
           menuOverlay.classList.remove('active');
           body.style.overflow = '';
+          mobileMenuOpen = false;
         });
 
         // Close on link click
@@ -160,6 +168,7 @@
           link.addEventListener('click', function() {
             menuOverlay.classList.remove('active');
             body.style.overflow = '';
+            mobileMenuOpen = false;
           });
         });
       }
