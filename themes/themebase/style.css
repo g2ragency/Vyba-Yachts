@@ -1467,7 +1467,7 @@ footer a:hover {
 
 @media (max-width: 768px) {
   .single-yacht-container {
-    padding: 60px 24px;
+    padding: 100px 16px;
   }
 
   .yacht-layout {
@@ -1490,6 +1490,11 @@ footer a:hover {
     order: 2;
   }
 
+  .yacht-sidebar-inner {
+    background: transparent;
+    padding: 0;
+  }
+
   .yacht-description-section {
     order: 3;
   }
@@ -1506,14 +1511,15 @@ footer a:hover {
     height: 300px;
   }
 
-  .yacht-thumbnails {
-    grid-template-columns: repeat(2, 1fr);
+  .yacht-thumbnails-container {
+    display: none;
   }
 
   .yacht-description-section,
   .yacht-related-section,
   .yacht-cta-section {
-    padding: 30px 24px;
+    padding: 0;
+    width: 100%;
   }
 }
 
@@ -1698,5 +1704,38 @@ footer a:hover {
   .yacht-lightbox-close {
     top: 10px;
     right: 10px;
+  }
+
+  .yacht-main-content > * + * {
+    margin-top: 60px;
+  }
+
+  .section-title {
+    font-size: 26px;
+  }
+
+  .yacht-cta-section h3 {
+    max-width: 100%;
+    font-size: 26px;
+  }
+
+  .yacht-cta-section .p-cta {
+    max-width: 100%;
+  }
+
+  .yacht-nav-prev {
+    left: 0px;
+  }
+
+  .yacht-nav-next {
+    right: 0px;
+  }
+
+  .yacht-nav-arrow:hover {
+    background: transparent;
+  }
+
+  .yacht-related-section h3 {
+    max-width: 100%;
   }
 }
