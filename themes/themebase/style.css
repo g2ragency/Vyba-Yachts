@@ -1738,4 +1738,8 @@ footer a:hover {
   .yacht-related-section h3 {
     max-width: 100%;
   }
+
+  .yacht-related-carousel {
+    padding-bottom: 0;
+  }
 }
