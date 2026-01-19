@@ -231,9 +231,27 @@ class Elementor_Widget_Yacht_Composition extends \Elementor\Widget_Base {
 
       <div class="composition-content">
         <?php foreach ($tabs as $index => $tab) : ?>
-          <div class="composition-panel <?php echo $index === 0 ? 'active' : ''; ?>" data-panel="<?php echo $index; ?>">
+          <div class="composition-panel composition-accordion-item <?php echo $index === 0 ? 'active' : ''; ?>" data-panel="<?php echo $index; ?>">
+            
+            <div class="composition-accordion-header">
+              <h4 class="composition-accordion-title"><?php echo esc_html($tab['title']); ?></h4>
+              <div class="composition-accordion-icons">
+                <span class="composition-accordion-arrow">
+                  <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M35 1.37622L1 35.3762" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M1.43506 1L34.876 1.00005C35.1522 1.00005 35.376 1.22391 35.376 1.50005L35.3761 34.941" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
             <?php if (!empty($tab['image'])) : ?>
-              <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['title']); ?>" />
+              <div class="composition-image-desktop">
+                <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['title']); ?>" />
+              </div>
+              <div class="composition-image-mobile">
+                <img src="<?php echo esc_url($tab['image']); ?>" alt="<?php echo esc_attr($tab['title']); ?>" />
+              </div>
             <?php endif; ?>
           </div>
         <?php endforeach; ?>
@@ -248,7 +266,9 @@ class Elementor_Widget_Yacht_Composition extends \Elementor\Widget_Base {
 
         var tabs = widget.querySelectorAll('.composition-tab');
         var panels = widget.querySelectorAll('.composition-panel');
+        var accordionHeaders = widget.querySelectorAll('.composition-accordion-header');
 
+        // Desktop tabs functionality
         tabs.forEach(function(tab) {
           tab.addEventListener('click', function() {
             var tabIndex = this.getAttribute('data-tab');
@@ -262,6 +282,26 @@ class Elementor_Widget_Yacht_Composition extends \Elementor\Widget_Base {
             var activePanel = widget.querySelector('.composition-panel[data-panel="' + tabIndex + '"]');
             if (activePanel) {
               activePanel.classList.add('active');
+            }
+          });
+        });
+
+        // Mobile accordion functionality
+        accordionHeaders.forEach(function(header) {
+          header.addEventListener('click', function() {
+            if (window.innerWidth > 768) return; // Only on mobile
+            
+            var item = this.closest('.composition-accordion-item');
+            var isActive = item.classList.contains('active');
+
+            // Close all items
+            panels.forEach(function(panel) {
+              panel.classList.remove('active');
+            });
+
+            // Toggle current item
+            if (!isActive) {
+              item.classList.add('active');
             }
           });
         });

@@ -76,6 +76,19 @@
   user-select: none;
 }
 
+/* Mobile accordion elements - hidden on desktop */
+.composition-accordion-header {
+  display: none;
+}
+
+.composition-image-mobile {
+  display: none;
+}
+
+.composition-image-desktop {
+  display: block;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .composition-tabs {
@@ -89,15 +102,94 @@
 }
 
 @media (max-width: 768px) {
+  /* Hide desktop tabs */
   .composition-tabs {
-    margin-bottom: 40px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    display: none;
   }
 
-  .composition-tab {
-    font-size: 14px;
-    padding: 16px 20px;
+  /* Show accordion layout */
+  .composition-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .composition-panel {
+    display: flex !important;
+    flex-direction: column;
+    opacity: 1 !important;
+    border-bottom: 1px solid var(--grey);
+  }
+
+  .composition-panel:first-child {
+    border-top: 1px solid var(--grey);
+  }
+
+  .composition-accordion-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 26px 16px;
+    cursor: pointer;
+    order: 1;
+  }
+
+  .composition-accordion-title {
+    font-family: "Moderat Extended Bold", sans-serif;
+    font-size: 22px;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin: 0;
+    flex: 1;
+  }
+
+  .composition-accordion-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .composition-accordion-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    transition: transform 0.3s ease;
+  }
+
+  .composition-accordion-arrow svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .composition-panel.active .composition-accordion-arrow {
+    transform: rotate(90deg);
+  }
+
+  .composition-image-desktop {
+    display: none;
+  }
+
+  .composition-image-mobile {
+    display: none;
+    width: 100%;
+    order: 2;
+  }
+
+  .composition-panel.active .composition-image-mobile {
+    display: block;
+    padding: 16px;
+  }
+
+  .composition-image-mobile img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
   }
 }
 
