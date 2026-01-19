@@ -121,7 +121,7 @@ class Elementor_Widget_Accordion_Perizie extends \Elementor\Widget_Base {
           <div class="accordion-header">
             <div class="accordion-header-content">
               <?php if (!empty($item['image']['url'])) : ?>
-                <div class="accordion-thumbnail">
+                <div class="accordion-thumbnail accordion-thumbnail-header">
                   <img src="<?php echo esc_url($item['image']['url']); ?>" alt="<?php echo esc_attr($item['title']); ?>" />
                 </div>
               <?php endif; ?>
@@ -138,6 +138,12 @@ class Elementor_Widget_Accordion_Perizie extends \Elementor\Widget_Base {
               </span>
             </div>
           </div>
+
+          <?php if (!empty($item['image']['url'])) : ?>
+            <div class="accordion-thumbnail accordion-thumbnail-mobile">
+              <img src="<?php echo esc_url($item['image']['url']); ?>" alt="<?php echo esc_attr($item['title']); ?>" />
+            </div>
+          <?php endif; ?>
 
           <div class="accordion-content">
             <?php echo wp_kses_post($item['description']); ?>

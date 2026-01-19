@@ -92,7 +92,9 @@
 .accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.5s ease;
+  transition:
+    max-height 0.5s ease,
+    padding 0.5s ease;
   padding: 0 40px 0 420px; /* 40px + 318px thumbnail + 32px gap */
 }
 
@@ -111,6 +113,10 @@
 
 .accordion-content p:last-child {
   margin-bottom: 0;
+}
+
+.accordion-thumbnail-mobile {
+  display: none;
 }
 
 /* Responsive */
@@ -199,38 +205,72 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .accordion-header {
-    padding: 20px 24px;
+  .accordion-item {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+  }
+
+  .accordion-header {
+    padding: 26px 16px;
+    flex-direction: row;
+    align-items: center;
     gap: 16px;
+    order: 1;
   }
 
   .accordion-header-content {
-    width: 100%;
     gap: 16px;
+    flex: 1;
   }
 
-  .accordion-thumbnail {
-    width: 100px;
-    height: 70px;
+  .accordion-thumbnail-header {
+    display: none;
+  }
+
+  .accordion-thumbnail-mobile {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+    order: 3;
+  }
+
+  .accordion-thumbnail-mobile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 5px;
   }
 
   .accordion-title {
-    font-size: 16px;
+    font-size: 22px;
   }
 
   .accordion-icons {
-    width: 100%;
-    justify-content: flex-end;
+    gap: 16px;
+    flex-shrink: 0;
+    width: 20%;
+  }
+
+  .accordion-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .accordion-arrow svg {
+    width: 32px;
+    height: 32px;
   }
 
   .accordion-content {
-    padding: 0 24px 0 140px; /* 24px + 100px thumbnail + 16px gap */
+    padding: 0 16px;
+    order: 2;
   }
 
   .accordion-item.active .accordion-content {
-    padding: 0 24px 24px 140px;
+    padding: 0 16px 26px 16px;
   }
 }
 
@@ -243,12 +283,15 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    width: 80%;
   }
 
   .accordion-thumbnail {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
+    padding: 0 16px 16px 16px;
+    border-radius: 5px;
   }
 
   .accordion-title {
@@ -265,5 +308,9 @@
 
   .accordion-content p {
     font-size: 14px;
+  }
+
+  .accordion-content p {
+    max-width: 100%;
   }
 }
