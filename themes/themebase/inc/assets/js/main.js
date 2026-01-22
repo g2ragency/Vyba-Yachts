@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const scrollRange = scrollEnd - scrollStart;
     const scrollProgress = Math.min(
       Math.max(scrollPos - scrollStart, 0),
-      scrollRange
+      scrollRange,
     );
 
     // Calcoliamo lo zoom in base alla posizione dello scroll
@@ -39,4 +39,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Chiamiamo una volta all'inizio
   zoomEffect();
+});
+
+// Mobile button click animation
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.innerWidth <= 992) {
+    const buttons = document.querySelectorAll(".hov-btn.learn-more");
+
+    buttons.forEach((button) => {
+      button.addEventListener("touchstart", function (e) {
+        this.classList.add("clicked");
+      });
+
+      button.addEventListener("touchend", function (e) {
+        const self = this;
+        setTimeout(function () {
+          self.classList.remove("clicked");
+        }, 300);
+      });
+
+      button.addEventListener("click", function (e) {
+        if (window.innerWidth <= 992) {
+          this.classList.add("clicked");
+          const self = this;
+          setTimeout(function () {
+            self.classList.remove("clicked");
+          }, 300);
+        }
+      });
+    });
+  }
 });

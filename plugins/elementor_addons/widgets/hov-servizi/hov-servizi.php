@@ -113,15 +113,12 @@ class Elementor_Widget_Hov_Servizi extends \Elementor\Widget_Base {
                     $title = $item['service_title'];
                     $link = $item['service_link']['url'];
                     $image_url = $item['service_image']['url'];
-                    $target = $item['service_link']['is_external'] ? ' target="_blank"' : '';
-                    $nofollow = $item['service_link']['nofollow'] ? ' rel="nofollow"' : '';
                     ?>
                     
                     <a 
                         href="<?php echo esc_url($link); ?>"
                         class="service-item"
                         data-image-src="<?php echo esc_url($image_url); ?>"
-                        <?php echo $target . $nofollow; ?>
                     >
                         <span class="service-title"><?php echo esc_html($title); ?></span>
                         <span class="service-arrow">

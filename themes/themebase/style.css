@@ -301,7 +301,7 @@ header.header-scrolled {
 }
 
 /* Modifiche per visualizzazione su dispositivi mobili */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .header-container {
     flex-direction: row;
   }
@@ -476,7 +476,7 @@ header.header-scrolled {
   opacity: 1;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
   .mobile-menu-toggle {
     display: flex;
   }

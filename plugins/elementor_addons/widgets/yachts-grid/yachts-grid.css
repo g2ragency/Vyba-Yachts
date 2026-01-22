@@ -277,6 +277,6 @@
 @media (max-width: 768px) {
   .yachts-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 70px;
   }
 }

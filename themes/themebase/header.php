@@ -121,7 +121,7 @@
       
       window.addEventListener('scroll', function() {
         // Don't hide header on mobile when menu is open
-        if (window.innerWidth <= 768 && mobileMenuOpen) {
+        if (window.innerWidth <= 992 && mobileMenuOpen) {
           return;
         }
 

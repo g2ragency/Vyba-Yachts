@@ -125,6 +125,17 @@
   display: none;
 }
 
+.accordion-content a {
+  color: var(--blue);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  font-family: "Moderat Extended Bold";
+}
+
+.accordion-content a:hover {
+  color: var(--gold);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .accordion-header {
@@ -322,5 +333,11 @@
 
   .accordion-content p {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .accordion-thumbnail {
+    padding: 0 16px 16px 16px !important;
   }
 }

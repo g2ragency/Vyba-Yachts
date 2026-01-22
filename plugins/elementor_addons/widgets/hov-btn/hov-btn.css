@@ -111,3 +111,35 @@
   color: var(--hover-text-color);
   transition-delay: 0.15s;
 }
+
+/* Active state for mobile touch/click */
+.hov-btn:active .circle {
+  width: 100%;
+}
+.hov-btn:active .circle .icon.arrow {
+  background: var(--arrow-hover-bg);
+  transform: translate(1rem, 0);
+}
+.hov-btn:active .button-text {
+  color: var(--hover-text-color);
+  transition-delay: 0.15s;
+}
+
+/* Mobile: apply animation on touch/click */
+@media (max-width: 992px) {
+  .hov-btn-link {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .hov-btn.clicked .circle {
+    width: 100%;
+  }
+  .hov-btn.clicked .circle .icon.arrow {
+    background: var(--arrow-hover-bg);
+    transform: translate(1rem, 0);
+  }
+  .hov-btn.clicked .button-text {
+    color: var(--hover-text-color);
+    transition-delay: 0.15s;
+  }
+}

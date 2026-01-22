@@ -93,8 +93,7 @@
     height: 550px !important;
   }
   .fs-media-img {
-    height: 550px !important;
-    transform: none !important;
+    height: 130% !important;
   }
   .fs-desc {
     max-width: 100%;
