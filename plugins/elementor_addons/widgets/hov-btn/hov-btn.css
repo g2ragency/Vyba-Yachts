@@ -78,7 +78,7 @@
   height: 0.625rem;
   border-top: 0.125rem solid var(--arrow-stroke);
   border-right: 0.125rem solid var(--arrow-stroke);
-  transform: rotate(45deg);
+  transform: rotate(45deg) !important;
 }
 .hov-btn.learn-more .button-text {
   position: relative !important; /* <-- fondamentale */
