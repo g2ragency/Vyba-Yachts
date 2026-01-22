@@ -118,21 +118,30 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  .hov-btn,
+  .hov-btn *,
   .hov-btn .circle,
+  .hov-btn .circle .icon,
   .hov-btn .circle .icon.arrow,
+  .hov-btn .circle .icon.arrow::before,
   .hov-btn .button-text {
     transition: none !important;
+    transform: none !important;
   }
 
   .hov-btn:hover .circle,
   .hov-btn:active .circle,
   .hov-btn.clicked .circle {
     width: 3rem !important;
+    transform: none !important;
   }
 
   .hov-btn:hover .circle .icon.arrow,
   .hov-btn:active .circle .icon.arrow,
-  .hov-btn.clicked .circle .icon.arrow {
+  .hov-btn.clicked .circle .icon.arrow,
+  .hov-btn:hover .circle .icon.arrow::before,
+  .hov-btn:active .circle .icon.arrow::before,
+  .hov-btn.clicked .circle .icon.arrow::before {
     background: none !important;
     transform: none !important;
   }
@@ -141,5 +150,6 @@
   .hov-btn:active .button-text,
   .hov-btn.clicked .button-text {
     color: var(--text-color) !important;
+    transform: none !important;
   }
 }
