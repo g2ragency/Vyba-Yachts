@@ -152,4 +152,9 @@
     color: var(--text-color) !important;
     transform: none !important;
   }
+
+  .hov-btn.learn-more:hover .circle,
+  .hov-btn.learn-more:active .circle,
+  .hov-btn.learn-more.clicked .circle {
+    transform: rotate(45deg) !important;
 }
