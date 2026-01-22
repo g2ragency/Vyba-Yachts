@@ -112,34 +112,34 @@
   transition-delay: 0.15s;
 }
 
-/* Active state for mobile touch/click */
-.hov-btn:active .circle {
-  width: 100%;
-}
-.hov-btn:active .circle .icon.arrow {
-  background: var(--arrow-hover-bg);
-  transform: translate(1rem, 0);
-}
-.hov-btn:active .button-text {
-  color: var(--hover-text-color);
-  transition-delay: 0.15s;
-}
-
-/* Mobile: apply animation on touch/click */
+/* Mobile: disable all animations */
 @media (max-width: 992px) {
   .hov-btn-link {
     -webkit-tap-highlight-color: transparent;
   }
 
+  .hov-btn .circle,
+  .hov-btn .circle .icon.arrow,
+  .hov-btn .button-text {
+    transition: none !important;
+  }
+
+  .hov-btn:hover .circle,
+  .hov-btn:active .circle,
   .hov-btn.clicked .circle {
-    width: 100%;
+    width: 3rem !important;
   }
+
+  .hov-btn:hover .circle .icon.arrow,
+  .hov-btn:active .circle .icon.arrow,
   .hov-btn.clicked .circle .icon.arrow {
-    background: var(--arrow-hover-bg);
-    transform: translate(1rem, 0);
+    background: none !important;
+    transform: none !important;
   }
+
+  .hov-btn:hover .button-text,
+  .hov-btn:active .button-text,
   .hov-btn.clicked .button-text {
-    color: var(--hover-text-color);
-    transition-delay: 0.15s;
+    color: var(--text-color) !important;
   }
 }
