@@ -95,9 +95,8 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
   protected function render() {
     $settings = $this->get_settings_for_display();
     $exclude_ids = !empty($settings['exclude_posti']) ? $settings['exclude_posti'] : [];
-    $tipo = $settings['tipo_posto_barca'] ?? 'all';
 
-    // Query posti barca
+    // Query tutti i posti barca (ignoriamo il filtro tipo, gestiamo via JS)
     $args = [
       'post_type'      => 'posto_barca',
       'post_status'    => 'publish',
@@ -110,17 +109,6 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
       $args['post__not_in'] = $exclude_ids;
     }
 
-    // Filtra per tipo se non è "all"
-    if ($tipo !== 'all') {
-      $args['tax_query'] = [
-        [
-          'taxonomy' => 'tipo_posto_barca',
-          'field'    => 'slug',
-          'terms'    => $tipo,
-        ],
-      ];
-    }
-
     $query = new \WP_Query($args);
 
     if (!$query->have_posts()) {
@@ -131,7 +119,21 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
     $uid = $this->get_id();
     ?>
 
-    <div class="posti-barca-grid-widget">
+    <div class="posti-barca-grid-widget" id="posti-barca-<?php echo esc_attr($uid); ?>">
+      
+      <!-- Tabs Filtro -->
+      <div class="posti-barca-tabs">
+        <button class="posti-barca-tab active" data-filter="all">
+          TUTTI
+        </button>
+        <button class="posti-barca-tab" data-filter="vendita">
+          VENDITA
+        </button>
+        <button class="posti-barca-tab" data-filter="affitto">
+          AFFITTO
+        </button>
+      </div>
+
       <div class="posti-barca-grid">
 
         <?php while ($query->have_posts()) : $query->the_post();
@@ -142,8 +144,10 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
 
           // Recupera il tipo (affitto o vendita)
           $terms = wp_get_post_terms($post_id, 'tipo_posto_barca');
+          $tipo_slug = '';
           $tipo_label = '';
           if (!empty($terms) && !is_wp_error($terms)) {
+            $tipo_slug = $terms[0]->slug;
             $tipo_label = $terms[0]->name;
           }
 
@@ -160,9 +164,15 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
           $alt = $thumb_id ? get_post_meta($thumb_id, '_wp_attachment_image_alt', true) : '';
         ?>
 
-          <article class="posto-barca-grid-card">
+          <article class="posto-barca-grid-card" data-tipo="<?php echo esc_attr($tipo_slug); ?>">
 
             <div class="posto-barca-grid-card__media">
+              <?php if ($tipo_label) : ?>
+                <span class="posto-barca-grid-card__label">
+                  <?php echo esc_html(strtoupper($tipo_label)); ?>
+                </span>
+              <?php endif; ?>
+              
               <?php if ($img_url) : ?>
                 <img
                   src="<?php echo esc_url($img_url); ?>"
@@ -210,6 +220,39 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
 
       </div>
     </div>
+
+    <script>
+    (function() {
+      var widget = document.getElementById('posti-barca-<?php echo esc_js($uid); ?>');
+      if (!widget) return;
+
+      var tabs = widget.querySelectorAll('.posti-barca-tab');
+      var cards = widget.querySelectorAll('.posto-barca-grid-card');
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var filter = this.getAttribute('data-filter');
+
+          // Update active tab
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          this.classList.add('active');
+
+          // Filter cards
+          cards.forEach(function(card) {
+            var tipo = card.getAttribute('data-tipo');
+            
+            if (filter === 'all') {
+              card.style.display = 'flex';
+            } else if (tipo === filter) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+    </script>
     <?php
   }
 
