@@ -294,4 +294,12 @@
     grid-template-columns: 1fr;
     gap: 20px;
   }
+
+  .posti-barca-tabs {
+    width: 100%;
+  }
+
+  .posti-barca-tab {
+    padding: 12px 24px;
+  }
 }
