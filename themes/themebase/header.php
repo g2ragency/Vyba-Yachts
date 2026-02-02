@@ -57,7 +57,7 @@
 		<!-- Logo al centro -->
 		<div class="logo-container">
 		  <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="Homepage">
-			<img src="/wp-content/uploads/2025/12/logo.png" alt="Logo" class="logo">
+			<img src="/wp-content/uploads/2026/02/Vyba-yachts-logo-1.png" alt="Logo" class="logo">
 		  </a>
 		</div>
 
@@ -83,7 +83,7 @@
 	  <!-- Mobile Menu Overlay -->
 	  <div class="mobile-menu-overlay">
 		<div class="mobile-menu-header">
-		  <img src="/wp-content/uploads/2025/12/logo.png" alt="Logo" class="mobile-menu-logo">
+		  <img src="/wp-content/uploads/2026/02/Vyba-yachts-logo-1.png" alt="Logo" class="mobile-menu-logo">
 		  <button class="mobile-menu-close" aria-label="Close">
 			<span></span>
 			<span></span>

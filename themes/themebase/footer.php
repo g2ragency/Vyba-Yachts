@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 col-md-5">
                 <div class="footer-first-row">
-                    <img src="/wp-content/uploads/2025/12/footer-logo.png" alt="Footer Logo" class="footer-logo">
+                    <img src="/wp-content/uploads/2026/02/Vyba-yachts-logo-1.png" alt="Footer Logo" class="footer-logo">
                 </div>
                 <div class="footer-second-row">
                     <p class="footer-text">Nome Cognome: +39 339 11 22 333</p>
@@ -12,7 +12,7 @@
                     <p class="footer-text">info@vybayachts.com</p>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 col-2nd">
                 <div class="footer-first-row">
                     <p>WEBSITE</p>
                 </div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 col-3rd">
                 <div class="footer-first-row">
                     <p>VYBA YACHTS</p>
                 </div>

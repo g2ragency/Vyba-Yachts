@@ -267,12 +267,12 @@ header.header-scrolled {
 /* Contenitore del logo, centrato */
 .logo-container {
   text-align: center;
-  flex: 0 1 auto; /* Impedisce che il logo cresca */
+  flex: 0 1 auto;
 }
 
 /* Immagine del logo */
 .logo {
-  max-width: 260px; /* Puoi regolare la dimensione del logo */
+  max-width: 180px;
 }
 
 /* Menu principale */
@@ -604,7 +604,7 @@ header.header-scrolled {
 
 /* FOOTER */
 footer {
-  padding: 120px 46px;
+  padding: 100px 46px 120px 46px;
   background: var(--blue);
 }
 
@@ -640,6 +640,11 @@ footer a:hover {
 
 .footer-second-row {
   padding-top: 16px;
+}
+
+.col-2nd,
+.col-3rd {
+  padding-top: 40px;
 }
 
 /* Footer menus sdoppiati */
