@@ -164,18 +164,36 @@
 
 .posto-barca-grid-card__title {
   color: var(--blue);
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
-.posto-barca-grid-card__excerpt {
-  color: var(--grey);
+.posto-barca-grid-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-bottom: 16px;
+}
+
+.posto-barca-detail {
+  display: block;
   font-size: 15px;
   line-height: 1.6;
-  margin-bottom: 12px;
+}
+
+.posto-barca-detail .detail-label {
+  font-family: "Moderat Extended Bold";
+  color: var(--blue);
+  display: inline;
+}
+
+.posto-barca-detail .detail-value {
+  font-family: "Moderat Regular";
+  color: var(--grey);
+  display: inline;
 }
 
 .posto-barca-grid-card__cta {
-  margin-top: 16px;
+  margin-top: auto;
 }
 
 /* Stile hov-btn per il widget posto barca grid */

@@ -335,3 +335,65 @@ function posto_barca_admin_notices() {
 
 // La foto di copertina viene gestita tramite l'immagine in evidenza di WordPress
 // Non è necessaria una galleria separata
+
+// Aggiungi i campi ACF per i posti barca
+add_action('acf/init', 'posti_barca_add_custom_fields');
+
+function posti_barca_add_custom_fields() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group(array(
+            'key' => 'group_posti_barca_details',
+            'title' => 'Dettagli Posto Barca',
+            'fields' => array(
+                array(
+                    'key' => 'field_posto_barca_descrizione',
+                    'label' => 'Descrizione',
+                    'name' => 'posto_barca_descrizione',
+                    'type' => 'textarea',
+                    'instructions' => 'Inserisci la descrizione del posto barca',
+                    'required' => 0,
+                    'rows' => 4,
+                ),
+                array(
+                    'key' => 'field_posto_barca_larghezza',
+                    'label' => 'Larghezza',
+                    'name' => 'posto_barca_larghezza',
+                    'type' => 'text',
+                    'instructions' => 'Es: 5m',
+                    'required' => 0,
+                ),
+                array(
+                    'key' => 'field_posto_barca_lunghezza',
+                    'label' => 'Lunghezza',
+                    'name' => 'posto_barca_lunghezza',
+                    'type' => 'text',
+                    'instructions' => 'Es: 15m',
+                    'required' => 0,
+                ),
+                array(
+                    'key' => 'field_posto_barca_servizi',
+                    'label' => 'Servizi',
+                    'name' => 'posto_barca_servizi',
+                    'type' => 'textarea',
+                    'instructions' => 'Inserisci i servizi disponibili',
+                    'required' => 0,
+                    'rows' => 3,
+                ),
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'posto_barca',
+                    ),
+                ),
+            ),
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+        ));
+    }
+}

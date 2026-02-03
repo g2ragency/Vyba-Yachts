@@ -158,6 +158,12 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
             $categoria_label = $categorie[0]->name;
           }
 
+          // Recupera i campi ACF
+          $descrizione = get_field('posto_barca_descrizione', $post_id);
+          $larghezza = get_field('posto_barca_larghezza', $post_id);
+          $lunghezza = get_field('posto_barca_lunghezza', $post_id);
+          $servizi = get_field('posto_barca_servizi', $post_id);
+
           // Immagine in evidenza
           $thumb_id = get_post_thumbnail_id($post_id);
           $img_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'large') : '';
@@ -198,11 +204,35 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
                 <?php echo esc_html($title); ?>
               </h5>
 
-              <?php if ($excerpt) : ?>
-                <div class="posto-barca-grid-card__excerpt">
-                  <?php echo wp_kses_post($excerpt); ?>
-                </div>
-              <?php endif; ?>
+              <div class="posto-barca-grid-card__details">
+                <?php if ($descrizione) : ?>
+                  <div class="posto-barca-detail">
+                    <span class="detail-label">Descrizione:</span>
+                    <span class="detail-value"><?php echo esc_html($descrizione); ?></span>
+                  </div>
+                <?php endif; ?>
+
+                <?php if ($larghezza) : ?>
+                  <div class="posto-barca-detail">
+                    <span class="detail-label">Larghezza:</span>
+                    <span class="detail-value"><?php echo esc_html($larghezza); ?></span>
+                  </div>
+                <?php endif; ?>
+
+                <?php if ($lunghezza) : ?>
+                  <div class="posto-barca-detail">
+                    <span class="detail-label">Lunghezza:</span>
+                    <span class="detail-value"><?php echo esc_html($lunghezza); ?></span>
+                  </div>
+                <?php endif; ?>
+
+                <?php if ($servizi) : ?>
+                  <div class="posto-barca-detail">
+                    <span class="detail-label">Servizi:</span>
+                    <span class="detail-value"><?php echo esc_html($servizi); ?></span>
+                  </div>
+                <?php endif; ?>
+              </div>
 
               <div class="posto-barca-grid-card__cta">
                 <a class="hov-btn learn-more" href="<?php echo esc_url($permalink); ?>">
