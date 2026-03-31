@@ -105,6 +105,12 @@ function wp_bootstrap_starter_scripts() {
 		wp_enqueue_script('yacht-gallery', get_template_directory_uri() . '/inc/assets/js/yacht-gallery.js', array(), '1.0', true);
 	}
 	
+	// Enqueue sticky sidebar script only on single charter pages
+	if (is_singular('charter')) {
+		wp_enqueue_script('charter-sticky-sidebar', get_template_directory_uri() . '/inc/assets/js/charter-sticky-sidebar.js', array(), '1.0', true);
+		wp_enqueue_script('charter-gallery', get_template_directory_uri() . '/inc/assets/js/charter-gallery.js', array(), '1.0', true);
+	}
+	
 }
 add_action( 'wp_enqueue_scripts', 'wp_bootstrap_starter_scripts' );
 

@@ -1,5 +1,7 @@
 __( 'Unexpected response from server', 'elementor' );
 __( 'Unexpected response from server', 'elementor' );
+__( 'Stop syncing to Global Colors', 'elementor' );
+__( 'Sync to Global Colors', 'elementor' );
 __( 'Give your variable a name.', 'elementor' );
 __( 'Add a value to complete your variable.', 'elementor' );
 __( 'Use letters, numbers, dashes (-), or underscores (_) for the name.', 'elementor' );
@@ -16,10 +18,16 @@ __( 'Missing variable', 'elementor' );
 __( 'Variables', 'elementor' );
 __( 'Create variable', 'elementor' );
 __( 'Variables Manager', 'elementor' );
-/* translators: %s: Variable Type. */
-__( 'Create your first %s variable', 'elementor' );
 __( 'Variables', 'elementor' );
 __( 'Search', 'elementor' );
+/* translators: %s: Variable Type. */
+__( 'Upgrade to continue creating and editing %s variables.', 'elementor' );
+/* translators: %s: Variable Type. */
+__( 'No %s variables yet', 'elementor' );
+/* translators: %s: Variable Type. */
+__( 'Upgrade to create %s variables and maintain consistent element sizing.', 'elementor' );
+/* translators: %s: Variable Type. */
+__( 'Create your first %s variable', 'elementor' );
 __(
 						'Variables are saved attributes that you can apply anywhere on your site.',
 						'elementor'
@@ -59,7 +67,20 @@ __( 'You have unsaved changes', 'elementor' );
 __( 'To avoid losing your updates, save your changes before leaving.', 'elementor' );
 __( 'Discard', 'elementor' );
 __( 'Save', 'elementor' );
+__( 'Stop syncing variable color', 'elementor' );
+__(
+						'This will disconnect the variable color from Global Colors. Existing uses on your site will automatically switch to a default color.',
+						'elementor'
+					);
+__( 'Cancel', 'elementor' );
+__( 'Got it', 'elementor' );
+__( "Don't show again", 'elementor' );
 __( 'Add variable', 'elementor' );
+/* translators: %s: Variable Type. */
+__( '%s variables', 'elementor' );
+/* translators: %s: Variable Type. */
+__( 'Upgrade to continue creating and editing %s variables.', 'elementor' );
+__( 'Upgrade now', 'elementor' );
 __( 'Sorry, nothing matched', 'elementor' );
 __( 'Try something else.', 'elementor' );
 __( 'Clear & try again', 'elementor' );
@@ -77,9 +98,9 @@ __(
 __( 'Clear', 'elementor' );
 __( 'Select variable', 'elementor' );
 __( 'Edit variable', 'elementor' );
-__( 'Create a variable', 'elementor' );
 __( 'There are no variables', 'elementor' );
 __( 'With your current role, you can only connect and detach variables.', 'elementor' );
+__( 'Create a variable', 'elementor' );
 __( 'Changes to variables go live right away.', 'elementor' );
 __(
 						"Don't worry - all other changes you make will wait until you publish your site.",
@@ -99,8 +120,6 @@ __(
 __( 'Delete this variable?', 'elementor' );
 __( 'All elements using', 'elementor' );
 __( 'will keep their current values, but the variable itself will be removed.', 'elementor' );
-__( 'Not now', 'elementor' );
-__( 'Delete', 'elementor' );
 __( 'Font family', 'elementor' );
 __( 'Missing variable', 'elementor' );
 __( 'changed', 'elementor' );

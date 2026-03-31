@@ -1,13 +1,27 @@
 /*!
-* tabbable 6.3.0
+* tabbable 6.4.0
 * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
 */
+
+/*! ../../../components/outline-overlay */
+
+/*! ../../../composition-builder/composition-builder */
 
 /*! ../../renderers/multi-props */
 
 /*! ../../resources/widgets-schema-resource */
 
+/*! ../../utils/command-utils */
+
 /*! ../../utils/do-update-element-property */
+
+/*! ../../utils/get-composition-target-container */
+
+/*! ../../utils/validate-input */
+
+/*! ../base */
+
+/*! ../create-templated-element-type */
 
 /*! ../create-transformer */
 
@@ -23,27 +37,29 @@
 
 /*! ../hooks/use-style-items */
 
+/*! ../mcp/utils/do-update-element-property */
+
+/*! ../mcp/utils/validate-input */
+
 /*! ../renderers/create-dom-renderer */
 
 /*! ../renderers/create-props-resolver */
 
 /*! ../renderers/create-styles-renderer */
 
+/*! ../resources/widgets-schema-resource */
+
 /*! ../settings-transformers-registry */
 
 /*! ../style-transformers-registry */
 
-/*! ../sync/enqueue-font */
-
-/*! ../sync/get-canvas-iframe-document */
-
-/*! ../utils */
-
 /*! ../utils/abort-previous-runs */
 
-/*! ../utils/inline-editing-utils */
+/*! ../utils/command-utils */
 
 /*! ../utils/signalized-process */
+
+/*! ./canvas-inline-editor */
 
 /*! ./cjs/react-jsx-runtime.development.js */
 
@@ -57,27 +73,51 @@
 
 /*! ./create-element-type */
 
+/*! ./create-nested-templated-element-type */
+
 /*! ./create-templated-element-type */
 
 /*! ./errors */
 
+/*! ./form-structure/enforce-form-ancestor-commands */
+
+/*! ./form-structure/prevent-form-nesting-commands */
+
 /*! ./init */
+
+/*! ./init-legacy-views */
 
 /*! ./init-settings-transformers */
 
 /*! ./init-style-transformers */
 
-/*! ./inline-editor-overlay */
+/*! ./inline-editing-eligibility */
+
+/*! ./inline-editing-utils */
+
+/*! ./inline-editing/inline-editing-elements */
+
+/*! ./legacy/create-nested-templated-element-type */
 
 /*! ./legacy/create-templated-element-type */
 
 /*! ./legacy/init-legacy-views */
+
+/*! ./legacy/replacements/manager */
+
+/*! ./legacy/tabs-model-extensions */
 
 /*! ./legacy/types */
 
 /*! ./mcp/canvas-mcp */
 
 /*! ./mcp/mcp-description */
+
+/*! ./mcp/resources/breakpoints-resource */
+
+/*! ./mcp/resources/document-structure-resource */
+
+/*! ./mcp/resources/widgets-schema-resource */
 
 /*! ./multi-props */
 
@@ -91,7 +131,15 @@
 
 /*! ./renderers/create-props-resolver */
 
+/*! ./renderers/errors */
+
+/*! ./replacements/manager */
+
 /*! ./reset-style */
+
+/*! ./resources/breakpoints-resource */
+
+/*! ./resources/document-structure-resource */
 
 /*! ./resources/widgets-schema-resource */
 
@@ -104,8 +152,6 @@
 /*! ./style-transformers-registry */
 
 /*! ./sync/drag-element-from-panel */
-
-/*! ./sync/get-canvas-iframe-document */
 
 /*! ./tools/build-composition/tool */
 
@@ -123,6 +169,10 @@
 
 /*! ./transformers/settings/date-time-transformer */
 
+/*! ./transformers/settings/html-v2-transformer */
+
+/*! ./transformers/settings/html-v3-transformer */
+
 /*! ./transformers/settings/link-transformer */
 
 /*! ./transformers/settings/query-transformer */
@@ -132,6 +182,8 @@
 /*! ./transformers/shared/image-transformer */
 
 /*! ./transformers/shared/plain-transformer */
+
+/*! ./transformers/shared/video-src-transformer */
 
 /*! ./transformers/styles/background-color-overlay-transformer */
 
@@ -179,6 +231,8 @@
 
 /*! ./transformers/styles/transition-transformer */
 
+/*! ./twig-rendering-utils */
+
 /*! ./undoable-actions/paste-element-style */
 
 /*! ./undoable-actions/reset-element-style */
@@ -190,6 +244,8 @@
 /*! ./use-style-renderer */
 
 /*! ./utils */
+
+/*! ./utils/command-utils */
 
 /*! @elementor/editor */
 
@@ -245,6 +301,8 @@
 
 /*! react-dom */
 
+/*! react-dom/client */
+
 /*! react/jsx-runtime */
 
 /*! tabbable */
@@ -282,8 +340,16 @@
   \*****************************************/
 
 /*!******************************************!*\
+  !*** ./node_modules/react-dom/client.js ***!
+  \******************************************/
+
+/*!******************************************!*\
   !*** external ["elementorV2","wpMedia"] ***!
   \******************************************/
+
+/*!*******************************************!*\
+  !*** ./node_modules/react/jsx-runtime.js ***!
+  \*******************************************/
 
 /*!********************************************!*\
   !*** external ["elementorV2","editorMcp"] ***!
@@ -296,6 +362,10 @@
 /*!***********************************************!*\
   !*** external ["elementorV2","editorStyles"] ***!
   \***********************************************/
+
+/*!*************************************************!*\
+  !*** ./node_modules/tabbable/dist/index.esm.js ***!
+  \*************************************************/
 
 /*!*************************************************!*\
   !*** external ["elementorV2","editorControls"] ***!
@@ -317,10 +387,6 @@
   !*** external ["elementorV2","editorV1Adapters"] ***!
   \***************************************************/
 
-/*!****************************************************!*\
-  !*** ./packages/node_modules/react/jsx-runtime.js ***!
-  \****************************************************/
-
 /*!*****************************************************!*\
   !*** external ["elementorV2","editorInteractions"] ***!
   \*****************************************************/
@@ -333,10 +399,6 @@
   !*** external ["elementorV2","editorStylesRepository"] ***!
   \*********************************************************/
 
-/*!**********************************************************!*\
-  !*** ./packages/node_modules/tabbable/dist/index.esm.js ***!
-  \**********************************************************/
-
 /*!***********************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/index.ts ***!
   \***********************************************************/
@@ -345,9 +407,29 @@
   !*** ./packages/packages/core/editor-canvas/src/init.tsx ***!
   \***********************************************************/
 
+/*!****************************************************************!*\
+  !*** ./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs ***!
+  \****************************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/react/cjs/react-jsx-runtime.development.js ***!
+  \*****************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/@floating-ui/core/dist/floating-ui.core.mjs ***!
+  \******************************************************************/
+
 /*!******************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/legacy/types.ts ***!
   \******************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/@floating-ui/react/dist/floating-ui.react.mjs ***!
+  \********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs ***!
+  \********************************************************************/
 
 /*!********************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/mcp/canvas-mcp.ts ***!
@@ -357,33 +439,29 @@
   !*** ./packages/packages/core/editor-canvas/src/renderers/errors.ts ***!
   \**********************************************************************/
 
-/*!***********************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/sync/enqueue-font.ts ***!
-  \***********************************************************************/
+/*!************************************************************************!*\
+  !*** ./node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.mjs ***!
+  \************************************************************************/
 
 /*!************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/hooks/use-on-mount.ts ***!
   \************************************************************************/
 
 /*!*************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs ***!
-  \*************************************************************************/
-
-/*!*************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/mcp/mcp-description.ts ***!
   \*************************************************************************/
 
+/*!*************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/utils/command-utils.ts ***!
+  \*************************************************************************/
+
 /*!**************************************************************************!*\
-  !*** ./packages/node_modules/react/cjs/react-jsx-runtime.development.js ***!
+  !*** ./node_modules/@floating-ui/react/dist/floating-ui.react.utils.mjs ***!
   \**************************************************************************/
 
 /*!**************************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/style-commands/utils.ts ***!
+  !*** ./packages/packages/core/editor-canvas/src/form-structure/utils.ts ***!
   \**************************************************************************/
-
-/*!***************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/core/dist/floating-ui.core.mjs ***!
-  \***************************************************************************/
 
 /*!***************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/hooks/use-style-items.ts ***!
@@ -393,13 +471,9 @@
   !*** ./packages/packages/core/editor-canvas/src/renderers/multi-props.ts ***!
   \***************************************************************************/
 
-/*!*****************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/react/dist/floating-ui.react.mjs ***!
-  \*****************************************************************************/
-
-/*!*****************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** ./node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs ***!
+  \****************************************************************************/
 
 /*!*****************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/init-style-transformers.ts ***!
@@ -411,6 +485,14 @@
 
 /*!******************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/legacy/init-legacy-views.ts ***!
+  \******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/replacements/base.ts ***!
+  \******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/mcp/utils/validate-input.ts ***!
   \******************************************************************************/
 
 /*!******************************************************************************!*\
@@ -449,16 +531,16 @@
   !*** ./packages/packages/core/editor-canvas/src/style-commands/reset-style.ts ***!
   \********************************************************************************/
 
-/*!********************************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/utils/inline-editing-utils.ts ***!
-  \********************************************************************************/
-
 /*!*********************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.mjs ***!
+  !*** ./packages/packages/core/editor-canvas/src/components/outline-overlay.tsx ***!
   \*********************************************************************************/
 
 /*!*********************************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/components/outline-overlay.tsx ***!
+  !*** ./packages/packages/core/editor-canvas/src/legacy/replacements/manager.ts ***!
+  \*********************************************************************************/
+
+/*!*********************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/twig-rendering-utils.ts ***!
   \*********************************************************************************/
 
 /*!*********************************************************************************!*\
@@ -470,12 +552,12 @@
   \**********************************************************************************/
 
 /*!**********************************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/sync/drag-element-from-panel.ts ***!
+  !*** ./packages/packages/core/editor-canvas/src/legacy/tabs-model-extensions.ts ***!
   \**********************************************************************************/
 
-/*!***********************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/react/dist/floating-ui.react.utils.mjs ***!
-  \***********************************************************************************/
+/*!**********************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/sync/drag-element-from-panel.ts ***!
+  \**********************************************************************************/
 
 /*!***********************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/components/elements-overlays.tsx ***!
@@ -506,15 +588,7 @@
   \************************************************************************************/
 
 /*!*************************************************************************************!*\
-  !*** ./packages/node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs ***!
-  \*************************************************************************************/
-
-/*!*************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/renderers/create-props-resolver.ts ***!
-  \*************************************************************************************/
-
-/*!*************************************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/sync/get-canvas-iframe-document.ts ***!
   \*************************************************************************************/
 
 /*!*************************************************************************************!*\
@@ -534,16 +608,16 @@
   \**************************************************************************************/
 
 /*!***************************************************************************************!*\
-  !*** ./packages/packages/core/editor-canvas/src/components/inline-editor-overlay.tsx ***!
-  \***************************************************************************************/
-
-/*!***************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/components/interactions-renderer.tsx ***!
   \***************************************************************************************/
 
 /*!***************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/mcp/tools/get-element-config/tool.ts ***!
   \***************************************************************************************/
+
+/*!****************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/mcp/resources/breakpoints-resource.ts ***!
+  \****************************************************************************************/
 
 /*!****************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/mcp/tools/build-composition/prompt.ts ***!
@@ -614,12 +688,20 @@
   \********************************************************************************************/
 
 /*!*********************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/composition-builder/composition-builder.ts ***!
+  \*********************************************************************************************/
+
+/*!*********************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/settings/query-transformer.ts ***!
   \*********************************************************************************************/
 
 /*!**********************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/position-transformer.ts ***!
   \**********************************************************************************************/
+
+/*!***********************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/mcp/resources/document-structure-resource.ts ***!
+  \***********************************************************************************************/
 
 /*!***********************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/create-transformers-registry.ts ***!
@@ -630,8 +712,24 @@
   \***********************************************************************************************/
 
 /*!***********************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/transformers/settings/html-v2-transformer.ts ***!
+  \***********************************************************************************************/
+
+/*!***********************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/transformers/settings/html-v3-transformer.ts ***!
+  \***********************************************************************************************/
+
+/*!***********************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/shared/image-src-transformer.ts ***!
   \***********************************************************************************************/
+
+/*!***********************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/transformers/shared/video-src-transformer.ts ***!
+  \***********************************************************************************************/
+
+/*!************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/mcp/utils/get-composition-target-container.ts ***!
+  \************************************************************************************************/
 
 /*!************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/background-transformer.ts ***!
@@ -646,12 +744,24 @@
   \************************************************************************************************/
 
 /*!*************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/create-nested-templated-element-type.ts ***!
+  \*************************************************************************************************/
+
+/*!*************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/settings/date-time-transformer.ts ***!
   \*************************************************************************************************/
 
 /*!**************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/form-structure/prevent-form-nesting-commands.ts ***!
+  \**************************************************************************************************/
+
+/*!**************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/settings/attributes-transformer.ts ***!
   \**************************************************************************************************/
+
+/*!***************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/form-structure/enforce-form-ancestor-commands.ts ***!
+  \***************************************************************************************************/
 
 /*!****************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/transform-move-transformer.ts ***!
@@ -701,6 +811,14 @@
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/create-combine-array-transformer.ts ***!
   \**********************************************************************************************************/
 
+/*!*************************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/replacements/inline-editing/inline-editing-utils.ts ***!
+  \*************************************************************************************************************/
+
+/*!**************************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/replacements/inline-editing/canvas-inline-editor.tsx ***!
+  \**************************************************************************************************************/
+
 /*!**************************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/background-color-overlay-transformer.ts ***!
   \**************************************************************************************************************/
@@ -710,9 +828,17 @@
   \**************************************************************************************************************/
 
 /*!*****************************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/replacements/inline-editing/inline-editing-elements.tsx ***!
+  \*****************************************************************************************************************/
+
+/*!*****************************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/background-gradient-overlay-transformer.ts ***!
   \*****************************************************************************************************************/
 
 /*!*****************************************************************************************************************!*\
   !*** ./packages/packages/core/editor-canvas/src/transformers/styles/background-image-size-scale-transformer.ts ***!
   \*****************************************************************************************************************/
+
+/*!*******************************************************************************************************************!*\
+  !*** ./packages/packages/core/editor-canvas/src/legacy/replacements/inline-editing/inline-editing-eligibility.ts ***!
+  \*******************************************************************************************************************/

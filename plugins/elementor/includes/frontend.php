@@ -693,6 +693,11 @@ class Frontend extends App {
 					$css_file = Post_CSS::create( get_the_ID() );
 					$css_file->enqueue();
 				}
+			} else {
+				$post_id = Plugin::$instance->preview->get_post_id();
+				if ( $post_id ) {
+					do_action( 'elementor/post/render', $post_id );
+				}
 			}
 
 			do_action( 'elementor/frontend/after_enqueue_post_styles' );
@@ -896,6 +901,18 @@ class Frontend extends App {
 	 * @access public
 	 */
 	public function print_fonts_links() {
+		/**
+		 * Register font styles.
+		 *
+		 * Fires before fonts are processed, allowing add-ons to register
+		 * proper stylesheets for their custom font types via the WordPress API.
+		 *
+		 * @since 3.29.0
+		 *
+		 * @param string[] $fonts_to_enqueue List of font families to be enqueued.
+		 */
+		do_action( 'elementor/fonts/register_styles', $this->fonts_to_enqueue );
+
 		$google_fonts = $this->get_list_of_google_fonts_by_type();
 
 		$this->enqueue_google_fonts( $google_fonts );
@@ -1431,6 +1448,7 @@ class Frontend extends App {
 			],
 			'nonces' => [
 				'floatingButtonsClickTracking' => wp_create_nonce( Module::CLICK_TRACKING_NONCE ),
+				'atomicFormsSendForm' => wp_create_nonce( 'elementor_pro_atomic_forms_send_form' ),
 			],
 			'swiperClass' => 'swiper',
 		];

@@ -1,6 +1,197 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "../modules/interactions/assets/js/interactions-breakpoints.js":
+/*!*********************************************************************!*\
+  !*** ../modules/interactions/assets/js/interactions-breakpoints.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getActiveBreakpoint = getActiveBreakpoint;
+exports.initBreakpoints = initBreakpoints;
+var RESIZE_DEBOUNCE_TIMEOUT = 100;
+var breakpoints = {
+  list: {},
+  active: {},
+  onChange: function onChange() {}
+};
+function getActiveBreakpoint() {
+  return breakpoints.active;
+}
+function matchBreakpoint(width) {
+  for (var label in breakpoints.list) {
+    var breakpoint = breakpoints.list[label];
+    if ('min' === breakpoint.direction && width >= breakpoint.value) {
+      return label;
+    }
+    if ('max' === breakpoint.direction && breakpoint.value >= width) {
+      return label;
+    }
+  }
+  return 'desktop';
+}
+function attachEventListeners() {
+  var timeout = null;
+  var onResize = function onResize() {
+    if (timeout) {
+      window.clearTimeout(timeout);
+      timeout = null;
+    }
+    timeout = window.setTimeout(function () {
+      var currentBreakpoint = matchBreakpoint(window.innerWidth);
+      if (currentBreakpoint === breakpoints.active) {
+        return;
+      }
+      breakpoints.active = currentBreakpoint;
+      if ('function' === typeof breakpoints.onChange) {
+        breakpoints.onChange(breakpoints.active);
+      }
+    }, RESIZE_DEBOUNCE_TIMEOUT);
+  };
+  window.addEventListener('resize', onResize);
+}
+function getBreakpointsList() {
+  var _ElementorInteraction;
+  return ((_ElementorInteraction = ElementorInteractionsConfig) === null || _ElementorInteraction === void 0 ? void 0 : _ElementorInteraction.breakpoints) || {};
+}
+function initBreakpoints() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    onChange = _ref.onChange;
+  breakpoints.list = getBreakpointsList();
+  breakpoints.active = matchBreakpoint(window.innerWidth);
+  if ('function' === typeof onChange) {
+    breakpoints.onChange = onChange;
+  }
+  attachEventListeners();
+}
+
+/***/ }),
+
+/***/ "../modules/interactions/assets/js/interactions-shared-utils.js":
+/*!**********************************************************************!*\
+  !*** ../modules/interactions/assets/js/interactions-shared-utils.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.config = config;
+exports.extractInteractionId = extractInteractionId;
+exports.getAnimateFunction = getAnimateFunction;
+exports.getInViewFunction = getInViewFunction;
+exports.parseInteractionsData = parseInteractionsData;
+exports.skipInteraction = skipInteraction;
+exports.timingValueToMs = timingValueToMs;
+exports.unwrapInteractionValue = unwrapInteractionValue;
+exports.waitForAnimateFunction = waitForAnimateFunction;
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ "../node_modules/@babel/runtime/helpers/typeof.js"));
+var _interactionsBreakpoints = __webpack_require__(/*! ./interactions-breakpoints.js */ "../modules/interactions/assets/js/interactions-breakpoints.js");
+function config() {
+  var _window$ElementorInte, _window$ElementorInte2;
+  return (_window$ElementorInte = (_window$ElementorInte2 = window.ElementorInteractionsConfig) === null || _window$ElementorInte2 === void 0 ? void 0 : _window$ElementorInte2.constants) !== null && _window$ElementorInte !== void 0 ? _window$ElementorInte : {};
+}
+function skipInteraction(interaction) {
+  var _interaction$breakpoi;
+  var breakpoint = (0, _interactionsBreakpoints.getActiveBreakpoint)();
+  return interaction === null || interaction === void 0 || (_interaction$breakpoi = interaction.breakpoints) === null || _interaction$breakpoi === void 0 || (_interaction$breakpoi = _interaction$breakpoi.excluded) === null || _interaction$breakpoi === void 0 ? void 0 : _interaction$breakpoi.includes(breakpoint);
+}
+function extractInteractionId(interaction) {
+  if ('interaction-item' === (interaction === null || interaction === void 0 ? void 0 : interaction.$$type) && interaction !== null && interaction !== void 0 && interaction.value) {
+    var _interaction$value$in;
+    return ((_interaction$value$in = interaction.value.interaction_id) === null || _interaction$value$in === void 0 ? void 0 : _interaction$value$in.value) || null;
+  }
+  return null;
+}
+function motionFunc(name) {
+  var _window, _window2;
+  if ('function' !== typeof ((_window = window) === null || _window === void 0 || (_window = _window.Motion) === null || _window === void 0 ? void 0 : _window[name])) {
+    return undefined;
+  }
+  return (_window2 = window) === null || _window2 === void 0 || (_window2 = _window2.Motion) === null || _window2 === void 0 ? void 0 : _window2[name];
+}
+function getAnimateFunction() {
+  return motionFunc('animate');
+}
+function getInViewFunction() {
+  return motionFunc('inView');
+}
+function waitForAnimateFunction(callback) {
+  var maxAttempts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+  if (getAnimateFunction()) {
+    callback();
+    return;
+  }
+  if (maxAttempts > 0) {
+    setTimeout(function () {
+      return waitForAnimateFunction(callback, maxAttempts - 1);
+    }, 100);
+  }
+}
+function parseInteractionsData(data) {
+  if ('string' === typeof data) {
+    try {
+      return JSON.parse(data);
+    } catch (_unused) {
+      return null;
+    }
+  }
+  return data;
+}
+function unwrapInteractionValue(propValue) {
+  var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  // Supports Elementor's typed wrapper shape: { $$type: '...', value: ... }.
+  if (propValue && 'object' === (0, _typeof2.default)(propValue) && '$$type' in propValue) {
+    return propValue.value;
+  }
+  return propValue !== null && propValue !== void 0 ? propValue : fallback;
+}
+function timingValueToMs(timingValue, fallbackMs) {
+  if (null === timingValue || undefined === timingValue) {
+    return fallbackMs;
+  }
+  var unwrapped = unwrapInteractionValue(timingValue);
+  if ('number' === typeof unwrapped) {
+    return unwrapped;
+  }
+  var sizeObj = unwrapInteractionValue(unwrapped);
+  var size = sizeObj === null || sizeObj === void 0 ? void 0 : sizeObj.size;
+  var unit = (sizeObj === null || sizeObj === void 0 ? void 0 : sizeObj.unit) || 'ms';
+  if ('number' !== typeof size) {
+    return fallbackMs;
+  }
+  if ('s' === unit) {
+    return size * 1000;
+  }
+  return size;
+}
+
+// Expose on elementorModules for Pro and other consumers.
+window.elementorModules = window.elementorModules || {};
+window.elementorModules.interactions = {
+  config: config,
+  skipInteraction: skipInteraction,
+  extractInteractionId: extractInteractionId,
+  getAnimateFunction: getAnimateFunction,
+  getInViewFunction: getInViewFunction,
+  waitForAnimateFunction: waitForAnimateFunction,
+  parseInteractionsData: parseInteractionsData,
+  unwrapInteractionValue: unwrapInteractionValue,
+  timingValueToMs: timingValueToMs
+};
+
+/***/ }),
+
 /***/ "../modules/interactions/assets/js/interactions-utils.js":
 /*!***************************************************************!*\
   !*** ../modules/interactions/assets/js/interactions-utils.js ***!
@@ -14,58 +205,88 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/inte
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.config = void 0;
+Object.defineProperty(exports, "config", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.config;
+  }
+}));
+exports.extractAnimationConfig = extractAnimationConfig;
+Object.defineProperty(exports, "extractInteractionId", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.extractInteractionId;
+  }
+}));
+exports.findElementByDataId = findElementByDataId;
+Object.defineProperty(exports, "getAnimateFunction", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.getAnimateFunction;
+  }
+}));
+Object.defineProperty(exports, "getInViewFunction", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.getInViewFunction;
+  }
+}));
+exports.getInteractionsData = getInteractionsData;
 exports.getKeyframes = getKeyframes;
+exports.isFreeFrontendSupportedTrigger = isFreeFrontendSupportedTrigger;
 exports.parseAnimationName = parseAnimationName;
+Object.defineProperty(exports, "parseInteractionsData", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.parseInteractionsData;
+  }
+}));
+Object.defineProperty(exports, "skipInteraction", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.skipInteraction;
+  }
+}));
+Object.defineProperty(exports, "timingValueToMs", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.timingValueToMs;
+  }
+}));
+Object.defineProperty(exports, "unwrapInteractionValue", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.unwrapInteractionValue;
+  }
+}));
+Object.defineProperty(exports, "waitForAnimateFunction", ({
+  enumerable: true,
+  get: function get() {
+    return _interactionsSharedUtils.waitForAnimateFunction;
+  }
+}));
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "../node_modules/@babel/runtime/helpers/slicedToArray.js"));
-var _window$ElementorInte;
-var config = exports.config = ((_window$ElementorInte = window.ElementorInteractionsConfig) === null || _window$ElementorInte === void 0 ? void 0 : _window$ElementorInte.constants) || {
-  defaultDuration: 300,
-  defaultDelay: 0,
-  slideDistance: 100,
-  scaleStart: 0,
-  easing: 'linear'
-};
-function calculateSlideDistance(element, direction) {
-  if (!element) {
-    return config.slideDistance;
-  }
-  var rect = element.getBoundingClientRect();
-  var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-  var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-  var isLtr = 'ltr' === document.documentElement.dir || 'ltr' === document.body.dir;
-  switch (direction) {
-    case 'left':
-      return Math.min((isLtr ? rect.left : rect.right) + rect.width, viewportWidth + rect.width);
-    case 'right':
-      return Math.min(viewportWidth - (isLtr ? rect.right : rect.left) + rect.width, viewportWidth + rect.width);
-    case 'top':
-      return Math.min(rect.top + rect.height, viewportHeight + rect.height);
-    case 'bottom':
-      return Math.min(viewportHeight - rect.bottom + rect.height, viewportHeight + rect.height);
-    default:
-      return config.slideDistance;
-  }
+var _interactionsSharedUtils = __webpack_require__(/*! ./interactions-shared-utils.js */ "../modules/interactions/assets/js/interactions-shared-utils.js");
+/**
+ * Triggers the Core `interactions.js` / `editor-interactions.js` bundles run. Pro-only triggers
+ * (e.g. hover, click) must not fall through to the load-time default path.
+ */
+var FREE_FRONTEND_SUPPORTED_TRIGGERS = ['load', 'scrollIn', 'scrollOut'];
+function isFreeFrontendSupportedTrigger(trigger) {
+  return FREE_FRONTEND_SUPPORTED_TRIGGERS.includes(trigger);
 }
 function getKeyframes(effect, type, direction) {
-  var element = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
   var isIn = 'in' === type;
   var keyframes = {};
-  var hasDirection = !!direction;
   if ('fade' === effect) {
-    if (hasDirection && isIn) {
-      keyframes.opacity = [0, 0, 0.2, 0.6, 1];
-    } else if (hasDirection && !isIn) {
-      keyframes.opacity = [1, 0.8, 0.4, 0, 0];
-    } else {
-      keyframes.opacity = isIn ? [0, 1] : [1, 0];
-    }
+    keyframes.opacity = isIn ? [0, 1] : [1, 0];
   }
+  var config = (0, _interactionsSharedUtils.config)();
   if ('scale' === effect) {
     keyframes.scale = isIn ? [config.scaleStart, 1] : [1, config.scaleStart];
   }
   if (direction) {
-    var distance = calculateSlideDistance(element, direction);
+    var distance = config.slideDistance;
     var movement = {
       left: {
         x: isIn ? [-distance, 0] : [0, -distance]
@@ -86,20 +307,95 @@ function getKeyframes(effect, type, direction) {
 }
 function parseAnimationName(name) {
   var _name$split = name.split('-'),
-    _name$split2 = (0, _slicedToArray2.default)(_name$split, 6),
+    _name$split2 = (0, _slicedToArray2.default)(_name$split, 8),
     trigger = _name$split2[0],
     effect = _name$split2[1],
     type = _name$split2[2],
     direction = _name$split2[3],
     duration = _name$split2[4],
     delay = _name$split2[5];
+  var config = (0, _interactionsSharedUtils.config)();
   return {
     trigger: trigger,
     effect: effect,
     type: type,
     direction: direction || null,
     duration: duration ? parseInt(duration, 10) : config.defaultDuration,
-    delay: delay ? parseInt(delay, 10) : config.defaultDelay
+    delay: delay ? parseInt(delay, 10) : config.defaultDelay,
+    replay: false,
+    easing: config.defaultEasing
+  };
+}
+
+/**
+ * Get interactions data from the script tag injected by PHP.
+ * Returns array of { elementId, dataId, interactions: [...] }
+ */
+function getInteractionsData() {
+  var scriptTag = document.getElementById('elementor-interactions-data');
+  if (!scriptTag) {
+    return null;
+  }
+  try {
+    return JSON.parse(scriptTag.textContent);
+  } catch (_unused) {
+    return null;
+  }
+}
+function findElementByDataId(dataId) {
+  return document.querySelector("[data-interaction-id=\"".concat(dataId, "\"]"));
+}
+function unwrapInteractionBreakpoints(propValue) {
+  var breakpointsConfig = (0, _interactionsSharedUtils.unwrapInteractionValue)(propValue, {});
+  var excluded = (0, _interactionsSharedUtils.unwrapInteractionValue)(breakpointsConfig === null || breakpointsConfig === void 0 ? void 0 : breakpointsConfig.excluded, []);
+  if (1 > excluded.length) {
+    return {};
+  }
+  var breakpoints = {
+    excluded: excluded.map(function (breakpoint) {
+      return (0, _interactionsSharedUtils.unwrapInteractionValue)(breakpoint, '');
+    })
+  };
+  return breakpoints;
+}
+function extractAnimationConfig(interaction) {
+  var _payload$animation;
+  if ('string' === typeof interaction) {
+    return parseAnimationName(interaction);
+  }
+  var payload = 'interaction-item' === (interaction === null || interaction === void 0 ? void 0 : interaction.$$type) && interaction !== null && interaction !== void 0 && interaction.value ? interaction.value : interaction;
+  if (!payload) {
+    return null;
+  }
+  if (payload !== null && payload !== void 0 && (_payload$animation = payload.animation) !== null && _payload$animation !== void 0 && _payload$animation.animation_id) {
+    return parseAnimationName(payload.animation.animation_id);
+  }
+  var trigger = (0, _interactionsSharedUtils.unwrapInteractionValue)(payload.trigger) || payload.trigger || 'load';
+  var animation = payload.animation;
+  animation = (0, _interactionsSharedUtils.unwrapInteractionValue)(animation);
+  if (!animation) {
+    return null;
+  }
+  var breakpoints = unwrapInteractionBreakpoints(payload.breakpoints);
+  var config = (0, _interactionsSharedUtils.config)();
+  var effect = (0, _interactionsSharedUtils.unwrapInteractionValue)(animation.effect) || animation.effect || 'fade';
+  var type = (0, _interactionsSharedUtils.unwrapInteractionValue)(animation.type) || animation.type || 'in';
+  var direction = (0, _interactionsSharedUtils.unwrapInteractionValue)(animation.direction) || animation.direction || '';
+  var easing = config.defaultEasing;
+  var replay = false;
+  var timingConfig = (0, _interactionsSharedUtils.unwrapInteractionValue)(animation.timing_config) || animation.timing_config || {};
+  var duration = (0, _interactionsSharedUtils.timingValueToMs)(timingConfig === null || timingConfig === void 0 ? void 0 : timingConfig.duration, config.defaultDuration);
+  var delay = (0, _interactionsSharedUtils.timingValueToMs)(timingConfig === null || timingConfig === void 0 ? void 0 : timingConfig.delay, config.defaultDelay);
+  return {
+    trigger: trigger,
+    breakpoints: breakpoints,
+    effect: effect,
+    type: type,
+    direction: direction,
+    duration: duration,
+    delay: delay,
+    easing: easing,
+    replay: replay
   };
 }
 
@@ -130,20 +426,6 @@ function _arrayWithHoles(r) {
   if (Array.isArray(r)) return r;
 }
 module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \*******************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "../node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return arrayLikeToArray(r);
-}
-module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -178,19 +460,6 @@ function _interopRequireDefault(e) {
   };
 }
 module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "../node_modules/@babel/runtime/helpers/iterableToArray.js":
-/*!*****************************************************************!*\
-  !*** ../node_modules/@babel/runtime/helpers/iterableToArray.js ***!
-  \*****************************************************************/
-/***/ ((module) => {
-
-function _iterableToArray(r) {
-  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-}
-module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -244,19 +513,6 @@ module.exports = _nonIterableRest, module.exports.__esModule = true, module.expo
 
 /***/ }),
 
-/***/ "../node_modules/@babel/runtime/helpers/nonIterableSpread.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \*******************************************************************/
-/***/ ((module) => {
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
 /***/ "../node_modules/@babel/runtime/helpers/slicedToArray.js":
 /*!***************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/slicedToArray.js ***!
@@ -271,23 +527,6 @@ function _slicedToArray(r, e) {
   return arrayWithHoles(r) || iterableToArrayLimit(r, e) || unsupportedIterableToArray(r, e) || nonIterableRest();
 }
 module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "../node_modules/@babel/runtime/helpers/toConsumableArray.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \*******************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "../node_modules/@babel/runtime/helpers/iterableToArray.js");
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "../node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-function _toConsumableArray(r) {
-  return arrayWithoutHoles(r) || iterableToArray(r) || unsupportedIterableToArray(r) || nonIterableSpread();
-}
-module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -402,29 +641,40 @@ var __webpack_exports__ = {};
 
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "../node_modules/@babel/runtime/helpers/toConsumableArray.js"));
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
 var _interactionsUtils = __webpack_require__(/*! ./interactions-utils.js */ "../modules/interactions/assets/js/interactions-utils.js");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0, _defineProperty2.default)(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+/**
+ * @type {Record<string, Promise<void> & { cancel: () => void }>}
+ */
+var playingInteractionsToStop = {};
 function applyAnimation(element, animConfig, animateFunc) {
-  var keyframes = (0, _interactionsUtils.getKeyframes)(animConfig.effect, animConfig.type, animConfig.direction, element);
+  var id = element.id;
+  if (playingInteractionsToStop[id]) {
+    playingInteractionsToStop[id].cancel();
+    delete playingInteractionsToStop[id];
+  }
+  var keyframes = (0, _interactionsUtils.getKeyframes)(animConfig.effect, animConfig.type, animConfig.direction);
   var options = {
     duration: animConfig.duration / 1000,
     delay: animConfig.delay / 1000,
-    easing: _interactionsUtils.config.easing
+    ease: (0, _interactionsUtils.config)().defaultEasing
   };
   var initialKeyframes = {};
   Object.keys(keyframes).forEach(function (key) {
     initialKeyframes[key] = keyframes[key][0];
   });
+
   // WHY - Transition can be set on elements but once it sets it destroys all animations, so we basically put it aside.
   var transition = element.style.transition;
   element.style.transition = 'none';
   animateFunc(element, initialKeyframes, {
     duration: 0
   }).then(function () {
-    animateFunc(element, keyframes, options).then(function () {
+    var animations = animateFunc(element, keyframes, options);
+    playingInteractionsToStop[id] = animations;
+    animations.then(function () {
       if ('out' === animConfig.type) {
         var resetValues = {
           opacity: 1,
@@ -441,6 +691,7 @@ function applyAnimation(element, animConfig, animateFunc) {
           duration: 0
         });
       }
+      delete playingInteractionsToStop[id];
     });
   });
 }
@@ -459,26 +710,17 @@ function findElementByInteractionId(interactionId) {
   return document.querySelector('[data-interaction-id="' + interactionId + '"]');
 }
 function applyInteractionsToElement(element, interactionsData) {
-  var _window$Motion, _parsedData;
-  var animateFunc = 'undefined' !== typeof animate ? animate : (_window$Motion = window.Motion) === null || _window$Motion === void 0 ? void 0 : _window$Motion.animate;
+  var animateFunc = (0, _interactionsUtils.getAnimateFunction)();
   if (!animateFunc) {
     return;
   }
-  var parsedData;
-  if ('string' === typeof interactionsData) {
-    try {
-      parsedData = JSON.parse(interactionsData);
-    } catch (error) {
-      return;
-    }
-  } else {
-    parsedData = interactionsData;
+  var parsedData = (0, _interactionsUtils.parseInteractionsData)(interactionsData);
+  if (!parsedData) {
+    return;
   }
-  var interactions = Object.values((_parsedData = parsedData) === null || _parsedData === void 0 ? void 0 : _parsedData.items);
+  var interactions = Object.values((parsedData === null || parsedData === void 0 ? void 0 : parsedData.items) || []);
   interactions.forEach(function (interaction) {
-    var _interaction$animatio;
-    var animationName = 'string' === typeof interaction ? interaction : interaction === null || interaction === void 0 || (_interaction$animatio = interaction.animation) === null || _interaction$animatio === void 0 ? void 0 : _interaction$animatio.animation_id;
-    var animConfig = animationName && (0, _interactionsUtils.parseAnimationName)(animationName);
+    var animConfig = (0, _interactionsUtils.extractAnimationConfig)(interaction);
     if (animConfig) {
       applyAnimation(element, animConfig, animateFunc);
     }
@@ -488,70 +730,77 @@ var previousInteractionsData = [];
 function handleInteractionsUpdate() {
   var currentInteractionsData = getInteractionsData();
   var changedItems = currentInteractionsData.filter(function (currentItem) {
+    var _currentItem$interact, _previousItem$interac;
     var previousItem = previousInteractionsData.find(function (prev) {
       return prev.dataId === currentItem.dataId;
     });
-    return !previousItem || previousItem.interactions !== currentItem.interactions;
+    if (!previousItem) {
+      return true;
+    }
+    var currentIds = (((_currentItem$interact = currentItem.interactions) === null || _currentItem$interact === void 0 ? void 0 : _currentItem$interact.items) || []).map(_interactionsUtils.extractInteractionId).filter(Boolean).sort().join(',');
+    var prevIds = (((_previousItem$interac = previousItem.interactions) === null || _previousItem$interac === void 0 ? void 0 : _previousItem$interac.items) || []).map(_interactionsUtils.extractInteractionId).filter(Boolean).sort().join(',');
+    return currentIds !== prevIds;
   });
   changedItems.forEach(function (item) {
-    var _previousInteractions, _item$interactions, _item$interactions2, _prevInteractions$ite;
+    var _previousInteractions, _item$interactions;
     var element = findElementByInteractionId(item.dataId);
     var prevInteractions = (_previousInteractions = previousInteractionsData.find(function (prev) {
       return prev.dataId === item.dataId;
     })) === null || _previousInteractions === void 0 ? void 0 : _previousInteractions.interactions;
-    if (element && ((_item$interactions = item.interactions) === null || _item$interactions === void 0 || (_item$interactions = _item$interactions.items) === null || _item$interactions === void 0 ? void 0 : _item$interactions.length) > 0 && ((_item$interactions2 = item.interactions) === null || _item$interactions2 === void 0 || (_item$interactions2 = _item$interactions2.items) === null || _item$interactions2 === void 0 ? void 0 : _item$interactions2.length) === (prevInteractions === null || prevInteractions === void 0 || (_prevInteractions$ite = prevInteractions.items) === null || _prevInteractions$ite === void 0 ? void 0 : _prevInteractions$ite.length)) {
-      var interactionsToApply = _objectSpread(_objectSpread({}, item.interactions), {}, {
-        items: (0, _toConsumableArray2.default)(item.interactions.items).filter(function (interaction, index) {
-          var _prevInteractions$ite2;
-          return (prevInteractions === null || prevInteractions === void 0 || (_prevInteractions$ite2 = prevInteractions.items[index]) === null || _prevInteractions$ite2 === void 0 || (_prevInteractions$ite2 = _prevInteractions$ite2.animation) === null || _prevInteractions$ite2 === void 0 ? void 0 : _prevInteractions$ite2.animation_id) !== interaction.animation.animation_id;
-        })
-      });
-      applyInteractionsToElement(element, interactionsToApply);
+    if (!element || !((_item$interactions = item.interactions) !== null && _item$interactions !== void 0 && (_item$interactions = _item$interactions.items) !== null && _item$interactions !== void 0 && _item$interactions.length)) {
+      return;
+    }
+    var prevIds = new Set(((prevInteractions === null || prevInteractions === void 0 ? void 0 : prevInteractions.items) || []).map(_interactionsUtils.extractInteractionId).filter(Boolean));
+    var changedInteractions = item.interactions.items.filter(function (interaction) {
+      var id = (0, _interactionsUtils.extractInteractionId)(interaction);
+      return !id || !prevIds.has(id);
+    });
+    if (changedInteractions.length > 0) {
+      applyInteractionsToElement(element, _objectSpread(_objectSpread({}, item.interactions), {}, {
+        items: changedInteractions
+      }));
     }
   });
   previousInteractionsData = currentInteractionsData;
 }
 function initEditorInteractionsHandler() {
-  var _window$Motion2;
-  if ('undefined' === typeof animate && !((_window$Motion2 = window.Motion) !== null && _window$Motion2 !== void 0 && _window$Motion2.animate)) {
-    setTimeout(initEditorInteractionsHandler, 100);
-    return;
-  }
-  var head = document.head;
-  var scriptTag = null;
-  var observer = null;
-  function setupObserver(tag) {
-    if (observer) {
-      observer.disconnect();
-    }
-    observer = new MutationObserver(function () {
+  (0, _interactionsUtils.waitForAnimateFunction)(function () {
+    var head = document.head;
+    var scriptTag = null;
+    var observer = null;
+    function setupObserver(tag) {
+      if (observer) {
+        observer.disconnect();
+      }
+      observer = new MutationObserver(function () {
+        handleInteractionsUpdate();
+      });
+      observer.observe(tag, {
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
       handleInteractionsUpdate();
+      registerWindowEvents();
+    }
+    var headObserver = new MutationObserver(function () {
+      var foundScriptTag = document.querySelector('script[data-e-interactions="true"]');
+      if (foundScriptTag && foundScriptTag !== scriptTag) {
+        scriptTag = foundScriptTag;
+        setupObserver(scriptTag);
+        headObserver.disconnect();
+      }
     });
-    observer.observe(tag, {
+    headObserver.observe(head, {
       childList: true,
-      characterData: true,
       subtree: true
     });
-    handleInteractionsUpdate();
-    registerWindowEvents();
-  }
-  var headObserver = new MutationObserver(function () {
-    var foundScriptTag = document.querySelector('script[data-e-interactions="true"]');
-    if (foundScriptTag && foundScriptTag !== scriptTag) {
-      scriptTag = foundScriptTag;
+    scriptTag = document.querySelector('script[data-e-interactions="true"]');
+    if (scriptTag) {
       setupObserver(scriptTag);
       headObserver.disconnect();
     }
   });
-  headObserver.observe(head, {
-    childList: true,
-    subtree: true
-  });
-  scriptTag = document.querySelector('script[data-e-interactions="true"]');
-  if (scriptTag) {
-    setupObserver(scriptTag);
-    headObserver.disconnect();
-  }
 }
 function registerWindowEvents() {
   window.top.addEventListener('atomic/play_interactions', handlePlayInteractions);
@@ -559,7 +808,7 @@ function registerWindowEvents() {
 function handlePlayInteractions(event) {
   var _event$detail = event.detail,
     elementId = _event$detail.elementId,
-    animationId = _event$detail.animationId;
+    interactionId = _event$detail.interactionId;
   var interactionsData = getInteractionsData();
   var item = interactionsData.find(function (elementItemData) {
     return elementItemData.dataId === elementId;
@@ -568,15 +817,16 @@ function handlePlayInteractions(event) {
     return;
   }
   var element = findElementByInteractionId(elementId);
-  if (element) {
-    var interactionsCopy = _objectSpread(_objectSpread({}, item.interactions), {}, {
-      items: (0, _toConsumableArray2.default)(item.interactions.items)
-    });
-    interactionsCopy.items = interactionsCopy.items.filter(function (interactionItem) {
-      return interactionItem.animation.animation_id === animationId;
-    });
-    applyInteractionsToElement(element, JSON.stringify(interactionsCopy));
+  if (!element) {
+    return;
   }
+  var interactionsCopy = _objectSpread(_objectSpread({}, item.interactions), {}, {
+    items: item.interactions.items.filter(function (interactionItem) {
+      var itemId = (0, _interactionsUtils.extractInteractionId)(interactionItem);
+      return itemId === interactionId;
+    })
+  });
+  applyInteractionsToElement(element, interactionsCopy);
 }
 if ('loading' === document.readyState) {
   document.addEventListener('DOMContentLoaded', initEditorInteractionsHandler);

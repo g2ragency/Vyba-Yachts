@@ -65,6 +65,8 @@ __( 'Create New Global Color', 'elementor' );
 __( 'Item #%s', 'elementor' );
 __( 'New Typography Setting', 'elementor' );
 __( 'Are you sure you want to create a new Global Font setting?', 'elementor' );
+__( 'Atomic Classes', 'elementor' );
+__( 'Global Fonts', 'elementor' );
 __( 'Insert Media', 'elementor' );
 __( 'Insert Media', 'elementor' );
 __( 'Elementor\'s New Icon Library', 'elementor' );
@@ -86,6 +88,8 @@ __( 'Please note that the same exact color already exists in your Global Colors 
 __( 'Are you sure you want to create a new Global Color?', 'elementor' );
 __( 'New Global Color', 'elementor' );
 __( 'Are you sure you want to create a new Global Color?', 'elementor' );
+__( 'Atomic Variables', 'elementor' );
+__( 'Global Colors', 'elementor' );
 __( 'Item', 'elementor' );
 __( 'Add new layout element', 'elementor' );
 __( 'Paste', 'elementor' );
@@ -131,6 +135,7 @@ __( 'Duplicate', 'elementor' );
 __( 'Copy', 'elementor' );
 __( 'Paste', 'elementor' );
 __( 'Paste style', 'elementor' );
+__( 'Paste interactions', 'elementor' );
 __( 'Paste from other site', 'elementor' );
 __( 'Reset style', 'elementor' );
 __( 'Delete %d items', 'elementor' );
@@ -157,9 +162,17 @@ __( 'Move', 'elementor' );
 __( 'Alternatively, you can move the templates.', 'elementor' );
 __( 'Copy templates to a different location', 'elementor' );
 __( 'Copy', 'elementor' );
+__( '%s name', 'elementor' );
+__( 'Type the page name here', 'elementor' );
+__( 'Give your template a name', 'elementor' );
 __( 'Save this %s to your library', 'elementor' );
+__( 'Where would you like to save this %s?', 'elementor' );
 __( 'Move your %s to a different location', 'elementor' );
+__( 'Where would you like to move this %s?', 'elementor' );
 __( 'Copy your %s to a different location', 'elementor' );
+__( 'Where would you like to cppy this %s?', 'elementor' );
+__( 'Where would you like to move selected templates?', 'elementor' );
+__( 'Where would you like to copy selected templates?', 'elementor' );
 __( 'Undo', 'elementor' );
 __( 'Rename "%1$s"', 'elementor' );
 __( 'Rename', 'elementor' );
@@ -195,6 +208,9 @@ __( 'Apply the settings of this %s too?', 'elementor' );
 __( 'This will override the design, layout, and other settings of the %s you’re working on.', 'elementor' );
 __( 'Apply', 'elementor' );
 __( 'Don’t apply', 'elementor' );
+__( 'Some styles were added as static values because the style limits were reached.', 'elementor' );
+__( 'Some styles were added as static values because the class limit was reached.', 'elementor' );
+__( 'Some styles were added as static values because the variable limit was reached.', 'elementor' );
 __( 'Icon Library', 'elementor' );
 __( 'Insert', 'elementor' );
 __( 'Keyboard Shortcuts', 'elementor' );
@@ -238,6 +254,9 @@ __( 'Got it', 'elementor' );
 __( 'That didn’t work. Try copying one kind of element at a time.', 'elementor' );
 __( 'Got it', 'elementor' );
 __( 'Library', 'elementor' );
+__( 'template', 'elementor' );
+__( 'templates', 'elementor' );
+__( 'selected. Bulk actions available.', 'elementor' );
 __( 'Settings', 'elementor' );
 __( 'Style', 'elementor' );
 __( 'Advanced', 'elementor' );
@@ -270,6 +289,16 @@ __( 'Edit %s', 'elementor' );
 __( 'Saving has been disabled until you’re reconnected.', 'elementor' );
 __( 'Server Error', 'elementor' );
 __( 'Elements', 'elementor' );
+__( 'Select template', 'elementor' );
+__( '%1$s of %2$s templates used', 'elementor' );
+__( 'Name', 'elementor' );
+__( 'Type', 'elementor' );
+__( 'Created By', 'elementor' );
+__( 'Creation Date', 'elementor' );
+__( 'descending', 'elementor' );
+__( 'ascending', 'elementor' );
+__( 'Sorted by', 'elementor' );
+__( 'more templates loaded', 'elementor' );
 __( 'Category', 'elementor' );
 __( 'connected', 'elementor' );
 __( 'Only %s Elementor account can access Cloud Templates from any connected site.', 'elementor' );
@@ -321,7 +350,19 @@ __(
 
 		this.connectInfoTipDialog.getElements( 'header' ).remove();
 		this.connectInfoTipDialog.getElements( 'buttonsWrapper' ).remove();
+
+		this.addVariantClass( this.connectInfoTipDialog.getElements( 'widget' ) );
 		this.connectInfoTipDialog.show();
+	},
+
+	addVariantClass() {
+		return '';
+	},
+
+	hideConnectInfoTip() {
+		if ( this.connectInfoTipDialog ) {
+			this.connectInfoTipDialog.hide();
+		}
 	},
 
 	handleElementorConnect() {
@@ -360,5 +401,6 @@ __( 'Renew my subscription', 'elementor' );
 __( 'Empty folder', 'elememntor' );
 __( 'Connected successfully.', 'elementor' );
 __( 'Have a look', 'elementor' );
+__( 'Library sections', 'elementor' );
 __( 'Folders you create will appear here.', 'elementor' );
 __( 'To create a new one, go to Cloud Templates.', 'elementor' );
