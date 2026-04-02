@@ -32,7 +32,7 @@ function charter_get_price_formatted($post_id = null, $decimals = 0, $currency =
     }
 
     // Formatta con punto come separatore delle migliaia e senza decimali
-    return number_format($price, $decimals, ',', '.') . ' ' . $currency;
+    return number_format($price, $decimals, ',', '.') . ' ' . $currency . ' / al giorno';
 }
 
 /**

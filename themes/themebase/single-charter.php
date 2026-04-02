@@ -165,7 +165,7 @@ get_header();
                       $num = str_replace('.', '', $charter_prezzo);
                       $num = str_replace(',', '.', $num);
                       $value = floatval($num);
-                      $charter_price_formatted = number_format($value, 0, ',', '.') . ' €';
+                      $charter_price_formatted = number_format($value, 0, ',', '.') . ' € / al giorno';
                     }
                     
                     // Galleria
@@ -372,7 +372,7 @@ get_header();
               $value = floatval($num);
               $formatted = number_format($value, 0, ',', '.');
             ?>
-              <?php echo esc_html($formatted); ?> €
+              <?php echo esc_html($formatted); ?> € / al giorno
             <?php else : ?>
               Prezzo su richiesta
             <?php endif; ?>
