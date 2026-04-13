@@ -91,14 +91,21 @@
 		</div>
 		<nav class="mobile-menu-nav">
 		  <?php
-			$left_menu = wp_get_nav_menu_items(get_nav_menu_locations()['primary-left']);
-			$right_menu = wp_get_nav_menu_items(get_nav_menu_locations()['primary-right']);
-			$all_menu_items = array_merge($left_menu ? $left_menu : [], $right_menu ? $right_menu : []);
+			$locations = get_nav_menu_locations();
+			$left_items = [];
+			$right_items = [];
+			if (!empty($locations['primary-left'])) {
+			  $left_items = wp_get_nav_menu_items($locations['primary-left']) ?: [];
+			}
+			if (!empty($locations['primary-right'])) {
+			  $right_items = wp_get_nav_menu_items($locations['primary-right']) ?: [];
+			}
+			$all_menu_items = array_merge($left_items, $right_items);
 			
 			if ($all_menu_items) {
 			  echo '<ul class="mobile-menu-list">';
 			  foreach ($all_menu_items as $item) {
-				echo '<li><a href="' . $item->url . '">' . $item->title . '</a></li>';
+				echo '<li><a href="' . esc_url($item->url) . '">' . esc_html($item->title) . '</a></li>';
 			  }
 			  echo '</ul>';
 			}
@@ -108,8 +115,9 @@
 		  <p>Box 27 – Marina di Cala Galera<br>58019 Monte Argentario</p>
 		  <a href="mailto:info@vybayachts.com">info@vybayachts.com</a>
 		  <div class="mobile-menu-lang">
-			<a href="#" class="active">IT</a>
-			<a href="#">EN</a>
+			<?php if (function_exists('pll_the_languages')) {
+			  pll_the_languages(array('show_flags' => 0, 'show_names' => 1, 'hide_current' => 0, 'display_names_as' => 'slug'));
+			} ?>
 		  </div>
 		</div>
 	  </div>
