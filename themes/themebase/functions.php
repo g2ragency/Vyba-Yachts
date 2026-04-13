@@ -32,6 +32,53 @@ function vyba_get_page_title($slug) {
 
 if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
 
+/**
+ * Register all theme strings with Polylang for translation.
+ */
+function vyba_register_polylang_strings() {
+    if (!function_exists('pll_register_string')) return;
+
+    $group = 'Vyba Yachts';
+
+    // Template single-yacht & single-charter
+    pll_register_string('info_label', 'INFORMAZIONI', $group);
+    pll_register_string('desc_imbarcazione', 'Descrizione imbarcazione', $group);
+    pll_register_string('acquista_label', 'ACQUISTA', $group);
+    pll_register_string('related_yachts', 'Potrebbero interessarti anche questi modelli di yachts', $group);
+    pll_register_string('charter_label', 'CHARTER', $group);
+    pll_register_string('related_charter', 'Potrebbero interessarti anche questi charter', $group);
+    pll_register_string('scopri_btn', 'SCOPRI DI PIÙ', $group);
+    pll_register_string('contatti_label', 'CONTATTI', $group);
+    pll_register_string('cta_yacht', 'Richiedi informazioni su questa imbarcazione e mettiti in contatto con il venditore', $group);
+    pll_register_string('cta_yacht_desc', 'Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero lo yacht giusto per te.', $group);
+    pll_register_string('cta_charter', 'Richiedi informazioni su questa imbarcazione e mettiti in contatto con noi', $group);
+    pll_register_string('cta_charter_desc', 'Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero il charter giusto per te.', $group);
+    pll_register_string('prezzo_richiesta', 'Prezzo su richiesta', $group);
+    pll_register_string('scheda_tecnica', 'SCARICA LA SCHEDA TECNICA', $group);
+    pll_register_string('brochure', 'VEDI BROCHURE', $group);
+    pll_register_string('contattaci_btn', 'CONTATTACI', $group);
+    pll_register_string('price_day', '€ / giorno', $group);
+
+    // Widget strings
+    pll_register_string('no_yacht', 'Nessuno yacht disponibile.', $group);
+    pll_register_string('no_charter', 'Nessun charter disponibile.', $group);
+    pll_register_string('no_slide', 'Nessuna slide configurata.', $group);
+    pll_register_string('no_posto_barca', 'Nessun posto barca disponibile.', $group);
+    pll_register_string('no_image', 'Nessuna immagine', $group);
+    pll_register_string('tutti_tab', 'TUTTI', $group);
+    pll_register_string('vendita_tab', 'VENDITA', $group);
+    pll_register_string('affitto_tab', 'AFFITTO', $group);
+    pll_register_string('descrizione_label', 'Descrizione:', $group);
+    pll_register_string('larghezza_label', 'Larghezza:', $group);
+    pll_register_string('lunghezza_label', 'Lunghezza:', $group);
+    pll_register_string('servizi_label', 'Servizi:', $group);
+    pll_register_string('richiedi_info', 'RICHIEDI INFO', $group);
+
+    // Footer
+    pll_register_string('footer_rights', '©2026 tutti i diritti riservati', $group);
+}
+add_action('init', 'vyba_register_polylang_strings');
+
 function wp_bootstrap_starter_setup() {
 	load_theme_textdomain( 'altera-starter', get_template_directory() . '/languages' );
 

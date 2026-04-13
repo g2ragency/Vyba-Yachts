@@ -171,7 +171,7 @@ class Elementor_Widget_Yachts_Grid extends \Elementor\Widget_Base {
     $query = new \WP_Query($args);
 
     if (!$query->have_posts()) {
-      echo '<p>Nessuno yacht disponibile.</p>';
+      echo '<p>' . (function_exists('pll__') ? pll__('Nessuno yacht disponibile.') : 'Nessuno yacht disponibile.') . '</p>';
       return;
     }
 
@@ -272,7 +272,7 @@ class Elementor_Widget_Yachts_Grid extends \Elementor\Widget_Base {
                   <span class="circle" aria-hidden="true">
                     <span class="icon arrow"></span>
                   </span>
-                  <span class="button-text">SCOPRI DI PIÙ</span>
+                  <span class="button-text"><?php echo function_exists('pll__') ? pll__('SCOPRI DI PIÙ') : 'SCOPRI DI PIÙ'; ?></span>
                 </a>
               </div>
 

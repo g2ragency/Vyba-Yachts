@@ -300,6 +300,39 @@ header.header-scrolled {
   transform: translateY(-5px);
 }
 
+/* Language Switcher Dropdown */
+.main-menu {
+  position: relative;
+}
+
+.main-menu .lang-item:not(.current-lang) {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--dark, #1a1a1a);
+  padding: 8px 14px;
+  z-index: 100;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.main-menu .lang-item.current-lang {
+  cursor: pointer;
+}
+
+.main-menu .lang-item.current-lang:hover ~ .lang-item:not(.current-lang),
+.main-menu .lang-item:not(.current-lang):hover,
+.main-menu:has(.lang-item:not(.current-lang):hover) .lang-item:not(.current-lang) {
+  opacity: 1;
+  visibility: visible;
+}
+
+.main-menu .lang-item a {
+  font-size: 13px;
+}
+
 /* Modifiche per visualizzazione su dispositivi mobili */
 @media (max-width: 992px) {
   .header-container {

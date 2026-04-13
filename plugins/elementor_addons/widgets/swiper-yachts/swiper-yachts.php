@@ -178,7 +178,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
     $gallery_field = $settings['gallery_field_name'] ?? 'galleria_yacht';
 
     if (empty($slides)) {
-      echo '<div class="swiper-yachts-empty">Nessuna slide configurata.</div>';
+      echo '<div class="swiper-yachts-empty">' . (function_exists('pll__') ? pll__('Nessuna slide configurata.') : 'Nessuna slide configurata.') . '</div>';
       return;
     }
 
@@ -294,7 +294,7 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
                       <span class="circle" aria-hidden="true">
                         <span class="icon arrow"></span>
                       </span>
-                      <span class="button-text">SCOPRI DI PIÙ</span>
+                      <span class="button-text"><?php echo function_exists('pll__') ? pll__('SCOPRI DI PIÙ') : 'SCOPRI DI PIÙ'; ?></span>
                     </a>
                   </div>
 

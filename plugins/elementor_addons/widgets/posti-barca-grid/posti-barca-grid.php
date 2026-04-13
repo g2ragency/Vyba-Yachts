@@ -112,7 +112,7 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
     $query = new \WP_Query($args);
 
     if (!$query->have_posts()) {
-      echo '<p>Nessun posto barca disponibile.</p>';
+      echo '<p>' . (function_exists('pll__') ? pll__('Nessun posto barca disponibile.') : 'Nessun posto barca disponibile.') . '</p>';
       return;
     }
 
@@ -124,13 +124,13 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
       <!-- Tabs Filtro -->
       <div class="posti-barca-tabs">
         <button class="posti-barca-tab active" data-filter="all">
-          TUTTI
+          <?php echo function_exists('pll__') ? pll__('TUTTI') : 'TUTTI'; ?>
         </button>
         <button class="posti-barca-tab" data-filter="vendita">
-          VENDITA
+          <?php echo function_exists('pll__') ? pll__('VENDITA') : 'VENDITA'; ?>
         </button>
         <button class="posti-barca-tab" data-filter="affitto">
-          AFFITTO
+          <?php echo function_exists('pll__') ? pll__('AFFITTO') : 'AFFITTO'; ?>
         </button>
       </div>
 
@@ -187,7 +187,7 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
                 />
               <?php else : ?>
                 <div class="posto-barca-grid-card__placeholder">
-                  <span>Nessuna immagine</span>
+                  <span><?php echo function_exists('pll__') ? pll__('Nessuna immagine') : 'Nessuna immagine'; ?></span>
                 </div>
               <?php endif; ?>
             </div>
@@ -207,28 +207,28 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
               <div class="posto-barca-grid-card__details">
                 <?php if ($descrizione) : ?>
                   <div class="posto-barca-detail">
-                    <span class="detail-label">Descrizione:</span>
+                    <span class="detail-label"><?php echo function_exists('pll__') ? pll__('Descrizione:') : 'Descrizione:'; ?></span>
                     <span class="detail-value"><?php echo esc_html($descrizione); ?></span>
                   </div>
                 <?php endif; ?>
 
                 <?php if ($larghezza) : ?>
                   <div class="posto-barca-detail">
-                    <span class="detail-label">Larghezza:</span>
+                    <span class="detail-label"><?php echo function_exists('pll__') ? pll__('Larghezza:') : 'Larghezza:'; ?></span>
                     <span class="detail-value"><?php echo esc_html($larghezza); ?></span>
                   </div>
                 <?php endif; ?>
 
                 <?php if ($lunghezza) : ?>
                   <div class="posto-barca-detail">
-                    <span class="detail-label">Lunghezza:</span>
+                    <span class="detail-label"><?php echo function_exists('pll__') ? pll__('Lunghezza:') : 'Lunghezza:'; ?></span>
                     <span class="detail-value"><?php echo esc_html($lunghezza); ?></span>
                   </div>
                 <?php endif; ?>
 
                 <?php if ($servizi) : ?>
                   <div class="posto-barca-detail">
-                    <span class="detail-label">Servizi:</span>
+                    <span class="detail-label"><?php echo function_exists('pll__') ? pll__('Servizi:') : 'Servizi:'; ?></span>
                     <span class="detail-value"><?php echo esc_html($servizi); ?></span>
                   </div>
                 <?php endif; ?>
@@ -239,7 +239,7 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
                   <span class="circle" aria-hidden="true">
                     <span class="icon arrow"></span>
                   </span>
-                  <span class="button-text">RICHIEDI INFO</span>
+                  <span class="button-text"><?php echo function_exists('pll__') ? pll__('RICHIEDI INFO') : 'RICHIEDI INFO'; ?></span>
                 </a>
               </div>
 

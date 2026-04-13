@@ -52,7 +52,7 @@
                     <p class="footer-text">Box 27 - Marina di Cala Galera</p>
                     <p class="footer-text">Località Cala Galera, 58019 Monte Argentario</p>
                     <p class="footer-text">P.IVA: 01666350531</p>
-                    <p class="footer-text">©2026 tutti i diritti riservati</p>
+                    <p class="footer-text"><?php pll_e('©2026 tutti i diritti riservati'); ?></p>
                 </div>
             </div>
         </div>

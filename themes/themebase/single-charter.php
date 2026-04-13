@@ -113,8 +113,8 @@ get_header();
 
         <!-- Descrizione -->
         <div class="charter-description-section">
-          <h6>INFORMAZIONI</h6>
-          <h3 class="section-title">Descrizione imbarcazione</h3>
+          <h6><?php pll_e('INFORMAZIONI'); ?></h6>
+          <h3 class="section-title"><?php pll_e('Descrizione imbarcazione'); ?></h3>
           <div class="charter-description-content">
             <?php the_content(); ?>
           </div>
@@ -122,8 +122,8 @@ get_header();
 
         <!-- Charter correlati -->
         <div class="charter-related-section">
-          <h6>CHARTER</h6>
-          <h3 class="section-title">Potrebbero interessarti anche questi charter</h3>
+          <h6><?php pll_e('CHARTER'); ?></h6>
+          <h3 class="section-title"><?php pll_e('Potrebbero interessarti anche questi charter'); ?></h3>
           
           <?php
           // Query per gli ultimi charter escluso quello corrente
@@ -165,7 +165,7 @@ get_header();
                       $num = str_replace('.', '', $charter_prezzo);
                       $num = str_replace(',', '.', $num);
                       $value = floatval($num);
-                      $charter_price_formatted = number_format($value, 0, ',', '.') . ' € / giorno';
+                      $charter_price_formatted = number_format($value, 0, ',', '.') . ' ' . pll__('€ / giorno');
                     }
                     
                     // Galleria
@@ -245,7 +245,7 @@ get_header();
                               <span class="circle" aria-hidden="true">
                                 <span class="icon arrow"></span>
                               </span>
-                              <span class="button-text">SCOPRI DI PIÙ</span>
+                              <span class="button-text"><?php pll_e('SCOPRI DI PIÙ'); ?></span>
                             </a>
                           </div>
                           
@@ -319,9 +319,9 @@ get_header();
 
         <!-- CTA finale -->
         <div class="charter-cta-section" id="charter-contact-section">
-          <h6>CONTATTI</h6>
-          <h3>Richiedi informazioni su questa imbarcazione e mettiti in contatto con noi</h3>
-          <p class="p-cta">Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero il charter giusto per te.</p>
+          <h6><?php pll_e('CONTATTI'); ?></h6>
+          <h3><?php pll_e('Richiedi informazioni su questa imbarcazione e mettiti in contatto con noi'); ?></h3>
+          <p class="p-cta"><?php pll_e('Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero il charter giusto per te.'); ?></p>
           <?php echo do_shortcode('[contact-form-7 id="fbe7748" title="Modulo di contatto"]'); ?>
         </div>
 
@@ -372,9 +372,9 @@ get_header();
               $value = floatval($num);
               $formatted = number_format($value, 0, ',', '.');
             ?>
-              <?php echo esc_html($formatted); ?> € / giorno
+              <?php echo esc_html($formatted); ?> <?php pll_e('€ / giorno'); ?>
             <?php else : ?>
-              Prezzo su richiesta
+              <?php pll_e('Prezzo su richiesta'); ?>
             <?php endif; ?>
           </div>
 
@@ -383,17 +383,17 @@ get_header();
               <span class="btn-icon">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/download-icon.png" alt="Download" width="50" height="50">
               </span>
-              <span class="btn-text">SCARICA LA SCHEDA TECNICA</span>
+              <span class="btn-text"><?php pll_e('SCARICA LA SCHEDA TECNICA'); ?></span>
             </a>
           <?php endif; ?>
 
           <?php if ($link_brochure) : ?>
             <a href="<?php echo esc_url($link_brochure); ?>" class="charter-brochure-btn" target="_blank">
-              VEDI BROCHURE
+              <?php pll_e('VEDI BROCHURE'); ?>
             </a>
           <?php endif; ?>
 
-          <a href="#charter-contact-section" class="charter-contact-btn">CONTATTACI</a>
+          <a href="#charter-contact-section" class="charter-contact-btn"><?php pll_e('CONTATTACI'); ?></a>
 
         </div>
       </aside>

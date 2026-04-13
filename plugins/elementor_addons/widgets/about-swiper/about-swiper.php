@@ -105,7 +105,7 @@ class Elementor_Widget_About_Swiper extends \Elementor\Widget_Base {
     $slides   = $settings['slides'] ?? [];
 
     if (empty($slides)) {
-      echo '<p>Nessuna slide configurata.</p>';
+      echo '<p>' . (function_exists('pll__') ? pll__('Nessuna slide configurata.') : 'Nessuna slide configurata.') . '</p>';
       return;
     }
 
