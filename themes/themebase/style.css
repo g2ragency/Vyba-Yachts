@@ -324,10 +324,8 @@ header.header-scrolled {
   cursor: pointer;
 }
 
-.main-menu .lang-item.current-lang:hover ~ .lang-item:not(.current-lang),
-.main-menu .lang-item:not(.current-lang):hover,
-.main-menu:has(.lang-item:not(.current-lang):hover)
-  .lang-item:not(.current-lang) {
+.main-menu:has(.lang-item.current-lang:hover) .lang-item:not(.current-lang),
+.main-menu .lang-item:not(.current-lang):hover {
   opacity: 1;
   visibility: visible;
 }
