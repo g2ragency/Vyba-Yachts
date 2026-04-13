@@ -1,5 +1,35 @@
 <?php 
 
+/**
+ * Get the URL of a page by its original (IT) slug, with Polylang translation support.
+ */
+function vyba_get_page_url($slug) {
+    $page = get_page_by_path($slug);
+    if (!$page) return home_url('/');
+
+    $page_id = $page->ID;
+    if (function_exists('pll_get_post')) {
+        $translated_id = pll_get_post($page_id);
+        if ($translated_id) $page_id = $translated_id;
+    }
+    return get_permalink($page_id);
+}
+
+/**
+ * Get the title of a page by its original (IT) slug, with Polylang translation support.
+ */
+function vyba_get_page_title($slug) {
+    $page = get_page_by_path($slug);
+    if (!$page) return ucfirst($slug);
+
+    $page_id = $page->ID;
+    if (function_exists('pll_get_post')) {
+        $translated_id = pll_get_post($page_id);
+        if ($translated_id) $page_id = $translated_id;
+    }
+    return get_the_title($page_id);
+}
+
 if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
 
 function wp_bootstrap_starter_setup() {
@@ -114,11 +144,11 @@ function wp_bootstrap_starter_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'wp_bootstrap_starter_scripts' );
 
-// Redirect /yachts/ to /vendita/
+// Redirect /yachts/ to the Vendita page (Polylang-aware)
 add_action('template_redirect', 'redirect_yachts_to_vendita');
 function redirect_yachts_to_vendita() {
-    if (is_post_type_archive('yacht') || (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] === '/yachts/')) {
-        wp_redirect(home_url('/vendita/'), 301);
+    if (is_post_type_archive('yacht') || (isset($_SERVER['REQUEST_URI']) && preg_match('#^(/[a-z]{2})?/yachts/?$#', $_SERVER['REQUEST_URI']))) {
+        wp_redirect(vyba_get_page_url('vendita'), 301);
         exit;
     }
 }

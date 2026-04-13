@@ -40,7 +40,7 @@ get_header();
     <nav class="charter-breadcrumb" aria-label="Breadcrumb">
       <a href="<?php echo esc_url(home_url('/')); ?>">Homepage</a>
       <span class="sep">/</span>
-      <a href="<?php echo esc_url(home_url('/charter/')); ?>">Charter</a>
+      <a href="<?php echo esc_url(vyba_get_page_url('charter')); ?>"><?php echo esc_html(vyba_get_page_title('charter')); ?></a>
       <span class="sep">/</span>
       <span class="current"><?php the_title(); ?></span>
     </nav>
