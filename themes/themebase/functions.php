@@ -74,6 +74,12 @@ function vyba_register_polylang_strings() {
     pll_register_string('servizi_label', 'Servizi:', $group);
     pll_register_string('richiedi_info', 'RICHIEDI INFO', $group);
 
+    // Popup posti barca
+    pll_register_string('popup_close', 'Chiudi', $group);
+    pll_register_string('popup_title', 'Richiedi Informazioni', $group);
+    pll_register_string('popup_subtitle', 'Compila il form per ricevere maggiori informazioni sul posto barca selezionato.', $group);
+    pll_register_string('popup_no_form', 'Configura il Contact Form 7 nelle impostazioni.', $group);
+
     // Footer
     pll_register_string('footer_rights', '©2026 tutti i diritti riservati', $group);
 }

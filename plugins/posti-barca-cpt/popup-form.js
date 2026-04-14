@@ -5,21 +5,27 @@
   function createPopup() {
     if (document.getElementById("posto-barca-popup")) return;
 
+    const i18n = (postoBarcaData && postoBarcaData.i18n) || {};
+    const closeLabel = i18n.close || 'Chiudi';
+    const titleText = i18n.title || 'Richiedi Informazioni';
+    const subtitleText = i18n.subtitle || 'Compila il form per ricevere maggiori informazioni sul posto barca selezionato.';
+    const noFormText = i18n.noForm || 'Configura il Contact Form 7 nelle impostazioni.';
+
     const popupHTML = `
       <div id="posto-barca-popup" class="posto-barca-popup-overlay">
         <div class="posto-barca-popup">
-          <button class="posto-barca-popup__close" aria-label="Chiudi">
-            <span class="sr-only">Chiudi</span>
+          <button class="posto-barca-popup__close" aria-label="${closeLabel}">
+            <span class="sr-only">${closeLabel}</span>
           </button>
           
           <div class="posto-barca-popup__content">
-            <h3 class="posto-barca-popup__title">Richiedi Informazioni</h3>
-            <p class="posto-barca-popup__subtitle">Compila il form per ricevere maggiori informazioni sul posto barca selezionato.</p>
+            <h3 class="posto-barca-popup__title">${titleText}</h3>
+            <p class="posto-barca-popup__subtitle">${subtitleText}</p>
             
             <div class="posto-barca-popup__form">
               ${
                 postoBarcaData.shortcode ||
-                "<p>Configura il Contact Form 7 nelle impostazioni.</p>"
+                "<p>" + noFormText + "</p>"
               }
             </div>
           </div>

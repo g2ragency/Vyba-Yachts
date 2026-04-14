@@ -45,7 +45,13 @@ function posti_barca_enqueue_popup_assets() {
     }
     
     wp_localize_script('posti-barca-popup-js', 'postoBarcaData', array(
-        'shortcode' => $rendered_form
+        'shortcode' => $rendered_form,
+        'i18n' => array(
+            'close'    => function_exists('pll__') ? pll__('Chiudi') : 'Chiudi',
+            'title'    => function_exists('pll__') ? pll__('Richiedi Informazioni') : 'Richiedi Informazioni',
+            'subtitle' => function_exists('pll__') ? pll__('Compila il form per ricevere maggiori informazioni sul posto barca selezionato.') : 'Compila il form per ricevere maggiori informazioni sul posto barca selezionato.',
+            'noForm'   => function_exists('pll__') ? pll__('Configura il Contact Form 7 nelle impostazioni.') : 'Configura il Contact Form 7 nelle impostazioni.',
+        ),
     ));
 }
 

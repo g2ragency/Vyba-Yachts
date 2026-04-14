@@ -32,7 +32,8 @@ function charter_get_price_formatted($post_id = null, $decimals = 0, $currency =
     }
 
     // Formatta con punto come separatore delle migliaia e senza decimali
-    return number_format($price, $decimals, ',', '.') . ' ' . $currency . ' / giorno';
+    $per_day = function_exists('pll__') ? pll__('€ / giorno') : $currency . ' / giorno';
+    return number_format($price, $decimals, ',', '.') . ' ' . $per_day;
 }
 
 /**
