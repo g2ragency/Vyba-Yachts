@@ -118,19 +118,11 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
 
     $uid = $this->get_id();
 
-    // Recupera gli slug reali dei termini (compatibile con Polylang)
-    $vendita_slug = 'vendita';
-    $affitto_slug = 'affitto';
-    $vendita_term = get_term_by('slug', 'vendita', 'tipo_posto_barca');
-    $affitto_term = get_term_by('slug', 'affitto', 'tipo_posto_barca');
-    if (function_exists('pll_get_term') && $vendita_term) {
-      $tr = pll_get_term($vendita_term->term_id);
-      if ($tr) { $t = get_term($tr); if ($t && !is_wp_error($t)) $vendita_slug = $t->slug; }
-    }
-    if (function_exists('pll_get_term') && $affitto_term) {
-      $tr = pll_get_term($affitto_term->term_id);
-      if ($tr) { $t = get_term($tr); if ($t && !is_wp_error($t)) $affitto_slug = $t->slug; }
-    }
+    // Recupera i termini tipo nella lingua corrente (Polylang filtra automaticamente)
+    $tipo_terms = get_terms(array(
+      'taxonomy'   => 'tipo_posto_barca',
+      'hide_empty' => false,
+    ));
     ?>
 
     <div class="posti-barca-grid-widget" id="posti-barca-<?php echo esc_attr($uid); ?>">
@@ -140,12 +132,13 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
         <button class="posti-barca-tab active" data-filter="all">
           <?php echo function_exists('pll__') ? pll__('TUTTI') : 'TUTTI'; ?>
         </button>
-        <button class="posti-barca-tab" data-filter="<?php echo esc_attr($vendita_slug); ?>">
-          <?php echo function_exists('pll__') ? pll__('VENDITA') : 'VENDITA'; ?>
-        </button>
-        <button class="posti-barca-tab" data-filter="<?php echo esc_attr($affitto_slug); ?>">
-          <?php echo function_exists('pll__') ? pll__('AFFITTO') : 'AFFITTO'; ?>
-        </button>
+        <?php if (!empty($tipo_terms) && !is_wp_error($tipo_terms)) : ?>
+          <?php foreach ($tipo_terms as $tipo_term) : ?>
+            <button class="posti-barca-tab" data-filter="<?php echo esc_attr($tipo_term->slug); ?>">
+              <?php echo esc_html(strtoupper($tipo_term->name)); ?>
+            </button>
+          <?php endforeach; ?>
+        <?php endif; ?>
       </div>
 
       <div class="posti-barca-grid">
