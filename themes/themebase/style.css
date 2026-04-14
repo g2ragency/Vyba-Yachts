@@ -310,7 +310,7 @@ header.header-scrolled {
   right: 0;
   top: 100%;
   background: #161f48;
-  padding: 8px 14px;
+  padding: 8px 0;
   z-index: 100;
   white-space: nowrap;
   opacity: 0;
@@ -318,6 +318,8 @@ header.header-scrolled {
   transition:
     opacity 0.25s ease,
     visibility 0.25s ease;
+  text-align: center;
+  min-width: 100%;
 }
 
 .main-menu .lang-item.current-lang {
