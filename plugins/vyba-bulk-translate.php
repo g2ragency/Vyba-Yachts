@@ -38,6 +38,11 @@ function vyba_bulk_translate_page() {
         $results = array_merge($results, vyba_run_bulk_translate_taxonomies());
     }
 
+    // Cleanup duplicates
+    if (isset($_POST['vyba_cleanup_tax']) && check_admin_referer('vyba_bulk_translate_nonce')) {
+        $results = vyba_cleanup_duplicate_terms();
+    }
+
     // Count existing posts
     $counts = [];
     foreach ($post_types as $pt) {
@@ -93,6 +98,12 @@ function vyba_bulk_translate_page() {
             <?php wp_nonce_field('vyba_bulk_translate_nonce'); ?>
             <p><strong>Attenzione:</strong> Questa operazione crea i post EN come copia esatta degli IT. Potrai poi tradurre i contenuti dall'editor. I campi numerici (prezzo, cabine, ecc.) restano identici.</p>
             <input type="submit" name="vyba_run_bulk" class="button button-primary" value="Crea tutte le traduzioni EN" onclick="return confirm('Sicuro? Verranno creati i post EN per tutti i CPT.');">
+        </form>
+
+        <form method="post" style="margin-top: 10px;">
+            <?php wp_nonce_field('vyba_bulk_translate_nonce'); ?>
+            <p><strong>Pulizia tassonomie:</strong> Elimina i termini duplicati (-it, -en con 0 post), mantiene gli originali (con post), imposta la lingua e crea le traduzioni EN corrette.</p>
+            <input type="submit" name="vyba_cleanup_tax" class="button button-secondary" value="Pulisci e ricollega tassonomie" onclick="return confirm('Sicuro? Eliminerà i duplicati con 0 post e ricreerà i collegamenti.');">
         </form>
 
         <p style="margin-top: 30px; color: #888;"><em>Dopo l'uso, disattiva ed elimina questo plugin.</em></p>
@@ -334,6 +345,123 @@ function vyba_run_bulk_translate_taxonomies() {
         }
 
         $results[] = ['type' => 'success', 'text' => "Tassonomia {$tax}: {$created} termini EN creati, {$linked} duplicati collegati, {$skipped} saltati."];
+    }
+
+    return $results;
+}
+
+/**
+ * Cleanup duplicate taxonomy terms created by the script.
+ * 1. Find original terms (slug without -it/-en suffix, usually have posts)
+ * 2. Delete duplicates with -it and -en suffixes
+ * 3. Set original as IT
+ * 4. Create a clean EN translation linked to the original
+ */
+function vyba_cleanup_duplicate_terms() {
+    $results = [];
+    $taxonomies = ['tipo_posto_barca', 'categoria_posto_barca'];
+
+    $translations_map = [
+        'affitto'  => 'Rent',
+        'vendita'  => 'Sale',
+    ];
+
+    foreach ($taxonomies as $tax) {
+        if (!taxonomy_exists($tax)) continue;
+
+        $all_terms = get_terms([
+            'taxonomy'   => $tax,
+            'hide_empty' => false,
+        ]);
+
+        if (is_wp_error($all_terms) || empty($all_terms)) continue;
+
+        // Group terms by base slug (remove -it/-en suffix)
+        $groups = [];
+        foreach ($all_terms as $term) {
+            $base_slug = preg_replace('/-(?:it|en)$/', '', $term->slug);
+            $groups[$base_slug][] = $term;
+        }
+
+        $deleted = 0;
+        $fixed = 0;
+
+        foreach ($groups as $base_slug => $terms_in_group) {
+            if (count($terms_in_group) <= 1) {
+                // Single term, just make sure it has IT language
+                $term = $terms_in_group[0];
+                $lang = pll_get_term_language($term->term_id);
+                if (!$lang) {
+                    pll_set_term_language($term->term_id, 'it');
+                }
+                continue;
+            }
+
+            // Find the original (the one with matching base slug, or with most posts)
+            $original = null;
+            $duplicates = [];
+
+            foreach ($terms_in_group as $term) {
+                if ($term->slug === $base_slug) {
+                    $original = $term;
+                } else {
+                    $duplicates[] = $term;
+                }
+            }
+
+            // If no exact base slug match, pick the one with most posts
+            if (!$original) {
+                usort($terms_in_group, function($a, $b) { return $b->count - $a->count; });
+                $original = $terms_in_group[0];
+                $duplicates = array_slice($terms_in_group, 1);
+            }
+
+            // Reassign posts from duplicates to original before deleting
+            foreach ($duplicates as $dup) {
+                $posts_with_dup = get_posts([
+                    'post_type' => 'posto_barca',
+                    'posts_per_page' => -1,
+                    'fields' => 'ids',
+                    'tax_query' => [
+                        ['taxonomy' => $tax, 'terms' => $dup->term_id],
+                    ],
+                ]);
+                foreach ($posts_with_dup as $pid) {
+                    wp_set_object_terms($pid, [$original->term_id], $tax, true);
+                }
+                wp_delete_term($dup->term_id, $tax);
+                $deleted++;
+            }
+
+            // Set original as IT
+            pll_set_term_language($original->term_id, 'it');
+
+            // Check if EN translation already exists
+            $existing_en = pll_get_term($original->term_id, 'en');
+            if (!$existing_en) {
+                $en_name = isset($translations_map[$original->slug]) ? $translations_map[$original->slug] : $original->name;
+                $en_slug = $original->slug . '-en';
+
+                $new_term = wp_insert_term($en_name, $tax, [
+                    'slug'        => $en_slug,
+                    'description' => $original->description,
+                    'parent'      => $original->parent,
+                ]);
+
+                if (!is_wp_error($new_term)) {
+                    pll_set_term_language($new_term['term_id'], 'en');
+                    pll_save_term_translations([
+                        'it' => $original->term_id,
+                        'en' => $new_term['term_id'],
+                    ]);
+                    $fixed++;
+                } else {
+                    $results[] = ['type' => 'error', 'text' => "Errore creando EN per \"{$original->name}\": " . $new_term->get_error_message()];
+                }
+            }
+        }
+
+        $results[] = ['type' => 'success', 'text' => "Tassonomia {$tax}: {$deleted} duplicati eliminati, {$fixed} traduzioni EN ricreate correttamente."];
     }
 
     return $results;
