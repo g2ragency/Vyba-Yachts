@@ -498,11 +498,7 @@ header.header-scrolled {
 }
 
 .mobile-menu-lang {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  font-family: "Moderat Extended Bold", sans-serif;
-  font-size: 16px;
+  display: none;
 }
 
 .mobile-menu-lang a {
