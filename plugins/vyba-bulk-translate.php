@@ -35,6 +35,7 @@ function vyba_bulk_translate_page() {
     // Execute if form submitted
     if (isset($_POST['vyba_run_bulk']) && check_admin_referer('vyba_bulk_translate_nonce')) {
         $results = vyba_run_bulk_translate($post_types);
+        $results = array_merge($results, vyba_run_bulk_translate_taxonomies());
     }
 
     // Count existing posts
@@ -193,6 +194,146 @@ function vyba_run_bulk_translate($post_types) {
         }
 
         $results[] = ['type' => 'success', 'text' => "{$pt}: {$created} traduzioni EN create, {$skipped} saltati (già tradotti o non IT)."];
+    }
+
+    return $results;
+}
+
+/**
+ * Translate taxonomy terms: create EN versions and link them via Polylang.
+ */
+function vyba_run_bulk_translate_taxonomies() {
+    $results = [];
+
+    // Map of taxonomy => [ IT slug => EN name ]
+    $translations = [
+        'tipo_posto_barca' => [
+            'affitto'  => 'Rent',
+            'vendita'  => 'Sale',
+        ],
+        'categoria_posto_barca' => [
+            // Auto-translate common ones, rest get copied as-is
+        ],
+    ];
+
+    $taxonomies = ['tipo_posto_barca', 'categoria_posto_barca'];
+
+    foreach ($taxonomies as $tax) {
+        if (!taxonomy_exists($tax)) continue;
+
+        $terms = get_terms([
+            'taxonomy'   => $tax,
+            'hide_empty' => false,
+        ]);
+
+        if (is_wp_error($terms) || empty($terms)) continue;
+
+        $created = 0;
+        $linked = 0;
+        $skipped = 0;
+
+        foreach ($terms as $term) {
+            // Set language to IT if not set
+            $lang = pll_get_term_language($term->term_id);
+            if (!$lang) {
+                pll_set_term_language($term->term_id, 'it');
+                $lang = 'it';
+            }
+
+            // Only process IT terms
+            if ($lang !== 'it') {
+                $skipped++;
+                continue;
+            }
+
+            // Check if EN translation already linked
+            $en_term_id = pll_get_term($term->term_id, 'en');
+            if ($en_term_id) {
+                $skipped++;
+                continue;
+            }
+
+            // Determine EN name
+            $en_name = $term->name; // default: keep same
+            if (isset($translations[$tax][$term->slug])) {
+                $en_name = $translations[$tax][$term->slug];
+            }
+
+            // Check if an unlinked EN term with same slug already exists
+            $existing = get_terms([
+                'taxonomy'   => $tax,
+                'hide_empty' => false,
+                'slug'       => $term->slug,
+            ]);
+
+            $found_en = null;
+            if (!is_wp_error($existing)) {
+                foreach ($existing as $ex) {
+                    if ($ex->term_id === $term->term_id) continue;
+                    $ex_lang = pll_get_term_language($ex->term_id);
+                    if ($ex_lang === 'en' || $ex_lang === '') {
+                        $found_en = $ex;
+                        break;
+                    }
+                }
+            }
+
+            // Also search by name if not found by slug
+            if (!$found_en) {
+                $existing_by_name = get_terms([
+                    'taxonomy'   => $tax,
+                    'hide_empty' => false,
+                    'name'       => $term->name,
+                ]);
+                if (!is_wp_error($existing_by_name)) {
+                    foreach ($existing_by_name as $ex) {
+                        if ($ex->term_id === $term->term_id) continue;
+                        $ex_lang = pll_get_term_language($ex->term_id);
+                        if ($ex_lang === 'en' || $ex_lang === '') {
+                            $found_en = $ex;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if ($found_en) {
+                // Link existing duplicate as EN translation
+                pll_set_term_language($found_en->term_id, 'en');
+                // Update name if we have a translation
+                if ($en_name !== $term->name) {
+                    wp_update_term($found_en->term_id, $tax, ['name' => $en_name, 'slug' => $term->slug . '-en']);
+                }
+                pll_save_term_translations([
+                    'it' => $term->term_id,
+                    'en' => $found_en->term_id,
+                ]);
+                $linked++;
+            } else {
+                // Create new EN term
+                $en_slug = $term->slug . '-en';
+                $new_term = wp_insert_term($en_name, $tax, [
+                    'slug'        => $en_slug,
+                    'description' => $term->description,
+                    'parent'      => $term->parent,
+                ]);
+
+                if (is_wp_error($new_term)) {
+                    $results[] = ['type' => 'error', 'text' => "Errore creando termine EN \"{$en_name}\" in {$tax}: " . $new_term->get_error_message()];
+                    continue;
+                }
+
+                $new_term_id = $new_term['term_id'];
+                pll_set_term_language($new_term_id, 'en');
+                pll_save_term_translations([
+                    'it' => $term->term_id,
+                    'en' => $new_term_id,
+                ]);
+                $created++;
+            }
+        }
+
+        $results[] = ['type' => 'success', 'text' => "Tassonomia {$tax}: {$created} termini EN creati, {$linked} duplicati collegati, {$skipped} saltati."];
     }
 
     return $results;
