@@ -79,6 +79,62 @@ function vyba_register_polylang_strings() {
 }
 add_action('init', 'vyba_register_polylang_strings');
 
+/**
+ * Get the CF7 shortcode for the current language.
+ */
+function vyba_get_cf7_shortcode() {
+    $form_it = get_option('vyba_cf7_form_it', 'fbe7748');
+    $form_en = get_option('vyba_cf7_form_en', '');
+
+    $form_id = $form_it;
+    if (function_exists('pll_current_language') && pll_current_language() === 'en' && !empty($form_en)) {
+        $form_id = $form_en;
+    }
+
+    return do_shortcode('[contact-form-7 id="' . esc_attr($form_id) . '"]');
+}
+
+/**
+ * Admin page for CF7 form settings per language.
+ */
+add_action('admin_menu', function() {
+    add_options_page('Vyba Forms', 'Vyba Forms', 'manage_options', 'vyba-forms', 'vyba_forms_settings_page');
+});
+
+function vyba_forms_settings_page() {
+    if (!current_user_can('manage_options')) return;
+
+    if (isset($_POST['vyba_forms_save']) && check_admin_referer('vyba_forms_nonce')) {
+        update_option('vyba_cf7_form_it', sanitize_text_field($_POST['vyba_cf7_form_it']));
+        update_option('vyba_cf7_form_en', sanitize_text_field($_POST['vyba_cf7_form_en']));
+        echo '<div class="notice notice-success"><p>Salvato!</p></div>';
+    }
+
+    $form_it = get_option('vyba_cf7_form_it', 'fbe7748');
+    $form_en = get_option('vyba_cf7_form_en', '');
+    ?>
+    <div class="wrap">
+        <h1>Vyba Forms - Contact Form 7 per lingua</h1>
+        <form method="post">
+            <?php wp_nonce_field('vyba_forms_nonce'); ?>
+            <table class="form-table">
+                <tr>
+                    <th><label for="vyba_cf7_form_it">Form ID - Italiano</label></th>
+                    <td><input type="text" id="vyba_cf7_form_it" name="vyba_cf7_form_it" value="<?php echo esc_attr($form_it); ?>" class="regular-text" />
+                    <p class="description">ID del form CF7 italiano (es. fbe7748)</p></td>
+                </tr>
+                <tr>
+                    <th><label for="vyba_cf7_form_en">Form ID - English</label></th>
+                    <td><input type="text" id="vyba_cf7_form_en" name="vyba_cf7_form_en" value="<?php echo esc_attr($form_en); ?>" class="regular-text" />
+                    <p class="description">ID del form CF7 inglese. Lascia vuoto per usare quello italiano.</p></td>
+                </tr>
+            </table>
+            <input type="submit" name="vyba_forms_save" class="button button-primary" value="Salva">
+        </form>
+    </div>
+    <?php
+}
+
 function wp_bootstrap_starter_setup() {
 	load_theme_textdomain( 'altera-starter', get_template_directory() . '/languages' );
 

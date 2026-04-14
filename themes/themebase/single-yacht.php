@@ -322,7 +322,7 @@ get_header();
           <h6><?php pll_e('CONTATTI'); ?></h6>
           <h3><?php pll_e('Richiedi informazioni su questa imbarcazione e mettiti in contatto con il venditore'); ?></h3>
           <p class="p-cta"><?php pll_e('Compila il form per ricevere scheda dettagliata, ulteriori foto, video e una consulenza dedicata. Ti ricontattiamo in breve per valutare insieme se questo è davvero lo yacht giusto per te.'); ?></p>
-          <?php echo do_shortcode('[contact-form-7 id="fbe7748" title="Modulo di contatto"]'); ?>
+          <?php echo vyba_get_cf7_shortcode(); ?>
         </div>
 
       </main>
