@@ -98,7 +98,8 @@ class Elementor_Widget_Charter_Grid extends \Elementor\Widget_Base {
     $price = function_exists('get_field') ? get_field('prezzo_charter', $post_id) : null;
     if ($price === null || $price === '') return '';
 
-    return number_format((float)$price, 0, ',', '.') . ' € / giorno';
+    $per_day = function_exists('pll__') ? pll__('€ / giorno') : '€ / giorno';
+    return number_format((float)$price, 0, ',', '.') . ' ' . $per_day;
   }
 
   private function get_spec_value($field_name, $post_id) {

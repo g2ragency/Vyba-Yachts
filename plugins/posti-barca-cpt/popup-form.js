@@ -6,10 +6,13 @@
     if (document.getElementById("posto-barca-popup")) return;
 
     const i18n = (postoBarcaData && postoBarcaData.i18n) || {};
-    const closeLabel = i18n.close || 'Chiudi';
-    const titleText = i18n.title || 'Richiedi Informazioni';
-    const subtitleText = i18n.subtitle || 'Compila il form per ricevere maggiori informazioni sul posto barca selezionato.';
-    const noFormText = i18n.noForm || 'Configura il Contact Form 7 nelle impostazioni.';
+    const closeLabel = i18n.close || "Chiudi";
+    const titleText = i18n.title || "Richiedi Informazioni";
+    const subtitleText =
+      i18n.subtitle ||
+      "Compila il form per ricevere maggiori informazioni sul posto barca selezionato.";
+    const noFormText =
+      i18n.noForm || "Configura il Contact Form 7 nelle impostazioni.";
 
     const popupHTML = `
       <div id="posto-barca-popup" class="posto-barca-popup-overlay">
@@ -23,10 +26,7 @@
             <p class="posto-barca-popup__subtitle">${subtitleText}</p>
             
             <div class="posto-barca-popup__form">
-              ${
-                postoBarcaData.shortcode ||
-                "<p>" + noFormText + "</p>"
-              }
+              ${postoBarcaData.shortcode || "<p>" + noFormText + "</p>"}
             </div>
           </div>
         </div>
