@@ -27,8 +27,14 @@ function posti_barca_enqueue_popup_assets() {
         true
     );
     
-    // Recupera lo shortcode CF7 dalle opzioni
+    // Recupera lo shortcode CF7 dalle opzioni (per lingua)
     $cf7_shortcode = get_option('posti_barca_cf7_shortcode', '');
+    if (function_exists('pll_current_language') && pll_current_language() === 'en') {
+        $cf7_shortcode_en = get_option('posti_barca_cf7_shortcode_en', '');
+        if (!empty($cf7_shortcode_en)) {
+            $cf7_shortcode = $cf7_shortcode_en;
+        }
+    }
     
     // Renderizza lo shortcode
     $rendered_form = '';
@@ -64,10 +70,14 @@ function posti_barca_settings_page() {
         $shortcode = wp_unslash($_POST['cf7_shortcode']);
         $shortcode = sanitize_text_field($shortcode);
         update_option('posti_barca_cf7_shortcode', $shortcode);
+        $shortcode_en = wp_unslash($_POST['cf7_shortcode_en']);
+        $shortcode_en = sanitize_text_field($shortcode_en);
+        update_option('posti_barca_cf7_shortcode_en', $shortcode_en);
         echo '<div class="notice notice-success"><p>Impostazioni salvate!</p></div>';
     }
     
     $current_shortcode = get_option('posti_barca_cf7_shortcode', '');
+    $current_shortcode_en = get_option('posti_barca_cf7_shortcode_en', '');
     ?>
     <div class="wrap">
         <h1>Impostazioni Form Posti Barca</h1>
@@ -76,7 +86,7 @@ function posti_barca_settings_page() {
             <table class="form-table">
                 <tr>
                     <th scope="row">
-                        <label for="cf7_shortcode">Shortcode Contact Form 7</label>
+                        <label for="cf7_shortcode">Shortcode Contact Form 7 (IT)</label>
                     </th>
                     <td>
                         <input 
@@ -88,8 +98,26 @@ function posti_barca_settings_page() {
                             placeholder="[contact-form-7 id=&quot;123&quot;]"
                         />
                         <p class="description">
-                            Incolla qui lo shortcode del tuo Contact Form 7.<br>
+                            Incolla qui lo shortcode del tuo Contact Form 7 italiano.<br>
                             <strong>Importante:</strong> Nel form CF7, usa <code>[text posto-barca readonly]</code> per il campo posto barca (visibile ma non modificabile)
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <label for="cf7_shortcode_en">Shortcode Contact Form 7 (EN)</label>
+                    </th>
+                    <td>
+                        <input 
+                            type="text" 
+                            id="cf7_shortcode_en" 
+                            name="cf7_shortcode_en" 
+                            value="<?php echo esc_attr($current_shortcode_en); ?>" 
+                            class="large-text"
+                            placeholder="[contact-form-7 id=&quot;456&quot;]"
+                        />
+                        <p class="description">
+                            Shortcode del form inglese. Lascia vuoto per usare quello italiano.
                         </p>
                     </td>
                 </tr>
