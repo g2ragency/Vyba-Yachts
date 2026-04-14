@@ -134,6 +134,7 @@ get_header();
             'orderby'        => 'date',
             'order'          => 'DESC',
             'post__not_in'   => [get_the_ID()],
+            'lang'           => function_exists('pll_current_language') ? pll_current_language() : '',
           ];
           
           $related_query = new WP_Query($related_args);

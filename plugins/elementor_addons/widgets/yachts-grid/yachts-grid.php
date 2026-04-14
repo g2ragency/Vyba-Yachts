@@ -155,13 +155,14 @@ class Elementor_Widget_Yachts_Grid extends \Elementor\Widget_Base {
     $exclude_ids = !empty($settings['exclude_yachts']) ? $settings['exclude_yachts'] : [];
     $gallery_field = $settings['gallery_field_name'] ?? 'galleria_yacht';
 
-    // Query tutti gli yacht tranne quelli esclusi
+    // Query tutti gli yacht tranne quelli esclusi (nella lingua corrente)
     $args = [
       'post_type'      => 'yacht',
       'post_status'    => 'publish',
       'posts_per_page' => -1,
       'orderby'        => 'title',
       'order'          => 'ASC',
+      'lang'           => function_exists('pll_current_language') ? pll_current_language() : '',
     ];
 
     if (!empty($exclude_ids)) {

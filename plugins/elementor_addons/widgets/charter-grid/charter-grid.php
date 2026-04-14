@@ -156,13 +156,14 @@ class Elementor_Widget_Charter_Grid extends \Elementor\Widget_Base {
     $exclude_ids = !empty($settings['exclude_charter']) ? $settings['exclude_charter'] : [];
     $gallery_field = $settings['gallery_field_name'] ?? 'galleria_charter';
 
-    // Query tutti i charter tranne quelli esclusi
+    // Query tutti i charter tranne quelli esclusi (nella lingua corrente)
     $args = [
       'post_type'      => 'charter',
       'post_status'    => 'publish',
       'posts_per_page' => -1,
       'orderby'        => 'title',
       'order'          => 'ASC',
+      'lang'           => function_exists('pll_current_language') ? pll_current_language() : '',
     ];
 
     if (!empty($exclude_ids)) {

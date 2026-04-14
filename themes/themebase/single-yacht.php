@@ -112,6 +112,9 @@ get_header();
         <?php endif; ?>
 
         <!-- Descrizione -->
+        <?php 
+        $yacht_content = get_the_content();
+        if (!empty(trim(wp_strip_all_tags($yacht_content)))) : ?>
         <div class="yacht-description-section">
           <h6><?php pll_e('INFORMAZIONI'); ?></h6>
           <h3 class="section-title"><?php pll_e('Descrizione imbarcazione'); ?></h3>
@@ -119,6 +122,7 @@ get_header();
             <?php the_content(); ?>
           </div>
         </div>
+        <?php endif; ?>
 
         <!-- Yacht correlati -->
         <div class="yacht-related-section">
@@ -134,6 +138,7 @@ get_header();
             'orderby'        => 'date',
             'order'          => 'DESC',
             'post__not_in'   => [get_the_ID()],
+            'lang'           => function_exists('pll_current_language') ? pll_current_language() : '',
           ];
           
           $related_query = new WP_Query($related_args);

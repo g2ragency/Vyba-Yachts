@@ -96,13 +96,14 @@ class Elementor_Widget_Posti_Barca_Grid extends \Elementor\Widget_Base {
     $settings = $this->get_settings_for_display();
     $exclude_ids = !empty($settings['exclude_posti']) ? $settings['exclude_posti'] : [];
 
-    // Query tutti i posti barca (ignoriamo il filtro tipo, gestiamo via JS)
+    // Query tutti i posti barca nella lingua corrente (ignoriamo il filtro tipo, gestiamo via JS)
     $args = [
       'post_type'      => 'posto_barca',
       'post_status'    => 'publish',
       'posts_per_page' => -1,
       'orderby'        => 'title',
       'order'          => 'ASC',
+      'lang'           => function_exists('pll_current_language') ? pll_current_language() : '',
     ];
 
     if (!empty($exclude_ids)) {

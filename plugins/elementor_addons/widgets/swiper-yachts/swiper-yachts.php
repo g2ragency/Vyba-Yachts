@@ -195,6 +195,12 @@ class Elementor_Widget_Swiper_Yachts extends \Elementor\Widget_Base {
             $post_id = !empty($slide['yacht_id']) ? (int)$slide['yacht_id'] : 0;
             if (!$post_id) continue;
 
+            // Risolvi la traduzione del post nella lingua corrente
+            if (function_exists('pll_get_post')) {
+              $translated_id = pll_get_post($post_id);
+              if ($translated_id) $post_id = $translated_id;
+            }
+
             $title     = get_the_title($post_id);
             $permalink = get_permalink($post_id);
 
