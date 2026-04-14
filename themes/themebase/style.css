@@ -305,9 +305,13 @@ header.header-scrolled {
   position: relative;
 }
 
+.main-menu .lang-item {
+  position: relative;
+}
+
 .main-menu .lang-item:not(.current-lang) {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 100%;
   background: #161f48;
   padding: 8px 0;
@@ -318,8 +322,8 @@ header.header-scrolled {
   transition:
     opacity 0.25s ease,
     visibility 0.25s ease;
-  text-align: center;
   min-width: 100%;
+  text-align: center;
 }
 
 .main-menu .lang-item.current-lang {
