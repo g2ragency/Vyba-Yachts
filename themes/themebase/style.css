@@ -311,7 +311,7 @@ header.header-scrolled {
 
 .main-menu .lang-item:not(.current-lang) {
   position: absolute;
-  left: 0;
+  right: -8px;
   top: 100%;
   background: #161f48;
   padding: 8px 0;
@@ -322,8 +322,9 @@ header.header-scrolled {
   transition:
     opacity 0.25s ease,
     visibility 0.25s ease;
-  min-width: 100%;
+  min-width: 40px;
   text-align: center;
+  font-size: 15px !important;
 }
 
 .main-menu .lang-item.current-lang {
